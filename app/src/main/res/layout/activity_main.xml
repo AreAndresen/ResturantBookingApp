@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/overskrift"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+
+    <Button
+        android:id="@+id/resturanterKnapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="slett"
+        android:text="Legg til resturant" />
+
+    <Button
+        android:id="@+id/seResturanterKnapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Se resturanter" />
+
+    <Button
+        android:id="@+id/vennerKnapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="visalle"
+        android:text="Venner" />
+
+    <Button
+        android:id="@+id/bestillingKnapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="oppdater"
+        android:text="Registrer bestilling" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notifikasjon" />
+
+</LinearLayout>

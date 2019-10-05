@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">s304114mappe2ny</string>
+
+    <!---Forside-->
+    <string name="overskrift">Registrer resturant</string>
+    <string name="title_activity_resturanter">Resturanter</string>
+
+
+    <!--visAvbrytDialog() -->
+    <string name="avbryt">Slett</string>
+    <string name="avbrytMsg">Vil du slette valgt resturant?</string>
+    <string name="fortsett">Fortsett</string>
+
+
+    <!--Generell-->
+    <string name="tilbake">Tilbake til start</string>
+    <string name="nei">Nei</string>
+    <string name="ja">Ja</string>
+</resources>

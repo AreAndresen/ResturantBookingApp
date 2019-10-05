@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/txtmessage"
+        android:textAlignment="center"
+        android:inputType="textPersonName"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="78dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/navn"
+        android:layout_below="@+id/txtmessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skriv inn navn:" />
+    <EditText
+        android:layout_below="@+id/navn"
+        android:id="@+id/navnResturant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tlf"
+        android:layout_below="@+id/navnResturant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skriv inn telefon:" />
+    <EditText
+        android:layout_below="@+id/tlf"
+        android:id="@+id/tlfResturant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/type"
+        android:layout_below="@+id/tlfResturant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skriv inn type resturant:" />
+    <EditText
+        android:layout_below="@+id/type"
+        android:id="@+id/typeResturant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:layout_below="@+id/typeResturant"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="DELETE"
+            android:id="@+id/btnDelete"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="SAVE"
+            android:layout_toRightOf="@+id/btnDelete"
+            android:id="@+id/btnSave"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
