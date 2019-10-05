@@ -52,15 +52,6 @@ public class LeggTilResturant extends AppCompatActivity {
                 if (EnavnResturant.length() != 0 && EtlfResturant.length() != 0 && EtypeResturant.length() != 0) {
 
                     leggtil(navn, tlf, type);
-                    //Resetter inputs
-                    EnavnResturant.setText("");
-                    EtlfResturant.setText("");
-                    EtypeResturant.setText("");
-
-
-                    Intent intent_tilbake = new Intent (LeggTilResturant.this, SeResturanter.class);
-                    startActivity(intent_tilbake);
-                    finish();
 
 
                 } else {
@@ -87,8 +78,18 @@ public class LeggTilResturant extends AppCompatActivity {
         //legger til i database
         db.leggTilResturant(nyResturant);
 
+        //Resetter inputs
+        EnavnResturant.setText("");
+        EtlfResturant.setText("");
+        EtypeResturant.setText("");
+
         toastMessage("Resturant lagt til!");
         Log.d("Legg inn: ", "Resturant lagt til");
+
+
+        Intent intent_tilbake = new Intent (LeggTilResturant.this, SeResturanter.class);
+        startActivity(intent_tilbake);
+        finish();
     }
 
     /**
