@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     //--------KNAPPER-------
-    Button resturanterKnapp, vennerKnapp, bestillingKnapp, seResturanterKnapp;
+    Button resturanterKnapp, vennerKnapp, bestillingKnapp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         //--------KNAPPER--------
         resturanterKnapp = findViewById(R.id.resturanterKnapp);
         vennerKnapp = findViewById(R.id.vennerKnapp);
-        bestillingKnapp = findViewById(R.id.bestillingKnapp);
+        bestillingKnapp = findViewById(R.id.bestillingerKnapp);
         //--------SLUTT KNAPPER--------
 
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         bestillingKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_preferanser = new Intent (MainActivity.this, LeggTilResturant.class);
+                Intent intent_preferanser = new Intent (MainActivity.this, Bestillinger.class);
                 startActivity(intent_preferanser);
             }
         });

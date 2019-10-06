@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LeggTilogEndre.EndreVenn"></activity>
+        <activity android:name=".LeggTilBestilling"></activity>
+        <activity android:name=".Hovedmenyer.Bestillinger" />
+        <activity android:name=".LeggTilogEndre.EndreVenn" />
         <activity android:name=".ListViews.SeVenner" />
         <activity android:name=".Hovedmenyer.Venner" />
         <activity android:name=".Hovedmenyer.Resturanter" />

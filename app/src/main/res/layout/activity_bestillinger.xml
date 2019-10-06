@@ -8,34 +8,28 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/overskrift"
+        android:text="Bestilling"
         android:textAlignment="center"
         android:textSize="24sp" />
 
 
     <Button
-        android:id="@+id/resturanterKnapp"
+        android:id="@+id/bestillingKnapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Resturanter" />
-
-
-    <Button
-        android:id="@+id/vennerKnapp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Venner" />
+        android:text="Registrer bestilling" />
 
     <Button
-        android:id="@+id/bestillingerKnapp"
+        android:id="@+id/seBestillingerKnapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bestilling" />
+        android:text="Se bestillinger" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/btnTilbake"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Notifikasjon" />
+        android:text="Tilbake til start" />
+
 
 </LinearLayout>

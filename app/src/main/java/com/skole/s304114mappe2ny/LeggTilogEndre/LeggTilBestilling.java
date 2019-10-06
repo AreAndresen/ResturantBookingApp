@@ -16,7 +16,7 @@ import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
-public class LeggTilResturant extends AppCompatActivity {
+public class LeggTilBestilling extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
@@ -81,6 +81,10 @@ public class LeggTilResturant extends AppCompatActivity {
         //legger til i database
         db.leggTilResturant(nyResturant);
 
+        //legger til venn
+        Venn nyVenn = new Venn("Gunnar", "911");
+        db.leggTilVenn(nyVenn);
+
         //Resetter inputs
         EnavnResturant.setText("");
         EtlfResturant.setText("");
@@ -90,7 +94,7 @@ public class LeggTilResturant extends AppCompatActivity {
         Log.d("Legg inn: ", "Resturant lagt til");
 
 
-        Intent intent_tilbake = new Intent (LeggTilResturant.this, SeResturanter.class);
+        Intent intent_tilbake = new Intent (LeggTilBestilling.this, SeResturanter.class);
         startActivity(intent_tilbake);
         finish();
     }
@@ -110,3 +114,4 @@ public class LeggTilResturant extends AppCompatActivity {
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 }
+
