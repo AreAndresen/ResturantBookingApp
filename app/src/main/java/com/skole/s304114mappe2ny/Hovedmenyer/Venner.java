@@ -1,50 +1,52 @@
-package com.skole.s304114mappe2ny;
-
+package com.skole.s304114mappe2ny.Hovedmenyer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.skole.s304114mappe2ny.klasser.Resturant;
+import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilVenn;
+import com.skole.s304114mappe2ny.R;
+import com.skole.s304114mappe2ny.ListViews.SeVenner;
 
-
-public class Resturanter extends AppCompatActivity {
+public class Venner extends AppCompatActivity {
 
 
     //--------KNAPPER-------
-    Button resturanterKnapp, seResturanterKnapp, btnTilbake;
+    Button vennerKnapp, seVennerKnapp, btnTilbake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resturanter);
+        setContentView(R.layout.activity_venner);
 
 
         //--------KNAPPER--------
-        resturanterKnapp = findViewById(R.id.resturanterKnapp);
-        seResturanterKnapp = findViewById(R.id.seResturanterKnapp);
+        vennerKnapp = findViewById(R.id.vennerKnapp);
+        seVennerKnapp = findViewById(R.id.seVennerKnapp);
         btnTilbake = findViewById(R.id.btnTilbake);
+
         //--------SLUTT KNAPPER--------
 
 
         //--------LISTENERS--------
-        resturanterKnapp.setOnClickListener(new View.OnClickListener() {
+        vennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.Resturanter.this, LeggTilResturant.class);
+                Intent intent_startspill = new Intent (Venner.this, LeggTilVenn.class);
                 startActivity(intent_startspill);
+
             }
         });
         //--------LISTENERS--------
-        seResturanterKnapp.setOnClickListener(new View.OnClickListener() {
+        seVennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.Resturanter.this, SeResturanter.class);
+                Intent intent_startspill = new Intent (Venner.this, SeVenner.class);
                 startActivity(intent_startspill);
+
             }
         });
 
@@ -64,6 +66,3 @@ public class Resturanter extends AppCompatActivity {
         finish();
     }
 }
-
-
-

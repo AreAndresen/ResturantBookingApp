@@ -1,16 +1,14 @@
-package com.skole.s304114mappe2ny;
+package com.skole.s304114mappe2ny.ListViews;
 
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,7 +16,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.skole.s304114mappe2ny.klasser.Resturant;
+import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.LeggTilogEndre.EndreVenn;
+import com.skole.s304114mappe2ny.R;
+import com.skole.s304114mappe2ny.klasser.Venn;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ import java.util.ArrayList;
  * Created by User on 2/28/2017.
  */
 
-public class SeResturanter extends AppCompatActivity {
+public class SeVenner extends AppCompatActivity {
 
     private static final String TAG = "ListDataActivity";
 
@@ -63,11 +64,11 @@ public class SeResturanter extends AppCompatActivity {
         Log.d(TAG, "populateListView: Displaying data in the ListView.");
 
         //leggr alle resturanter i array
-        final ArrayList<Resturant> resturanter = db.finnAlleResturanter();
+        final ArrayList<Venn> venner = db.finnAlleVenner();
 
 
         //create the list adapter and set the adapter
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, resturanter);
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, venner);
         mListView.setAdapter(adapter);
 
         //set an onItemClickListener to the ListView
@@ -78,33 +79,21 @@ public class SeResturanter extends AppCompatActivity {
                 String name = adapterView.getItemAtPosition(i).toString();
                 toastMessage(name);
 
-
-                Resturant resturant = (Resturant) mListView.getItemAtPosition(i);
-                toastMessage(""+resturant.get_ID());
+                Venn venn = (Venn) mListView.getItemAtPosition(i);
+                toastMessage(""+venn.getID());
                 //ny lagring til disk
-                Integer ID = (int) resturant.get_ID();
+                Integer ID = (int) venn.getID();
 
-                //Resturant resturant2 = (Resturant) mListView.getItem(i);
-                //String value= selItem.getTheValue(); //getter method
-
-                //Resturant resturant = db.finnResturant(1); //manuell her
-
-                Intent editScreenIntent = new Intent(SeResturanter.this, EndreResturant.class);
+                Intent editScreenIntent = new Intent(SeVenner.this, EndreVenn.class);
                 editScreenIntent.putExtra("id",ID);
-                editScreenIntent.putExtra("name",resturant.getNavn());
-                editScreenIntent.putExtra("tlf",resturant.getTelefon());
-                editScreenIntent.putExtra("type",resturant.getType());
-                //editScreenIntent.putParcelableArrayListExtra("Resturant",resturant);
-
-                //legger denne her i tilfelle jeg får bruk for den senere
-                //mListView.notifyDataSetChanged();
+                editScreenIntent.putExtra("name",venn.getNavn());
+                editScreenIntent.putExtra("tlf",venn.getTelefon());
 
                 startActivity(editScreenIntent);
                 finish(); //unngår å legge på stack
             }
         });
     }
-
 
     //-------VISER DIALOG VED TILBAKEKNAPP---------
     @Override

@@ -1,54 +1,51 @@
-package com.skole.s304114mappe2ny;
+package com.skole.s304114mappe2ny.LeggTilogEndre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-
 import android.content.Intent;
-import android.os.Bundle;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.skole.s304114mappe2ny.klasser.Resturant;
+import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.R;
+import com.skole.s304114mappe2ny.ListViews.SeVenner;
+import com.skole.s304114mappe2ny.klasser.Venn;
 
 /**
  * Created by User on 2/28/2017.
  */
 
-public class EndreResturant extends AppCompatActivity {
+public class EndreVenn extends AppCompatActivity {
 
     private static final String TAG = "EditDataActivity";
 
     private Button btnSave,btnDelete;
 
 
-    private EditText EnavnResturant;
-    private EditText EtlfResturant;
-    private EditText EtypeResturant;
+    private EditText EnavnVenn;
+    private EditText EtlfVenn;
 
     DBhandler db;
 
-    private String valgtNavn, valgtTlf, valgtType;
+    private String valgtNavn, valgtTlf;
     private int valgtID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_endre_resturant);
+        setContentView(R.layout.activity_endre_venn);
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnDelete = (Button) findViewById(R.id.btnDelete);
 
 
-        EnavnResturant = (EditText)findViewById(R.id.navnResturant);
-        EtlfResturant = (EditText)findViewById(R.id.tlfResturant);
-        EtypeResturant = (EditText)findViewById(R.id.typeResturant);
+        EnavnVenn = (EditText)findViewById(R.id.navnVenn);
+        EtlfVenn = (EditText)findViewById(R.id.tlfVenn);
 
         db = new DBhandler(this);
 
@@ -64,39 +61,33 @@ public class EndreResturant extends AppCompatActivity {
         //now get the name we passed as an extra
         valgtTlf = receivedIntent.getStringExtra("tlf");
 
-        //now get the name we passed as an extra
-        valgtType = receivedIntent.getStringExtra("type");
 
 
         //set the text to show the current selected name
-        EnavnResturant.setText(valgtNavn);
-        EtlfResturant.setText(valgtTlf);
-        EtypeResturant.setText(valgtType);
+        EnavnVenn.setText(valgtNavn);
+        EtlfVenn.setText(valgtTlf);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //String item = editable_item.getText().toString();
 
-                String navn = EnavnResturant.getText().toString();
-                String tlf = EtlfResturant.getText().toString();
-                String type = EtypeResturant.getText().toString();
+                String navn = EnavnVenn.getText().toString();
+                String tlf = EtlfVenn.getText().toString();
 
-
-                Resturant resturant = db.finnResturant(valgtID); //manuell her
-                resturant.setNavn(navn);
-                resturant.setTelefon(tlf);
-                resturant.setType(type);
+                Venn venn = db.finnVenn(valgtID); //manuell her
+                venn.setNavn(navn);
+                venn.setTelefon(tlf);
                 //Resturant oppdatertResturant = new Resturant(navn,tlf, type);;
 
 
-                if(!navn.equals("") && !tlf.equals("") && !type.equals("")){
+                if(!navn.equals("") && !tlf.equals("")){
                     //mDatabaseHelper.updateName(item,selectedID,selectedName);
 
-                    db.oppdaterResturant(resturant);
+                    db.oppdaterVenn(venn);
 
                     //gjørs så viewet oppdaterer fortløpende
-                    Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
+                    Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
                     startActivity(intent_tilbake);
                     finish();
 
@@ -110,16 +101,15 @@ public class EndreResturant extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Resturant slettResturant = db.finnResturant(valgtID);
+                Venn slettVenn = db.finnVenn(valgtID);
 
-                db.slettResturant(slettResturant.get_ID());
+                db.slettVenn(slettVenn.getID());
 
-                EnavnResturant.setText("");
-                EtlfResturant.setText("");
-                EtypeResturant.setText("");
+                EnavnVenn.setText("");
+                EtlfVenn.setText("");
 
                 //gjørs så viewet oppdaterer fortløpende
-                Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
+                Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
                 startActivity(intent_tilbake);
                 finish();
 
@@ -135,7 +125,6 @@ public class EndreResturant extends AppCompatActivity {
         finish();
     }
 
-
     /**
      * customizable toast
      * @param message
@@ -144,3 +133,4 @@ public class EndreResturant extends AppCompatActivity {
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 }
+
