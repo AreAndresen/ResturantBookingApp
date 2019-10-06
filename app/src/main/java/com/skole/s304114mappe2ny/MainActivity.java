@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.skole.s304114mappe2ny.klasser.Resturant;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         //--------KNAPPER--------
         resturanterKnapp = findViewById(R.id.resturanterKnapp);
-        seResturanterKnapp = findViewById(R.id.seResturanterKnapp);
         vennerKnapp = findViewById(R.id.vennerKnapp);
         bestillingKnapp = findViewById(R.id.bestillingKnapp);
         //--------SLUTT KNAPPER--------
@@ -34,22 +35,14 @@ public class MainActivity extends AppCompatActivity {
         resturanterKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.MainActivity.this, LeggTilResturant.class);
-                startActivity(intent_startspill);
-            }
-        });
-        //--------LISTENERS--------
-        seResturanterKnapp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.MainActivity.this, SeResturanter.class);
+                Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.MainActivity.this, Resturanter.class);
                 startActivity(intent_startspill);
             }
         });
         vennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_statistikk = new Intent (com.skole.s304114mappe2ny.MainActivity.this, LeggTilResturant.class);
+                Intent intent_statistikk = new Intent (com.skole.s304114mappe2ny.MainActivity.this, Venner.class);
                 startActivity(intent_statistikk);
             }
         });

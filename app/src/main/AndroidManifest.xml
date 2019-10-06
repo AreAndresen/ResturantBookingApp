@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EndreResturant"></activity>
+        <activity android:name=".EndreVenn"></activity>
+        <activity android:name=".SeVenner" />
+        <activity android:name=".Venner" />
+        <activity android:name=".Resturanter" />
+        <activity android:name=".LeggTilVenn" />
+        <activity android:name=".EndreResturant" />
         <activity android:name=".SeResturanter" />
         <activity android:name=".LeggTilResturant" />
         <activity android:name=".MainActivity">

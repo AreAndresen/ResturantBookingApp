@@ -8,8 +8,6 @@ import java.util.Arrays;
 
 public class Resturant {
 
-    DBhandler db;
-
     private long _ID;
     private String navn, telefon, type;
 
@@ -65,7 +63,7 @@ public class Resturant {
 
     @Override
     public String toString() {
-        return "Navn: "+getNavn() + "Telefonnummer: " + getTelefon() + "Type resturant: " + getType();
+        return "Navn: "+getNavn() + "\nTelefonnummer: " + getTelefon() + "\nType resturant: " + getType();
     }
 }
 

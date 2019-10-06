@@ -8,37 +8,23 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/overskrift"
+        android:text="Venner"
         android:textAlignment="center"
         android:textSize="24sp" />
-
-
-    <Button
-        android:id="@+id/resturanterKnapp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="slett"
-        android:text="Resturanter" />
 
 
     <Button
         android:id="@+id/vennerKnapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="visalle"
-        android:text="Venner" />
+        android:onClick="slett"
+        android:text="Legg til venn" />
 
     <Button
-        android:id="@+id/bestillingKnapp"
+        android:id="@+id/seVennerKnapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="oppdater"
-        android:text="Registrer bestilling" />
+        android:text="Se venner" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Notifikasjon" />
 
 </LinearLayout>

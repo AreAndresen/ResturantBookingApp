@@ -2,26 +2,25 @@ package com.skole.s304114mappe2ny;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
-public class LeggTilResturant extends AppCompatActivity {
+public class LeggTilVenn extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
     DBhandler db;
 
-    private EditText EnavnResturant;
-    private EditText EtlfResturant;
-    private EditText EtypeResturant;
+    private EditText EnavnVenn;
+    private EditText EtlfVenn;
 
     private Button btnAdd, btnTilbake;
     //private EditText editText;
@@ -29,11 +28,10 @@ public class LeggTilResturant extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_legg_til_resturant);
+        setContentView(R.layout.activity_legg_til_venn);
 
-        EnavnResturant = (EditText)findViewById(R.id.navnResturant);
-        EtlfResturant = (EditText)findViewById(R.id.tlfResturant);
-        EtypeResturant = (EditText)findViewById(R.id.typeResturant);
+        EnavnVenn = (EditText)findViewById(R.id.navnVenn);
+        EtlfVenn = (EditText)findViewById(R.id.tlfVenn);
 
 
         btnAdd = (Button) findViewById(R.id.btnLeggTil);
@@ -46,26 +44,24 @@ public class LeggTilResturant extends AppCompatActivity {
             public void onClick(View v) {
                 //String newEntry = editText.getText().toString();
 
-                String navn = EnavnResturant.getText().toString();
-                String tlf = EtlfResturant.getText().toString();
-                String type = EtypeResturant.getText().toString();
+                String navn = EnavnVenn.getText().toString();
+                String tlf = EtlfVenn.getText().toString();
 
-                if (EnavnResturant.length() != 0 && EtlfResturant.length() != 0 && EtypeResturant.length() != 0) {
+                if (EnavnVenn.length() != 0 && EtlfVenn.length() != 0) {
 
-                    leggtil(navn, tlf, type);
+                    leggtil(navn, tlf);
 
 
                 } else {
                     toastMessage("Du må fylle ut alle felter. Prøv igjen.");
                 }
-
             }
         });
 
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LeggTilResturant.this, MainActivity.class);
+                Intent intent = new Intent(LeggTilVenn.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -73,26 +69,21 @@ public class LeggTilResturant extends AppCompatActivity {
     }
 
 
-    public void leggtil(String navn, String tlf, String type) {
-        //Oppretter nytt objekt
-        Resturant nyResturant = new Resturant(navn, tlf, type);
-        //legger til i database
-        db.leggTilResturant(nyResturant);
-
+    public void leggtil(String navn, String tlf) {
         //legger til venn
-        Venn nyVenn = new Venn("Gunnar", "911");
+        Venn nyVenn = new Venn(navn, tlf);
+        //legger til i database
         db.leggTilVenn(nyVenn);
 
         //Resetter inputs
-        EnavnResturant.setText("");
-        EtlfResturant.setText("");
-        EtypeResturant.setText("");
+        EnavnVenn.setText("");
+        EtlfVenn.setText("");
 
-        toastMessage("Resturant lagt til!");
-        Log.d("Legg inn: ", "Resturant lagt til");
+        toastMessage("Venn lagt til!");
+        Log.d("Legg inn: ", "Venn lagt til");
 
 
-        Intent intent_tilbake = new Intent (LeggTilResturant.this, SeResturanter.class);
+        Intent intent_tilbake = new Intent (LeggTilVenn.this, SeVenner.class);
         startActivity(intent_tilbake);
         finish();
     }
@@ -105,3 +96,4 @@ public class LeggTilResturant extends AppCompatActivity {
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 }
+
