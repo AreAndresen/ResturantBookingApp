@@ -54,8 +54,6 @@ public class SeVenner extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_tilbake = new Intent (SeVenner.this, MainActivity.class);
-                startActivity(intent_tilbake);
                 finish();
             }
         });
@@ -97,6 +95,11 @@ public class SeVenner extends AppCompatActivity {
         });
     }
 
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     /**
      * customizable toast

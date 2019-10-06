@@ -65,8 +65,7 @@ public class LeggTilResturant extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LeggTilResturant.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -96,6 +95,13 @@ public class LeggTilResturant extends AppCompatActivity {
         startActivity(intent_tilbake);
         finish();
     }
+
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 
     /**
      * customizable toast

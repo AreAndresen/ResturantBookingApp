@@ -129,6 +129,13 @@ public class EndreResturant extends AppCompatActivity {
 
     }
 
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+
     /**
      * customizable toast
      * @param message

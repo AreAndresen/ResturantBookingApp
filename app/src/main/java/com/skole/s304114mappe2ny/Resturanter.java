@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.skole.s304114mappe2ny.klasser.Resturant;
+
 
 public class Resturanter extends AppCompatActivity {
 
 
     //--------KNAPPER-------
-    Button resturanterKnapp, seResturanterKnapp;
+    Button resturanterKnapp, seResturanterKnapp, btnTilbake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class Resturanter extends AppCompatActivity {
         //--------KNAPPER--------
         resturanterKnapp = findViewById(R.id.resturanterKnapp);
         seResturanterKnapp = findViewById(R.id.seResturanterKnapp);
+        btnTilbake = findViewById(R.id.btnTilbake);
         //--------SLUTT KNAPPER--------
 
 
@@ -44,9 +47,22 @@ public class Resturanter extends AppCompatActivity {
                 startActivity(intent_startspill);
             }
         });
+
+        btnTilbake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //--------SLUTT LISTENERS--------
     }
     //-------CREATE SLUTTER---------
+
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
 
 

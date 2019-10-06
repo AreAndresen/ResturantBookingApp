@@ -53,8 +53,6 @@ public class SeResturanter extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_tilbake = new Intent (SeResturanter.this, MainActivity.class);
-                startActivity(intent_tilbake);
                 finish();
             }
         });
@@ -108,6 +106,11 @@ public class SeResturanter extends AppCompatActivity {
     }
 
 
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     /**
      * customizable toast

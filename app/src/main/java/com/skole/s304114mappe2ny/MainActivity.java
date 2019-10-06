@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.MainActivity.this, Resturanter.class);
                 startActivity(intent_startspill);
+                //-------VISER DIALOG VED TILBAKEKNAPP---------
             }
         });
         vennerKnapp.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_preferanser = new Intent (com.skole.s304114mappe2ny.MainActivity.this, LeggTilResturant.class);
                 startActivity(intent_preferanser);
-                finish(); //bruker finish her fordi vi kommer tilbake med en ny intent fra preferanser for å oppdatere språk - unngå å legge på stack
             }
         });
         //--------SLUTT LISTENERS--------

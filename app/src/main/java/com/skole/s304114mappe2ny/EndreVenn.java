@@ -117,6 +117,12 @@ public class EndreVenn extends AppCompatActivity {
 
     }
 
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     /**
      * customizable toast
      * @param message

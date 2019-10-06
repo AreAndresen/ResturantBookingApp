@@ -26,5 +26,11 @@
         android:layout_height="wrap_content"
         android:text="Se venner" />
 
+    <Button
+        android:id="@+id/btnTilbake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tilbake til start" />
+
 
 </LinearLayout>

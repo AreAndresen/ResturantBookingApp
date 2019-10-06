@@ -11,7 +11,7 @@ public class Venner extends AppCompatActivity {
 
 
     //--------KNAPPER-------
-    Button vennerKnapp, seVennerKnapp;
+    Button vennerKnapp, seVennerKnapp, btnTilbake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,8 @@ public class Venner extends AppCompatActivity {
         //--------KNAPPER--------
         vennerKnapp = findViewById(R.id.vennerKnapp);
         seVennerKnapp = findViewById(R.id.seVennerKnapp);
+        btnTilbake = findViewById(R.id.btnTilbake);
+
         //--------SLUTT KNAPPER--------
 
 
@@ -31,6 +33,7 @@ public class Venner extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.Venner.this, LeggTilVenn.class);
                 startActivity(intent_startspill);
+
             }
         });
         //--------LISTENERS--------
@@ -39,9 +42,23 @@ public class Venner extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (com.skole.s304114mappe2ny.Venner.this, SeVenner.class);
                 startActivity(intent_startspill);
+
+            }
+        });
+
+        btnTilbake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
         //--------SLUTT LISTENERS--------
     }
     //-------CREATE SLUTTER---------
+
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
