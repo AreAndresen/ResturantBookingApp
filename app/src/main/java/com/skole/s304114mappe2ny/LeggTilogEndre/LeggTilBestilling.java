@@ -28,7 +28,7 @@ public class LeggTilBestilling extends AppCompatActivity {
     DBhandler db;
 
     private TextView bestillingTekst;
-    private Button btnTilbake, btnLeggTilVenn;
+    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn;
     //private EditText editText;
 
     @Override
@@ -36,10 +36,10 @@ public class LeggTilBestilling extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_legg_til_bestilling);
 
-
+        //Knapper
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnLeggTilVenn = (Button) findViewById(R.id.btnLeggTilVenn);
-
+        btnSlettVenn = (Button) findViewById(R.id.btnSlettVenn);
 
 
         bestillingTekst = (TextView) findViewById(R.id.bestillingTekst);
@@ -53,13 +53,21 @@ public class LeggTilBestilling extends AppCompatActivity {
         lagVennerSpinner();
 
 
-
         btnLeggTilVenn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                setValgtVenn();
-                bestillingTekst.setText(visVennData());
+                leggTilValgtVenn();
+                bestillingTekst.setText(visBestillingsData());
+            }
+        });
+
+        btnSlettVenn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                slettValgtVenn();
+                bestillingTekst.setText(visBestillingsData());
             }
         });
 
@@ -85,7 +93,8 @@ public class LeggTilBestilling extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Resturant resturant = (Resturant) parent.getSelectedItem();
-                visResturantData(resturant);
+
+                //visResturantData(resturant);
 
                 Integer ID = (int) resturant.get_ID();
                 valgtResturant = db.finnResturant(ID);
@@ -127,13 +136,30 @@ public class LeggTilBestilling extends AppCompatActivity {
         });
     }
 
-    public void setValgtVenn() {
+
+    //MÅ GJØRES SÅ DETTE GJØRES MOT DATABASEN OG TABLE BESTILLINGER
+    public void leggTilValgtVenn() {
         //Venn venn = (Venn)  spinnerVenner.getSelectedItem();
         //visVennData(venn);
         valgteVenner.add(valgtVenn);
     }
 
-    private void visResturantData(Resturant resturant) {
+
+    //må gjøre så siste venn også kan bli slettet
+    public void slettValgtVenn() {
+        //Venn venn = (Venn)  spinnerVenner.getSelectedItem();
+        //visVennData(venn);
+
+        if(valgteVenner.size() == 1) {
+            valgteVenner.clear();
+        }
+        else {
+            valgteVenner.remove(valgtVenn);
+        }
+        valgteVenner.remove(valgtVenn);
+    }
+
+    /*private void visResturantData(Resturant resturant) {
 
         String name = resturant.getNavn();
         String tlf = resturant.getTelefon();
@@ -141,22 +167,23 @@ public class LeggTilBestilling extends AppCompatActivity {
 
         String userData = "Name: " + name + "\ntlf: " + tlf + "\ntype: " + type;
 
-        Toast.makeText(this, userData, Toast.LENGTH_LONG).show();
-    }
+        //Toast.makeText(this, userData, Toast.LENGTH_LONG).show();
+    }*/
 
-    private String visVennData() {
+    //meldiung må lagres i sharedpreferance
+    private String visBestillingsData() {
 
         String venner = "Din bestillingsordre\n";
         //valgteVenner;
         venner += "Resturant:"+valgtResturant.getNavn()+"\nTlf: "+valgtResturant.getTelefon()+"\nType: "+valgtResturant.getType()+"\n\n";
+
         venner += "Venner:\n";
         for(Venn venn : valgteVenner) {
             venner += "Name: " + venn.getNavn() + ". Tlf: " + venn.getTelefon()+"\n";
         }
 
 
-        Toast.makeText(this, venner, Toast.LENGTH_LONG).show();
-
+        //Toast.makeText(this, venner, Toast.LENGTH_LONG).show();
         return venner;
     }
 

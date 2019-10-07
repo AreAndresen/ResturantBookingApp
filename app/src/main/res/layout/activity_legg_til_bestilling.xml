@@ -8,12 +8,12 @@
         android:id="@+id/tittelBestilling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrer bestilling"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
+        android:text="Registrer bestilling"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
@@ -50,24 +50,42 @@
 
         <Spinner
             android:id="@+id/spinVenn"
-            android:layout_width="206dp"
+            android:layout_width="205dp"
             android:layout_height="36dp" />
 
         <Button
             android:id="@+id/btnLeggTilVenn"
-            android:layout_width="205dp"
+            android:layout_width="104dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:text="Legg til" />
+
+        <Button
+            android:id="@+id/btnSlettVenn"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Slett" />
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/dinBestilling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/boks"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Din bestillingsinformasjon"
+        android:textAlignment="center"
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/bestillingTekst"
         android:layout_width="match_parent"
         android:layout_height="166dp"
-        android:layout_below="@+id/boks"
-        android:layout_marginTop="74dp" />
+        android:layout_below="@+id/dinBestilling"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/btnTilbake"
@@ -78,6 +96,5 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Tilbake" />
-
 
 </RelativeLayout>
