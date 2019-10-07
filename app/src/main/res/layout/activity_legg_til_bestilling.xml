@@ -1,52 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android= "http://schemas.android.com/apk/res/android"
-    xmlns:tools= "http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".LeggTilogEndre.LeggTilBestilling"
-    android:layout_gravity="center"
-    >
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Skriv inn navn:" />
-    <EditText
-        android:id="@+id/navnResturant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Skriv inn telefon:" />
-    <EditText
-        android:id="@+id/tlfResturant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/tittelBestilling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Skriv inn type resturant:" />
-    <EditText
-        android:id="@+id/typeResturant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:text="Registrer bestilling"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnLeggTil"
+    <TextView
+        android:id="@+id/velgResturant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tittelBestilling"
+        android:layout_marginTop="65dp"
+        android:text="Velg resturant"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinResturant"
+        android:layout_width="206dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/velgResturant" />
+
+    <TextView
+        android:id="@+id/velgVenner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinResturant"
+        android:layout_marginTop="10dp"
+        android:text="Velg venner"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/boks"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Legg til" />
+        android:weightSum="100"
+        android:layout_below="@+id/velgVenner">
+
+        <Spinner
+            android:id="@+id/spinVenn"
+            android:layout_width="206dp"
+            android:layout_height="36dp" />
+
+        <Button
+            android:id="@+id/btnLeggTilVenn"
+            android:layout_width="205dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="Legg til" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/bestillingTekst"
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        android:layout_below="@+id/boks"
+        android:layout_marginTop="74dp" />
 
     <Button
         android:id="@+id/btnTilbake"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/bestillingTekst"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:text="Tilbake" />
 
 
-</LinearLayout>
+</RelativeLayout>

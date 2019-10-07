@@ -63,7 +63,7 @@ public class Resturant {
 
     @Override
     public String toString() {
-        return "Navn: "+getNavn() + "\nTelefonnummer: " + getTelefon() + "\nType resturant: " + getType();
+        return getNavn(); //+ "\nTelefonnummer: " + getTelefon() + "\nType resturant: " + getType()
     }
 }
 

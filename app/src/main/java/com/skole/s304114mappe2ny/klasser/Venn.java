@@ -52,7 +52,7 @@ public class Venn {
 
     @Override
     public String toString() {
-        return getNavn() + ";" + getTelefon();
+        return getNavn();
     }
 }
 
