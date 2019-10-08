@@ -180,13 +180,13 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
     //meldiung må lagres i sharedpreferance
     private String visBestillingsData() {
 
-        String bestillingsinfo = "Din bestillingsinformasjon\n";
+        String bestillingsinfo = "";
         //valgteVenner;
         bestillingsinfo += "Resturant:"+valgtResturant.getNavn()+"\nTlf: "+valgtResturant.getTelefon()+"\nType: "+valgtResturant.getType()+"\n\n";
 
         bestillingsinfo += "Venner:\n";
         for(Venn venn : valgteVenner) {
-            bestillingsinfo += "Name: " + venn.getNavn() + ". Tlf: " + venn.getTelefon()+"\n";
+            bestillingsinfo += venn.getNavn() + ". Tlf: " + venn.getTelefon()+"\n";
         }
         bestillingsinfo += "Dato: "+dato+". Tidspunkt: "+tid;
 
