@@ -181,7 +181,7 @@
         android:id="@+id/fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:name="com.skole.s304114mappe2ny.SeBestillingsInfoFragment"/>-->
+        android:name="com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment"/>-->
 
 
 
