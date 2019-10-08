@@ -2,9 +2,13 @@ package com.skole.s304114mappe2ny.LeggTilogEndre;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +22,10 @@ import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.Fragmenter.DatoFragment;
 import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
+import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.R;
+import com.skole.s304114mappe2ny.SeBestillingsInfoDialog;
+import com.skole.s304114mappe2ny.SeBestillingsInfoFragment;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
@@ -27,18 +34,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class LeggTilBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class LeggTilBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoFragment.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
+
+    //--------DIALOG KNAPPER TIL FULLFORTSPILLDIALOGFRAGMENT--------
+    @Override
+    public void seBestillingsinfoClick() {
+       return;
+    }
+
 
     private Spinner spinnerResturanter, spinnerVenner;
     private Resturant valgtResturant;
     private Venn valgtVenn;
     private ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
 
+    private String dato, tid, bestillingsinfo;
 
     DBhandler db;
 
     private TextView bestillingTekst, visDato, visTid;
-    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn, velgDato, velgTid;
+    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn, velgDato, velgTid, btnSeBestillingsinfo, btnBestill;
     //private EditText editText;
 
     @Override
@@ -46,15 +61,18 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_legg_til_bestilling);
 
+
         //Knapper
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnLeggTilVenn = (Button) findViewById(R.id.btnLeggTilVenn);
         btnSlettVenn = (Button) findViewById(R.id.btnSlettVenn);
         velgDato = (Button) findViewById(R.id.velgDato);
         velgTid = (Button) findViewById(R.id.velgTid);
+        btnSeBestillingsinfo = (Button) findViewById(R.id.btnSeBestillingsinfo);
+        btnBestill = (Button) findViewById(R.id.btnBestill);
 
         //Tekst ++
-        bestillingTekst = (TextView) findViewById(R.id.bestillingTekst);
+        //bestillingTekst = (TextView) findViewById(R.id.bestillingTekst);
         spinnerResturanter = (Spinner) findViewById(R.id.spinResturant);
         spinnerVenner = (Spinner) findViewById(R.id.spinVenn);
         visDato = (TextView) findViewById(R.id.visDato);
@@ -73,7 +91,7 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
 
                 leggTilValgtVenn();
 
-                bestillingTekst.setText(visBestillingsData());
+                //bestillingTekst.setText(visBestillingsData());
             }
         });
 
@@ -82,7 +100,7 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
             public void onClick(View v) {
 
                 slettValgtVenn();
-                bestillingTekst.setText(visBestillingsData());
+                //bestillingTekst.setText(visBestillingsData());
             }
         });
 
@@ -109,29 +127,154 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
             }
         });
 
+
+        btnSeBestillingsinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                sendData();
+                //visBestillingsinfo();
+
+                /*SeBestillingsInfoDialog seBestillingsInfoDialog = new SeBestillingsInfoDialog ();
+                seBestillingsInfoDialog = (SeBestillingsInfoDialog) getSupportFragmentManager().findFragmentById(R.id.bestillingTekst);
+                if (seBestillingsInfoDialog == null) {
+
+                    seBestillingsInfoDialog = new SeBestillingsInfoDialog ();
+
+                    String infoen = visBestillingsData();
+
+                    seBestillingsInfoDialog.init(infoen);
+
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction trans = fm.beginTransaction();
+                    trans.replace(R.id.bestillingTekst, seBestillingsInfoDialog);
+                    trans.commit();
+
+                }
+                /*else {
+                    seBestillingsInfoDialog.updateUrl(infoen);
+                }*7
+                /*else {
+                    wf.updateUrl(link);
+                }
+
+                wf = new VisFilFragment();
+                wf.init(link);
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction trans = fm.beginTransaction();
+                trans.replace(R.id.webside, wf);
+                trans.commit();
+
+                /*Intent editScreenIntent = new Intent(LeggTilBestilling.this, EndreVenn.class);
+                editScreenIntent.putExtra("id",ID);
+                editScreenIntent.putExtra("name",venn.getNavn());
+                editScreenIntent.putExtra("tlf",venn.getTelefon());
+
+                startActivity(editScreenIntent);
+                finish(); //unngår å legge på stack*/
+                //VisFilFragment webfragment = new VisFilFragment();
+                //webfragment.init(link);
+
+
+                /*FragmentManager manager = getFragmentManager();
+                android.support.v4.app.FragmentTransaction t = manager.beginTransaction();
+                SeBestillingsInfoDialog dialogBestilling = new SeBestillingsInfoDialog();
+
+                Bundle b = new Bundle();
+
+                String infoen = visBestillingsData();
+                b.putString("info",infoen);
+                dialogBestilling.setArguments(b);
+
+
+                //Fragment bestillingsInfoDialog = new SeBestillingsInfoDialog();
+                //bestillingsInfoDialog.init(bestillingsinfo);
+                getSupportFragmentManager().beginTransaction().add(android.R.id.content,dialogBestilling).commit();
+
+                //bestillingsInfoDialog.show(getSupportFragmentManager(), "bestillingsinfo");
+
+
+                String link = i.getExtras().getString("link");
+
+                VisFilFragment webfragment = new VisFilFragment();
+                webfragment.init(link);
+                getSupportFragmentManager().beginTransaction().add(android.R.id.content,webfragment).commit();*/
+
+
+            }
+        });
+
+        btnBestill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DialogFragment bestillingsInfoDialog = new SeBestillingsInfoDialog();
+                //bestillingsInfoDialog.show(getSupportFragmentManager(), "bestillingsinfo");
+            }
+        });
+
     }
     //UTENFOR CREATE
+
+
+    private void sendData() {
+        //PACK DATA IN A BUNDLE
+        //SeBestillingsInfoFragment wf = (SeBestillingsInfoFragment) getSupportFragmentManager().findFragmentById(R.id.bestillingTekst);
+        //if (wf == null) {
+
+            String info = visBestillingsData();
+
+            //Bundle bundle = new Bundle();
+            //bundle.putString("BESTILLING_INFO", info);
+
+            //PASS OVER THE BUNDLE TO OUR FRAGMENT
+            //ialogFragment dialog = new SeBestillingsInfoFragment();
+            //dialog.show(getFragmentManager(), "Avslutt");
+
+            SeBestillingsInfoFragment bFragment = new SeBestillingsInfoFragment();
+            bFragment.init(info);
+            bFragment.show(getFragmentManager(), "Avslutt");
+            //bFragment.setArguments(bundle);
+
+
+
+            //THEN NOW SHOW OUR FRAGMENT
+            //getSupportFragmentManager().beginTransaction().replace(android.R.id.content, bFragment).commit();
+        //}
+        /*else {
+            String info = visBestillingsData();
+            wf.updateString(info);
+        }*/
+
+    }
+
+
+    //-------VISER EGENDEFINERT DIALOG VEL FULLFØRING AV SPILL---------
+    private void visBestillingsinfo() {
+        DialogFragment dialog = new SeBestillingsInfoDialog();
+        //dialog.
+        dialog.show(getSupportFragmentManager(), "Avslutt");
+    }
 
 
     //DATOFRAGMENT
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
+        /*Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());*/
 
         //ny
-        String nyFormat = dayOfMonth+"/"+month+"/"+year;
-        visDato.setText(nyFormat);
+        dato = dayOfMonth+"/"+month+"/"+year;
+        visDato.setText(dato);
     }
 
     //TIDFRAGMENT
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        String tid = "Kl: " + hourOfDay + ":";
+        tid = "Kl: " + hourOfDay + ":";
         //sørger for at det står f.eks 10:05 isteden for 10:5
         if(minute < 10) {
             tid += "0";
@@ -139,6 +282,25 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
         tid += minute;
 
         visTid.setText(tid);
+    }
+
+
+    //meldiung må lagres i sharedpreferance
+    private String visBestillingsData() {
+
+        String bestillingsinfo = "Din bestillingsinformasjon\n";
+        //valgteVenner;
+        bestillingsinfo += "Resturant:"+valgtResturant.getNavn()+"\nTlf: "+valgtResturant.getTelefon()+"\nType: "+valgtResturant.getType()+"\n\n";
+
+        bestillingsinfo += "Venner:\n";
+        for(Venn venn : valgteVenner) {
+            bestillingsinfo += "Name: " + venn.getNavn() + ". Tlf: " + venn.getTelefon()+"\n";
+        }
+        bestillingsinfo += "Dato: "+dato+". Tidspunkt: "+tid;
+
+
+        //Toast.makeText(this, venner, Toast.LENGTH_LONG).show();
+        return bestillingsinfo;
     }
 
 
@@ -236,24 +398,22 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
         //Toast.makeText(this, userData, Toast.LENGTH_LONG).show();
     }*/
 
-    //meldiung må lagres i sharedpreferance
-    private String visBestillingsData() {
 
-        String venner = "Din bestillingsordre\n";
-        //valgteVenner;
-        venner += "Resturant:"+valgtResturant.getNavn()+"\nTlf: "+valgtResturant.getTelefon()+"\nType: "+valgtResturant.getType()+"\n\n";
+    //-------VISER EGENDEFINERT DIALOG VEL FULLFØRING AV SPILL---------
+    /*private void visBestillingsinfoDialog() {
 
-        venner += "Venner:\n";
-        for(Venn venn : valgteVenner) {
-            venner += "Name: " + venn.getNavn() + ". Tlf: " + venn.getTelefon()+"\n";
-        }
+        /*Intent editScreenIntent = new Intent(LeggTilBestilling.this, EndreVenn.class);
+        editScreenIntent.putExtra("id",ID);
+        editScreenIntent.putExtra("name",venn.getNavn());
+        editScreenIntent.putExtra("tlf",venn.getTelefon());
 
+        startActivity(editScreenIntent);
+        finish(); //unngår å legge på stack
 
-        //Toast.makeText(this, venner, Toast.LENGTH_LONG).show();
-        return venner;
-    }
+        DialogFragment bestillingsInfoDialog = new SeBestillingsInfoDialog();
+        bestillingsInfoDialog.show(getSupportFragmentManager(), "bestillingsinfo");
 
-
+    }*/
 
 
     /*public void leggtil(String navn, String tlf, String type) {
@@ -294,5 +454,7 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
 

@@ -132,29 +132,57 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tidBoks"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Din bestillingsinformasjon"
+        android:layout_marginTop="30dp"
+        android:text="Bestilling"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/bestillingTekst"
         android:layout_width="match_parent"
-        android:layout_height="144dp"
-        android:textSize="18sp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/dinBestilling"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:textSize="18sp" />-->
+
+    <Button
+        android:id="@+id/btnSeBestillingsinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dinBestilling"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:text="Se bestillingsinfo" />
+
+    <Button
+        android:layout_below="@+id/btnSeBestillingsinfo"
+        android:id="@+id/btnBestill"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:text="Utfør bestilling" />
 
     <Button
         android:id="@+id/btnTilbake"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bestillingTekst"
+        android:layout_below="@+id/btnBestill"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Tilbake" />
+        android:layout_marginTop="30dp"
+        android:text="Avbryt" />
+
+
+    <!--<fragment
+        android:id="@+id/fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.skole.s304114mappe2ny.SeBestillingsInfoFragment"/>-->
+
 
 
 

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.R;
@@ -36,7 +35,7 @@ public class EndreVenn extends AppCompatActivity {
     private int valgtID;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endre_venn);
 
