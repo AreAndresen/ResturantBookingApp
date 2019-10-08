@@ -1,23 +1,33 @@
 package com.skole.s304114mappe2ny.LeggTilogEndre;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.Fragmenter.DatoFragment;
+import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
+
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
-public class LeggTilBestilling extends AppCompatActivity {
+public class LeggTilBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private Spinner spinnerResturanter, spinnerVenner;
     private Resturant valgtResturant;
@@ -27,8 +37,8 @@ public class LeggTilBestilling extends AppCompatActivity {
 
     DBhandler db;
 
-    private TextView bestillingTekst;
-    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn;
+    private TextView bestillingTekst, visDato, visTid;
+    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn, velgDato, velgTid;
     //private EditText editText;
 
     @Override
@@ -40,11 +50,15 @@ public class LeggTilBestilling extends AppCompatActivity {
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnLeggTilVenn = (Button) findViewById(R.id.btnLeggTilVenn);
         btnSlettVenn = (Button) findViewById(R.id.btnSlettVenn);
+        velgDato = (Button) findViewById(R.id.velgDato);
+        velgTid = (Button) findViewById(R.id.velgTid);
 
-
+        //Tekst ++
         bestillingTekst = (TextView) findViewById(R.id.bestillingTekst);
         spinnerResturanter = (Spinner) findViewById(R.id.spinResturant);
         spinnerVenner = (Spinner) findViewById(R.id.spinVenn);
+        visDato = (TextView) findViewById(R.id.visDato);
+        visTid = (TextView) findViewById(R.id.visTid);
 
         db = new DBhandler(this);
 
@@ -58,6 +72,7 @@ public class LeggTilBestilling extends AppCompatActivity {
             public void onClick(View v) {
 
                 leggTilValgtVenn();
+
                 bestillingTekst.setText(visBestillingsData());
             }
         });
@@ -77,7 +92,56 @@ public class LeggTilBestilling extends AppCompatActivity {
                 finish();
             }
         });
+
+        velgDato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment datoValg = new DatoFragment();
+                datoValg.show(getSupportFragmentManager(), "dato valg");
+            }
+        });
+
+        velgTid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timePicker = new TidFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
+
     }
+    //UTENFOR CREATE
+
+
+    //DATOFRAGMENT
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+
+        //ny
+        String nyFormat = dayOfMonth+"/"+month+"/"+year;
+        visDato.setText(nyFormat);
+    }
+
+    //TIDFRAGMENT
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+        String tid = "Kl: " + hourOfDay + ":";
+        //sørger for at det står f.eks 10:05 isteden for 10:5
+        if(minute < 10) {
+            tid += "0";
+        }
+        tid += minute;
+
+        visTid.setText(tid);
+    }
+
+
 
     private void lagResturantSpinner() {
         //leggr alle resturanter i array
@@ -142,6 +206,7 @@ public class LeggTilBestilling extends AppCompatActivity {
         //Venn venn = (Venn)  spinnerVenner.getSelectedItem();
         //visVennData(venn);
         valgteVenner.add(valgtVenn);
+        Toast.makeText(this, valgtVenn.getNavn()+" lagt til i bestilling.", Toast.LENGTH_LONG).show();
     }
 
 
@@ -157,6 +222,7 @@ public class LeggTilBestilling extends AppCompatActivity {
             valgteVenner.remove(valgtVenn);
         }
         valgteVenner.remove(valgtVenn);
+        Toast.makeText(this, valgtVenn.getNavn()+" fjernet fra bestilling.", Toast.LENGTH_LONG).show();
     }
 
     /*private void visResturantData(Resturant resturant) {

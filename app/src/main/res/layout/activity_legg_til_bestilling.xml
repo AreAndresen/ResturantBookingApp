@@ -21,9 +21,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tittelBestilling"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="25dp"
+        android:padding="5dp"
         android:text="Velg resturant"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/spinResturant"
@@ -37,8 +39,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinResturant"
         android:layout_marginTop="10dp"
+        android:padding="5dp"
         android:text="Velg venner"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:id="@+id/boks"
@@ -51,6 +55,7 @@
         <Spinner
             android:id="@+id/spinVenn"
             android:layout_width="205dp"
+            android:layout_gravity="center"
             android:layout_height="36dp" />
 
         <Button
@@ -68,24 +73,78 @@
             android:text="Slett" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/datoBoks"
+        android:layout_below="@+id/boks"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/visDato"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Velg dato"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/velgDato"
+            android:layout_width="204dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Dato" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tidBoks"
+        android:layout_below="@+id/datoBoks"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="100">
+
+        <TextView
+            android:id="@+id/visTid"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Velg tidspunkt"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/velgTid"
+            android:layout_width="204dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Tidspunkt" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/dinBestilling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/boks"
+        android:layout_below="@+id/tidBoks"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="Din bestillingsinformasjon"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/bestillingTekst"
         android:layout_width="match_parent"
-        android:layout_height="166dp"
+        android:layout_height="144dp"
+        android:textSize="18sp"
         android:layout_below="@+id/dinBestilling"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="10dp" />
 
     <Button
         android:id="@+id/btnTilbake"
@@ -96,5 +155,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="Tilbake" />
+
+
 
 </RelativeLayout>
