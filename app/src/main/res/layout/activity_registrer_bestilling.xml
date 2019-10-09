@@ -151,26 +151,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dinBestilling"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:text="Se bestillingsinfo" />
-
-    <Button
-        android:layout_below="@+id/btnSeBestillingsinfo"
-        android:id="@+id/btnBestill"
-        android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
         android:text="Utfør bestilling" />
 
     <Button
         android:id="@+id/btnTilbake"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnBestill"
+        android:layout_below="@+id/btnSeBestillingsinfo"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"

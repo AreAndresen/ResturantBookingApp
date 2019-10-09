@@ -19,18 +19,18 @@ public class Bestilling {
         this._ID = _ID;
     }
 
-    public Bestilling(Date dato, Time tid, Resturant resturanten, ArrayList<Venn> vennene) {
+    public Bestilling(Date dato, Time tid, Resturant resturanten, ArrayList<Venn> venner) {
         this.dato = dato;
         this.tid = tid;
         this.resturant = resturanten;
-        this.venner = vennene;
+        this.venner = venner;
     }
 
-    public Bestilling(long _ID, Date dato, Time tid, Resturant resturanten, ArrayList<Venn> vennene) {
+    public Bestilling(long _ID, Date dato, Time tid, Resturant resturanten, ArrayList<Venn> venner) {
         this.dato = dato;
         this.tid = tid;
         this.resturant = resturanten;
-        this.venner = vennene;
+        this.venner = venner;
     }
 
 

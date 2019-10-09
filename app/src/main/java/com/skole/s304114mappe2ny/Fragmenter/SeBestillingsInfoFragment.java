@@ -4,6 +4,7 @@ package com.skole.s304114mappe2ny.Fragmenter;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +20,17 @@ public class SeBestillingsInfoFragment extends DialogFragment {
 
     private DialogClickListener callback;
     TextView bestillingsInfo;
-    private String bTekst;
+    private Spanned bTekst;
 
 
     public interface DialogClickListener{
-        void seBestillingsinfoClick();
+
+        void bestillClick();
+        void avbrytClick();
     }
 
-   public void init(String s) {
+
+   public void init(Spanned s) {
         bTekst = s;
     }
 
@@ -51,19 +55,29 @@ public class SeBestillingsInfoFragment extends DialogFragment {
         bestillingsInfo = dialog.findViewById(R.id.bestillingTekst);
         bestillingsInfo.setText(bTekst);
 
-        Button dialogButton = dialog.findViewById(R.id.btnOk);
+        Button btnBestill = dialog.findViewById(R.id.btnOk);
+        Button btnAvbryt = dialog.findViewById(R.id.btnAvbryt);
 
         //bare en ja knapp når spill er ferdig
-        dialogButton.setOnClickListener(new View.OnClickListener() {
+        btnBestill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callback.seBestillingsinfoClick();
+                callback.bestillClick();
+                dismiss();
+            }
+        });
+
+        btnAvbryt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callback.avbrytClick();
                 dismiss();
             }
         });
         dialog.show();
         return dialog;
-
     }
+
+
 
 }

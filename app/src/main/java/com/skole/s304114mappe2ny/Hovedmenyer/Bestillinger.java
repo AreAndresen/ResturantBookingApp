@@ -8,8 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilBestilling;
-import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilResturant;
+import com.skole.s304114mappe2ny.LeggTilogEndre.RegistrerBestilling;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 
@@ -37,7 +36,7 @@ public class Bestillinger extends AppCompatActivity {
         bestillingKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (Bestillinger.this, LeggTilBestilling.class);
+                Intent intent_startspill = new Intent (Bestillinger.this, RegistrerBestilling.class);
                 startActivity(intent_startspill);
             }
         });

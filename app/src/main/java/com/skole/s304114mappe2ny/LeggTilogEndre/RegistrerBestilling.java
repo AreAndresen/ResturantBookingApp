@@ -5,6 +5,8 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,12 +26,23 @@ import com.skole.s304114mappe2ny.klasser.Venn;
 import java.util.ArrayList;
 
 
-public class LeggTilBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoFragment.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
+public class RegistrerBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoFragment.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
 
     //--------DIALOG KNAPPER TIL FULLFORTSPILLDIALOGFRAGMENT--------
+    //--------DIALOG KNAPPER TIL AVBRYTDIALOGFRAGMENT--------
     @Override
-    public void seBestillingsinfoClick() {
-       return;
+    public void bestillClick() {
+
+        lagreBestilling(); //lagrer ved klikk fullført
+
+        Toast.makeText(getApplicationContext(),"Bestilling utført",Toast.LENGTH_LONG).show();
+        return;
+    }
+
+    @Override
+    public void avbrytClick() {
+        Toast.makeText(getApplicationContext(),"Avbrutt bestilling",Toast.LENGTH_LONG).show();
+        return;
     }
 
 
@@ -43,13 +56,13 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
     DBhandler db;
 
     private TextView bestillingTekst, visDato, visTid;
-    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn, velgDato, velgTid, btnSeBestillingsinfo, btnBestill;
+    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn, velgDato, velgTid, btnSeBestillingsinfo;
     //private EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_legg_til_bestilling);
+        setContentView(R.layout.activity_registrer_bestilling);
 
 
         //Knapper
@@ -59,7 +72,6 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
         velgDato = (Button) findViewById(R.id.velgDato);
         velgTid = (Button) findViewById(R.id.velgTid);
         btnSeBestillingsinfo = (Button) findViewById(R.id.btnSeBestillingsinfo);
-        btnBestill = (Button) findViewById(R.id.btnBestill);
 
         //Tekst ++
         //bestillingTekst = (TextView) findViewById(R.id.bestillingTekst);
@@ -125,22 +137,17 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
             }
         });
 
-        //MÅ FIKSE BESTILLING LAYOUT OSV
-        btnBestill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //DialogFragment bestillingsInfoDialog = new SeBestillingsInfoDialog();
-                //bestillingsInfoDialog.show(getSupportFragmentManager(), "bestillingsinfo");
-            }
-        });
 
     }
     //UTENFOR CREATE
 
 
+    //OVERFØRER BESTILLINGSINFO TIL SEBESTILLINGSFRAGMENT
     private void visBestillingsinfo()  {
 
-        String info = visBestillingsData();
+        Spanned info = visBestillingsData();
+
+        bestillingsinfo = visBestillingsData2();
 
         SeBestillingsInfoFragment bFragment = new SeBestillingsInfoFragment();
         bFragment.init(info);
@@ -178,17 +185,37 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
 
 
     //meldiung må lagres i sharedpreferance
-    private String visBestillingsData() {
+    private Spanned visBestillingsData() {
 
         String bestillingsinfo = "";
-        //valgteVenner;
-        bestillingsinfo += "Resturant:"+valgtResturant.getNavn()+"\nTlf: "+valgtResturant.getTelefon()+"\nType: "+valgtResturant.getType()+"\n\n";
+        //valgteVenner;"<b>" + id + "</b> "
+        bestillingsinfo += "<b>"+"Resturant: "+"</b>"+valgtResturant.getNavn()+"<br><b>Tlf: </b>"+valgtResturant.getTelefon()+
+                "<br><b>Type: </b>"+valgtResturant.getType()+"<br><br>";
 
-        bestillingsinfo += "Venner:\n";
+        bestillingsinfo += "<b>Venner: </b><br>";
         for(Venn venn : valgteVenner) {
-            bestillingsinfo += venn.getNavn() + ". Tlf: " + venn.getTelefon()+"\n";
+            bestillingsinfo += "<b>Navn: </b>" +venn.getNavn() + ". <br><b>Tlf: </b>" + venn.getTelefon()+".<br><br>";
         }
-        bestillingsinfo += "Dato: "+dato+". Tidspunkt: "+tid;
+        bestillingsinfo += "<b>Dato: </b>"+dato+".<br><b>Tidspunkt: </b>"+tid+"</br>";
+
+
+        //Toast.makeText(this, venner, Toast.LENGTH_LONG).show();
+        return Html.fromHtml(bestillingsinfo);
+    }
+
+    //meldiung må lagres i sharedpreferance
+    private String visBestillingsData2() {
+
+        String bestillingsinfo = "";
+        //valgteVenner;"<b>" + id + "</b> "
+        bestillingsinfo += "<b>"+"Resturant: "+"</b>"+valgtResturant.getNavn()+"<br><b>Tlf: </b>"+valgtResturant.getTelefon()+
+                "<br><b>Type: </b>"+valgtResturant.getType()+"<br><br>";
+
+        bestillingsinfo += "<b>Venner: </b><br>";
+        for(Venn venn : valgteVenner) {
+            bestillingsinfo += "<b>Navn: </b>" +venn.getNavn() + ". <br><b>Tlf: </b>" + venn.getTelefon()+".<br><br>";
+        }
+        bestillingsinfo += "<b>Dato: </b>"+dato+".<br><b>Tidspunkt: </b>"+tid+"</br>";
 
 
         //Toast.makeText(this, venner, Toast.LENGTH_LONG).show();
@@ -288,6 +315,37 @@ public class LeggTilBestilling extends AppCompatActivity implements DatePickerDi
 
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
+
+    //-------METODE FOR Å LAGRE RESTULTAT---------
+    private void lagreBestilling() {
+
+        //ny lagring til disk
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("BESTILLINGSINFO", bestillingsinfo).apply();
+    }
+
+
+
+    //-------LAGRING AV DATA VED ROTASJON---------
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //strenger
+        outState.putString("BESTILLINGSINFO", bestillingsinfo);
+
+
+        super.onSaveInstanceState(outState);
+    }
+
+
+    //-------HENTING AV LAGRET DATA---------
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        //strenger
+        bestillingsinfo = (savedInstanceState.getString("BESTILLINGSINFO"));
+
+
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
 

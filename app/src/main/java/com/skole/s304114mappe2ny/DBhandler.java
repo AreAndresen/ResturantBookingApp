@@ -11,7 +11,9 @@ import android.util.Log;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DBhandler extends SQLiteOpenHelper{
 
@@ -26,16 +28,30 @@ public class DBhandler extends SQLiteOpenHelper{
     static String VENN_NAME = "Navnet";
     static String VENN_TLF = "Tlf";
 
+    static String TABLE_BESTILLINGER = "Bestilling";
+    static String BESTILLING_ID = "ID";
+    static String BESTILLING_DATO = "Dato";
+    static String BESTILLING_TID = "Tidspunkt";
+    static String BESTILLING_VENNER = "Venner";
+    static String BESTILLING_RESTURANT = "Resturant";
+
+
+    //private Resturant resturant;
+    //private ArrayList<Venn> venner = new ArrayList<>();
+
 
     static int DATABASE_VERSION = 1;
     static String DATABASE_NAME = "Resturanter";
 
 
-    String LAG_TABELL = "CREATE TABLE " + TABLE_RESTURANTER + "(" + KEY_ID +
+    String LAG_RESTURANTER = "CREATE TABLE " + TABLE_RESTURANTER + "(" + KEY_ID +
             " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_TYPE + " TEXT" + ")";
 
     String LAG_VENNER = "CREATE TABLE " + TABLE_VENNER + "(" + VENN_ID +
             " INTEGER PRIMARY KEY," + VENN_NAME + " TEXT," + VENN_TLF + " TEXT" + ")";
+
+    String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
+            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT" + BESTILLING_VENNER + " ARRAY" + BESTILLING_TID + " TEXT" + ")";
 
 
     public DBhandler(Context context) {
@@ -46,11 +62,11 @@ public class DBhandler extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         //sql setning:
 
-        Log.d("SQL", LAG_TABELL);
+        Log.d("SQL", LAG_RESTURANTER);
         Log.d("SQL", LAG_VENNER);
 
         db.execSQL(LAG_VENNER);
-        db.execSQL(LAG_TABELL);
+        db.execSQL(LAG_RESTURANTER);
     }
 
     @Override

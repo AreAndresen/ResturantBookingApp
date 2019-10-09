@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="15dp"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/dinBestilling"
@@ -10,30 +13,52 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tidBoks"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Din bestillingsinformasjon"
+        android:layout_marginTop="5dp"
+        android:text="Bestillingsinformasjon"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/bestillingTekst"
-        android:layout_width="match_parent"
-        android:layout_height="227dp"
+        android:layout_width="383dp"
+        android:layout_height="250dp"
         android:layout_below="@+id/dinBestilling"
-        android:layout_marginTop="6dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btnOk"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bestillingTekst"
+    <LinearLayout
+        android:id="@+id/boks"
+        android:padding="15dp"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Ok" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:layout_below="@+id/bestillingTekst">
 
+        <Button
+            android:id="@+id/btnAvbryt"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bestillingTekst"
+            android:layout_centerHorizontal="true"
+
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Avbryt" />
+
+        <Button
+            android:id="@+id/btnOk"
+            android:layout_width="120dp"
+
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bestillingTekst"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Bestill" />
+    </LinearLayout>
 
 
 </RelativeLayout>
