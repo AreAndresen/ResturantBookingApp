@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
@@ -29,11 +30,11 @@ public class DBhandler extends SQLiteOpenHelper{
     static String VENN_TLF = "Tlf";
 
     static String TABLE_BESTILLINGER = "Bestilling";
-    static String BESTILLING_ID = "ID";
+    static String BESTILLING_ID = "IDen";
     static String BESTILLING_DATO = "Dato";
     static String BESTILLING_TID = "Tidspunkt";
     static String BESTILLING_VENNER = "Venner";
-    static String BESTILLING_RESTURANT = "Resturant";
+    static String BESTILLING_RESTURANT = "Resturanten"; //FOREIGN KEY(trackartist) REFERENCES artist(artistid)
 
 
     //private Resturant resturant;
@@ -51,7 +52,14 @@ public class DBhandler extends SQLiteOpenHelper{
             " INTEGER PRIMARY KEY," + VENN_NAME + " TEXT," + VENN_TLF + " TEXT" + ")";
 
     String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
-            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT" + BESTILLING_VENNER + " ARRAY" + BESTILLING_TID + " TEXT" + ")";
+            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT,"
+            + BESTILLING_RESTURANT + " INTEGER," + BESTILLING_VENNER + " TEXT " + ")";
+
+    /*String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
+            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_VENNER + " TEXT," + BESTILLING_RESTURANT + "INTEGER, FOREIGN KEY (KEY_ID)" +
+            "       REFERENCES TABLE_RESTURANTER (KEY_ID) ON UPDATE SET NULL\n" +
+            "       ON DELETE SET NULL)";*/
+
 
 
     public DBhandler(Context context) {
@@ -64,16 +72,18 @@ public class DBhandler extends SQLiteOpenHelper{
 
         Log.d("SQL", LAG_RESTURANTER);
         Log.d("SQL", LAG_VENNER);
+        Log.d("SQL", LAG_BESTILLINGER);
 
         db.execSQL(LAG_VENNER);
         db.execSQL(LAG_RESTURANTER);
+        db.execSQL(LAG_BESTILLINGER);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESTURANTER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENNER);
-        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENNER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_BESTILLINGER);
 
         onCreate(db);
     }
@@ -95,6 +105,18 @@ public class DBhandler extends SQLiteOpenHelper{
         values.put(VENN_NAME, venn.getNavn());
         values.put(VENN_TLF, venn.getTelefon());
         db.insert(TABLE_VENNER, null, values);
+        db.close();
+    }
+
+
+    public void leggTilBestilling(Bestilling bestilling) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(BESTILLING_DATO, bestilling.getDato());
+        values.put(BESTILLING_TID, bestilling.getTid().toString());
+        values.put(BESTILLING_RESTURANT, bestilling.get_resturantID());
+        values.put(BESTILLING_VENNER, bestilling.getVenner());//getResturant
+        db.insert(TABLE_BESTILLINGER, null, values);
         db.close();
     }
 
@@ -139,6 +161,28 @@ public class DBhandler extends SQLiteOpenHelper{
             db.close();
         }
         return vennerListe;
+    }
+
+    //går inn i db og henter alle bestillinger
+    public ArrayList<Bestilling> finnAlleBestillinger() {
+        ArrayList<Bestilling> bestillingerListe = new ArrayList<Bestilling>();
+        String selectQuery= "SELECT * FROM " + TABLE_BESTILLINGER;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor= db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {Bestilling bestilling = new Bestilling();
+                bestilling.set_ID(cursor.getLong(0));
+                bestilling.setDato((cursor.getString(1)));
+                bestilling.setTid((cursor.getString(2)));
+                bestilling.set_resturantID((cursor.getLong(3)));
+                bestilling.setVenner(cursor.getString(4));
+                bestillingerListe.add(bestilling);
+            }
+            while(cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return bestillingerListe;
     }
 
 

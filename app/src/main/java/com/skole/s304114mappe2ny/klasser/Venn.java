@@ -6,6 +6,7 @@ public class Venn {
 
     private long ID;
     private String navn, telefon;
+    //private long bestilling_ID;
 
 
     //konstruktører

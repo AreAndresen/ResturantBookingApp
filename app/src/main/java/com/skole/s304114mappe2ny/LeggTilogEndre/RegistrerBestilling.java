@@ -21,6 +21,7 @@ import com.skole.s304114mappe2ny.Fragmenter.DatoFragment;
 import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
+import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 import java.util.ArrayList;
@@ -33,7 +34,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     @Override
     public void bestillClick() {
 
-        lagreBestilling(); //lagrer ved klikk fullført
+        //lagreBestilling(); //lagrer ved klikk fullført
+        registrerBestilling();
 
         Toast.makeText(getApplicationContext(),"Bestilling utført",Toast.LENGTH_LONG).show();
         return;
@@ -50,6 +52,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     private Resturant valgtResturant;
     private Venn valgtVenn;
     private ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
+
 
     private String dato, tid, bestillingsinfo;
 
@@ -323,6 +326,19 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
         //ny lagring til disk
         getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("BESTILLINGSINFO", bestillingsinfo).apply();
+    }
+
+
+    //REGISTRERER BESTILLING I DATABASEN
+    private void registrerBestilling() {
+        //String dato, String tid, long resturantID, String venner
+        String venner = "";
+        for(Venn i : valgteVenner) {
+            venner += "Navn: "+i.getNavn()+". ";
+        }
+
+        Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.get_ID(), venner);
+        db.leggTilBestilling(bestilling);
     }
 
 
