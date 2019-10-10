@@ -24,14 +24,14 @@ public class Venner extends AppCompatActivity {
 
 
         //--------KNAPPER--------
-        vennerKnapp = findViewById(R.id.vennerKnapp);
+        //vennerKnapp = findViewById(R.id.vennerKnapp);
         seVennerKnapp = findViewById(R.id.seVennerKnapp);
         btnTilbake = findViewById(R.id.btnTilbake);
 
         //--------SLUTT KNAPPER--------
 
 
-        //--------LISTENERS--------
+        /*--------LISTENERS--------
         vennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,7 +39,7 @@ public class Venner extends AppCompatActivity {
                 startActivity(intent_startspill);
 
             }
-        });
+        });*/
         //--------LISTENERS--------
         seVennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override

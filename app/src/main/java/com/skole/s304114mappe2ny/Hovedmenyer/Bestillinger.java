@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.skole.s304114mappe2ny.LeggTilogEndre.RegistrerBestilling;
+import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 
@@ -44,7 +45,7 @@ public class Bestillinger extends AppCompatActivity {
         seBestillingerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (Bestillinger.this, SeResturanter.class);
+                Intent intent_startspill = new Intent (Bestillinger.this, SeBestillinger.class);
                 startActivity(intent_startspill);
             }
         });

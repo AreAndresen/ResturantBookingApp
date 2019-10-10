@@ -29,14 +29,13 @@ public class DBhandler extends SQLiteOpenHelper{
     static String VENN_NAME = "Navnet";
     static String VENN_TLF = "Tlf";
 
-    static String TABLE_BESTILLINGER = "Bestilling";
+    static String TABLE_BESTILLINGER = "Bestillinger";
     static String BESTILLING_ID = "IDen";
     static String BESTILLING_DATO = "Dato";
     static String BESTILLING_TID = "Tidspunkt";
     static String BESTILLING_VENNER = "Venner";
-    static String BESTILLING_RESTURANT = "Resturanten"; //FOREIGN KEY(trackartist) REFERENCES artist(artistid)
-
-
+    static String BESTILLING_RESTURANTNAVN = "Resturantnavn";
+    static String BESTILLING_RESTURANT = "Resturanten_ID"; //FOREIGN KEY(trackartist) REFERENCES artist(artistid)
     //private Resturant resturant;
     //private ArrayList<Venn> venner = new ArrayList<>();
 
@@ -52,8 +51,9 @@ public class DBhandler extends SQLiteOpenHelper{
             " INTEGER PRIMARY KEY," + VENN_NAME + " TEXT," + VENN_TLF + " TEXT" + ")";
 
     String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
-            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_VENNER + " TEXT," +
-            BESTILLING_RESTURANT + " INTEGER, FOREIGN KEY(Resturanten) REFERENCES TABLE_RESTURANTER (KEY_ID)" + ")";
+            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_VENNER +
+            " TEXT," + BESTILLING_RESTURANTNAVN + " TEXT," + BESTILLING_RESTURANT + " " +
+            " INTEGER, FOREIGN KEY(Resturanten_ID) REFERENCES TABLE_RESTURANTER (KEY_ID)" + ")";
 
 
     /*String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
@@ -86,6 +86,8 @@ public class DBhandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+
+    //-----------LEGG TIL METODER------------
     public void leggTilResturant(Resturant resturant) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -96,7 +98,6 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
     }
 
-
     public void leggTilVenn(Venn venn) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -106,19 +107,20 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
     }
 
-
     public void leggTilBestilling(Bestilling bestilling) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(BESTILLING_DATO, bestilling.getDato());
         values.put(BESTILLING_TID, bestilling.getTid().toString());
+        values.put(BESTILLING_VENNER, bestilling.getVenner());
+        values.put(BESTILLING_RESTURANTNAVN, bestilling.getResturantNavn());
         values.put(BESTILLING_RESTURANT, bestilling.get_resturantID());
-        values.put(BESTILLING_VENNER, bestilling.getVenner());//getResturant
         db.insert(TABLE_BESTILLINGER, null, values);
         db.close();
     }
 
-    //går inn i db og henter alle resturanter
+
+    //-----------FINN ALLE METODER------------
     public ArrayList<Resturant> finnAlleResturanter() {
         ArrayList<Resturant> resturantListe = new ArrayList<Resturant>();
         String selectQuery= "SELECT * FROM " + TABLE_RESTURANTER;
@@ -140,7 +142,6 @@ public class DBhandler extends SQLiteOpenHelper{
         return resturantListe;
     }
 
-    //går inn i db og henter alle resturanter
     public ArrayList<Venn> finnAlleVenner() {
         ArrayList<Venn> vennerListe = new ArrayList<Venn>();
         String selectQuery= "SELECT * FROM " + TABLE_VENNER;
@@ -161,7 +162,6 @@ public class DBhandler extends SQLiteOpenHelper{
         return vennerListe;
     }
 
-    //går inn i db og henter alle bestillinger
     public ArrayList<Bestilling> finnAlleBestillinger() {
         ArrayList<Bestilling> bestillingerListe = new ArrayList<Bestilling>();
         String selectQuery= "SELECT * FROM " + TABLE_BESTILLINGER;
@@ -172,8 +172,9 @@ public class DBhandler extends SQLiteOpenHelper{
                 bestilling.set_ID(cursor.getLong(0));
                 bestilling.setDato((cursor.getString(1)));
                 bestilling.setTid((cursor.getString(2)));
-                bestilling.set_resturantID((cursor.getLong(3)));
-                bestilling.setVenner(cursor.getString(4));
+                bestilling.setVenner(cursor.getString(3));
+                bestilling.setResturantNavn(cursor.getString(4));
+                bestilling.set_resturantID((cursor.getLong(5)));
                 bestillingerListe.add(bestilling);
             }
             while(cursor.moveToNext());
@@ -184,6 +185,7 @@ public class DBhandler extends SQLiteOpenHelper{
     }
 
 
+    //-----------FINN EN METODER------------
     public Resturant finnResturant(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_RESTURANTER, new String[]{
@@ -210,8 +212,22 @@ public class DBhandler extends SQLiteOpenHelper{
         return venn;
     }
 
+    public Bestilling finnBestilling(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TABLE_BESTILLINGER, new String[]{
+                BESTILLING_ID, BESTILLING_DATO, BESTILLING_TID, BESTILLING_VENNER, BESTILLING_RESTURANTNAVN, BESTILLING_RESTURANT}, BESTILLING_ID + "=?", new String[]{String.valueOf(id)
+        }, null, null, null, null);
+        if(cursor!= null)
+            cursor.moveToFirst();
+        Bestilling bestilling = new Bestilling(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                Long.parseLong(cursor.getString(5)));
+        cursor.close();
+        db.close();
+        return bestilling;
+    }
 
 
+    //-----------SLETT METODER------------
     public void slettResturant(Long inn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_RESTURANTER, KEY_ID + " =? ", new String[]{Long.toString(inn_id)}); //KAN OGSÅ ENDRE TIL NAVN HR ISTDEN FOR ID
@@ -224,7 +240,14 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void slettBestilling(Long inn_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_BESTILLINGER, BESTILLING_ID + " =? ", new String[]{Long.toString(inn_id)}); //KAN OGSÅ ENDRE TIL NAVN HR ISTDEN FOR ID
+        db.close();
+    }
 
+
+    //-----------OPPDATER METODER------------
     public int oppdaterResturant(Resturant resturant) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -248,55 +271,18 @@ public class DBhandler extends SQLiteOpenHelper{
         return endret;
     }
 
-
-
-    /*public Resturant finnResturant2(int id){
+    public int oppdaterBestilling(Bestilling bestilling) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_RESTURANTER +
-                " WHERE " + KEY_ID + " = '" + id + "'";
-        Resturant Resturant = db.rawQuery(query, null);
-        return Resturant;
-    }*/
-    /**
-     * Returns all the data from database
-     * @return
-     */
-    public Cursor getData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + TABLE_RESTURANTER;
-        Cursor data = db.rawQuery(query, null);
-        return data;
-    }
-
-
-
-    //Denne brukes
-    public void slettResturant2(Resturant resturant) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_RESTURANTER, KEY_NAME + " =? ", new String[]{String.valueOf(resturant.get_ID())
-        }); //KAN OGSÅ ENDRE TIL NAVN HR ISTDEN FOR ID
+        ContentValues values = new ContentValues();
+        values.put(BESTILLING_DATO, bestilling.getDato());
+        values.put(BESTILLING_TID, bestilling.getTid());
+        values.put(BESTILLING_VENNER, bestilling.getVenner());
+        values.put(BESTILLING_RESTURANTNAVN, bestilling.getResturantNavn());
+        values.put(BESTILLING_RESTURANT, bestilling.get_resturantID());
+        int endret = db.update(TABLE_BESTILLINGER, values, BESTILLING_ID + "= ?", new String[]{String.valueOf(bestilling.get_ID())
+        });
         db.close();
+        return endret;
     }
-
-
-
-
-    public int finnAntallResturanter() {
-        String sql= "SELECT * FROM " + TABLE_RESTURANTER;
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-        int antall = cursor.getCount();
-        cursor.close();
-        db.close();
-        return antall;
-    }
-
-
-
-
-
-
-
-
 
 } // Slutt på DBHandler

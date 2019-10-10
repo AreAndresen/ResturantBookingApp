@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SeBestillinger"></activity>
+        <activity android:name=".SeBestillingsInfo"></activity>
+        <activity android:name=".LeggTilogEndre.EndreBestilling" />
+        <activity android:name=".ListViews.SeBestillinger" />
         <activity android:name=".LeggTilogEndre.RegistrerBestilling" />
         <activity android:name=".Hovedmenyer.Bestillinger" />
         <activity android:name=".LeggTilogEndre.EndreVenn" />

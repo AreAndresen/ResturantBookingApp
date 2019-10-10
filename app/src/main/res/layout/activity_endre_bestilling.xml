@@ -11,7 +11,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="Registrer bestilling"
+        android:text="Endre/slettbestilling"
         android:textAlignment="center"
         android:textSize="28sp"
         android:textStyle="bold" />
@@ -143,18 +143,18 @@
         >
 
         <Button
-            android:id="@+id/btnTilbake"
+            android:id="@+id/btnSlett"
             android:layout_width="149dp"
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/btnDelete"
             android:padding="15dp"
-            android:text="Avbryt" />
+            android:text="Slett" />
         <Button
-            android:id="@+id/btnSeBestillingsinfo"
+            android:id="@+id/btnEndreBestilling"
             android:layout_width="149dp"
             android:padding="15dp"
             android:layout_height="wrap_content"
-            android:text="Utfør bestilling"/>
+            android:text="Endre bestilling"/>
 
     </LinearLayout>
 

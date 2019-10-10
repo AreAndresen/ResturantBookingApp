@@ -92,26 +92,13 @@ public class SeResturanter extends AppCompatActivity {
                 String name = adapterView.getItemAtPosition(i).toString();
                 toastMessage(name);
 
-
                 Resturant resturant = (Resturant) mListView.getItemAtPosition(i);
                 toastMessage(""+resturant.get_ID());
-                //ny lagring til disk
+
                 Integer ID = (int) resturant.get_ID();
-
-                //Resturant resturant2 = (Resturant) mListView.getItem(i);
-                //String value= selItem.getTheValue(); //getter method
-
-                //Resturant resturant = db.finnResturant(1); //manuell her
 
                 Intent editScreenIntent = new Intent(SeResturanter.this, EndreResturant.class);
                 editScreenIntent.putExtra("id",ID);
-                editScreenIntent.putExtra("name",resturant.getNavn());
-                editScreenIntent.putExtra("tlf",resturant.getTelefon());
-                editScreenIntent.putExtra("type",resturant.getType());
-                //editScreenIntent.putParcelableArrayListExtra("Resturant",resturant);
-
-                //legger denne her i tilfelle jeg får bruk for den senere
-                //mListView.notifyDataSetChanged();
 
                 startActivity(editScreenIntent);
                 finish(); //unngår å legge på stack

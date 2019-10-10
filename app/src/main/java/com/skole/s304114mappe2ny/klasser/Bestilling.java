@@ -13,6 +13,7 @@ public class Bestilling {
     private String dato;
     //private Time tid;
     private String tid;
+    private String resturantNavn;
     private long resturantID;
     //private Resturant resturant;// long resturantID
     private String venner;
@@ -23,18 +24,19 @@ public class Bestilling {
         this._ID = _ID;
     }
 
-    public Bestilling(String dato, String tid, long resturantID, String venner) { //Date dato, Time tid, Resturant resturanten, ArrayList<Venn> venner
+    public Bestilling(String dato, String tid, String venner, String resturantNavn, long resturantID) { //Date dato, Time tid, Resturant resturanten, ArrayList<Venn> venner
         this.dato = dato;
         this.tid = tid;
-        //this.resturant = resturanten;
+        this.resturantNavn = resturantNavn;
         this.resturantID = resturantID;
         this.venner = venner;
     }
 
-    public Bestilling(long _ID, String dato, String tid, long resturantID , String venner) { //
+    public Bestilling(long _ID, String dato, String tid, String venner, String resturantNavn, long resturantID) { //
         this.dato = dato;
         this.tid = tid;
         //this.resturant = resturanten;
+        this.resturantNavn = resturantNavn;
         this.resturantID = resturantID;
         this.venner = venner;
         this._ID = _ID;
@@ -55,17 +57,18 @@ public class Bestilling {
     public String getTid() { return tid; }
     public void setTid(String tid) { this.tid = tid; }
 
+    public String getVenner() { return venner; }
+    public void setVenner(String venner) { this.venner = venner; }
+
+    public String getResturantNavn() { return resturantNavn; }
+    public void setResturantNavn(String resturantNavn) { this.resturantNavn = resturantNavn; }
+
     public long get_resturantID() {
         return resturantID;
     }
     public void set_resturantID(long resturantID) {
         this.resturantID = resturantID;
     }
-
-    public String getVenner() { return venner; }
-    public void setVenner(String venner) { this.venner = venner; }
-
-
     /*public Resturant getResturant(){ return resturant; }
     public void setResturant(Resturant resturant) { this.resturant = resturant; }*/
 
@@ -101,7 +104,7 @@ public class Bestilling {
 
     @Override
     public String toString() {
-        return "Dato: "+getDato()+ "Tidspunkt: "+getTid()+ "Resturant: "+"Venner: "+getVenner(); //alleVenner()
+        return "Bestilling for: "+getResturantNavn()+" "+getDato()+ " "+getTid(); // "Resturant: "+get_ID()
     }
 
 }

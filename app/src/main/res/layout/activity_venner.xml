@@ -13,12 +13,12 @@
         android:textSize="24sp" />
 
 
-    <Button
+    <!--<Button
         android:id="@+id/vennerKnapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="slett"
-        android:text="Legg til venn" />
+        android:text="Legg til venn" />-->
 
     <Button
         android:id="@+id/seVennerKnapp"

@@ -36,11 +36,11 @@ public class EndreResturant extends AppCompatActivity {
 
     DBhandler db;
 
-    private String valgtNavn, valgtTlf, valgtType;
     private int valgtID;
+    private Resturant valgtResturant;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endre_resturant);
 
@@ -54,49 +54,32 @@ public class EndreResturant extends AppCompatActivity {
 
         db = new DBhandler(this);
 
-        //get the intent extra from the ListDataActivity
         Intent receivedIntent = getIntent();
 
-        //now get the itemID we passed as an extra
         valgtID = receivedIntent.getIntExtra("id",0); //NOTE: -1 is just the default value
 
-        //now get the name we passed as an extra
-        valgtNavn = receivedIntent.getStringExtra("name");
-
-        //now get the name we passed as an extra
-        valgtTlf = receivedIntent.getStringExtra("tlf");
-
-        //now get the name we passed as an extra
-        valgtType = receivedIntent.getStringExtra("type");
+        valgtResturant = db.finnResturant(valgtID);
 
 
         //set the text to show the current selected name
-        EnavnResturant.setText(valgtNavn);
-        EtlfResturant.setText(valgtTlf);
-        EtypeResturant.setText(valgtType);
+        EnavnResturant.setText(valgtResturant.getNavn());
+        EtlfResturant.setText(valgtResturant.getTelefon());
+        EtypeResturant.setText(valgtResturant.getType());
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String item = editable_item.getText().toString();
 
                 String navn = EnavnResturant.getText().toString();
                 String tlf = EtlfResturant.getText().toString();
                 String type = EtypeResturant.getText().toString();
 
-
-                Resturant resturant = db.finnResturant(valgtID); //manuell her
-                resturant.setNavn(navn);
-                resturant.setTelefon(tlf);
-                resturant.setType(type);
-                //Resturant oppdatertResturant = new Resturant(navn,tlf, type);;
-
+                valgtResturant.setNavn(navn);
+                valgtResturant.setTelefon(tlf);
+                valgtResturant.setType(type);
 
                 if(!navn.equals("") && !tlf.equals("") && !type.equals("")){
-                    //mDatabaseHelper.updateName(item,selectedID,selectedName);
-
-                    db.oppdaterResturant(resturant);
-
+                    db.oppdaterResturant(valgtResturant);
                     //gjørs så viewet oppdaterer fortløpende
                     Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
                     startActivity(intent_tilbake);
@@ -112,9 +95,7 @@ public class EndreResturant extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Resturant slettResturant = db.finnResturant(valgtID);
-
-                db.slettResturant(slettResturant.get_ID());
+                db.slettResturant(valgtResturant.get_ID());
 
                 EnavnResturant.setText("");
                 EtlfResturant.setText("");
@@ -140,10 +121,6 @@ public class EndreResturant extends AppCompatActivity {
     }
 
 
-    /**
-     * customizable toast
-     * @param message
-     */
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }

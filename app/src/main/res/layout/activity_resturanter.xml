@@ -13,12 +13,11 @@
         android:textSize="24sp" />
 
 
-    <Button
+    <!--<Button
         android:id="@+id/resturanterKnapp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="slett"
-        android:text="Legg til resturant" />
+        android:text="Legg til resturant" />-->
 
     <Button
         android:id="@+id/seResturanterKnapp"
