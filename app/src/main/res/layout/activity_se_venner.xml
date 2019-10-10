@@ -27,9 +27,15 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="326dp">
+        android:layout_height="396dp">
 
     </ListView>
+
+    <Button
+        android:id="@+id/leggTilVenn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrer ny venn" />
 
     <Button
         android:id="@+id/btnTilbake"

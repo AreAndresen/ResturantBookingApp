@@ -119,8 +119,11 @@ public class EndreVenn extends AppCompatActivity {
     }
 
     //-------VISER DIALOG VED TILBAKEKNAPP---------
+    //-------VISER DIALOG VED TILBAKEKNAPP---------
     @Override
     public void onBackPressed() {
+        Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
+        startActivity(intent_tilbake);
         finish();
     }
 

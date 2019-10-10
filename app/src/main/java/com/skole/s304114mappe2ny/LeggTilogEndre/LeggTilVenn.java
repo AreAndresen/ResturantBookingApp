@@ -61,9 +61,12 @@ public class LeggTilVenn extends AppCompatActivity {
             }
         });
 
+        //Trenger intent her siden vi bruker finish() når man trykker legg til uansett om man faktisk legger til i denne dialogen eller ei.
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent_tilbake = new Intent (LeggTilVenn.this, SeVenner.class);
+                startActivity(intent_tilbake);
                 finish();
             }
         });
@@ -83,7 +86,6 @@ public class LeggTilVenn extends AppCompatActivity {
 
         toastMessage("Venn lagt til!");
         Log.d("Legg inn: ", "Venn lagt til");
-
 
         Intent intent_tilbake = new Intent (LeggTilVenn.this, SeVenner.class);
         startActivity(intent_tilbake);

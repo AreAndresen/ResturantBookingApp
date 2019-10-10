@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.klasser.Resturant;
@@ -133,6 +134,8 @@ public class EndreResturant extends AppCompatActivity {
     //-------VISER DIALOG VED TILBAKEKNAPP---------
     @Override
     public void onBackPressed() {
+        Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
+        startActivity(intent_tilbake);
         finish();
     }
 

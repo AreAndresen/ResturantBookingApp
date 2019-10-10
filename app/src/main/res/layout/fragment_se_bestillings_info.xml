@@ -20,13 +20,94 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/bestillingTekst"
-        android:layout_width="383dp"
-        android:layout_height="250dp"
+        android:id="@+id/resturantNavn"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/dinBestilling"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:textSize="18sp" />
+        android:text="Resturant navn:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/resNavn"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resturantNavn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:id="@+id/resturantTlf"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resNavn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="Resturant tlf:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/resTlf"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resturantTlf"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:id="@+id/besDato"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resTlf"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="Dato:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/bDato"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/besDato"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:id="@+id/besTid"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bDato"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="Tidspunkt:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/bTid"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/besTid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp" />
+
+    <TextView
+        android:id="@+id/besVenner"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bTid"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:text="Inviterte venner:"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/bVenner"
+        android:layout_width="396dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/besVenner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp" />
 
     <LinearLayout
         android:id="@+id/boks"
@@ -35,13 +116,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:weightSum="100"
-        android:layout_below="@+id/bestillingTekst">
+        android:layout_below="@+id/bVenner">
 
         <Button
             android:id="@+id/btnAvbryt"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bestillingTekst"
+            android:layout_below="@+id/bVenner"
             android:layout_centerHorizontal="true"
 
             android:layout_gravity="center"
@@ -53,7 +134,7 @@
             android:layout_width="120dp"
 
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bestillingTekst"
+            android:layout_below="@+id/bVenner"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"

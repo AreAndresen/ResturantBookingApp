@@ -15,7 +15,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.Hovedmenyer.Venner;
 import com.skole.s304114mappe2ny.LeggTilogEndre.EndreVenn;
+import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilVenn;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
@@ -29,7 +31,7 @@ public class SeVenner extends AppCompatActivity {
 
     private static final String TAG = "ListDataActivity";
 
-    private Button btnTilbake;
+    private Button btnTilbake, btnLeggTilVenner;
 
     DBhandler db;
 
@@ -38,9 +40,10 @@ public class SeVenner extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_se_resturanter);
+        setContentView(R.layout.activity_se_venner);
 
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
+        btnLeggTilVenner = (Button) findViewById(R.id.leggTilVenn);
 
         mListView = (ListView) findViewById(R.id.list);
 
@@ -52,6 +55,15 @@ public class SeVenner extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
+            }
+        });
+
+        btnLeggTilVenner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_startspill = new Intent (SeVenner.this, LeggTilVenn.class);
+                startActivity(intent_startspill);
                 finish();
             }
         });

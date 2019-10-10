@@ -35,7 +35,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     public void bestillClick() {
 
         //lagreBestilling(); //lagrer ved klikk fullført
-        registrerBestilling();
+        //registrerBestilling();
 
         Toast.makeText(getApplicationContext(),"Bestilling utført",Toast.LENGTH_LONG).show();
         return;
@@ -148,12 +148,18 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     //OVERFØRER BESTILLINGSINFO TIL SEBESTILLINGSFRAGMENT
     private void visBestillingsinfo()  {
 
-        Spanned info = visBestillingsData();
+
+
+
+        //Spanned info = visBestillingsData();
 
         bestillingsinfo = visBestillingsData2();
 
         SeBestillingsInfoFragment bFragment = new SeBestillingsInfoFragment();
-        bFragment.init(info);
+        //bFragment.init(info);
+
+        bFragment.hentInfo(dato, tid, valgtResturant, valgteVenner, db);
+
         bFragment.show(getFragmentManager(), "Bestillingsinfo");
     }
 

@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.LeggTilogEndre.EndreResturant;
+import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilResturant;
+import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilVenn;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 
@@ -31,7 +33,7 @@ public class SeResturanter extends AppCompatActivity {
 
     private static final String TAG = "ListDataActivity";
 
-    private Button btnTilbake;
+    private Button btnTilbake, btnLeggTilResturant;
 
     DBhandler db;
 
@@ -43,6 +45,7 @@ public class SeResturanter extends AppCompatActivity {
         setContentView(R.layout.activity_se_resturanter);
 
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
+        btnLeggTilResturant = (Button) findViewById(R.id.leggTilResturant);
 
         mListView = (ListView) findViewById(R.id.list);
 
@@ -57,6 +60,16 @@ public class SeResturanter extends AppCompatActivity {
                 finish();
             }
         });
+
+        btnLeggTilResturant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent_startspill = new Intent (SeResturanter.this, LeggTilResturant.class);
+                startActivity(intent_startspill);
+                finish();
+            }
+        });
+
     }
 
 

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.klasser.Resturant;
@@ -68,6 +69,8 @@ public class LeggTilResturant extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent_tilbake = new Intent (LeggTilResturant.this, SeResturanter.class);
+                startActivity(intent_tilbake);
                 finish();
             }
         });
