@@ -142,6 +142,30 @@ public class SeBestillinger extends AppCompatActivity implements SeBestillingsIn
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 
+
+
+    //-------LAGRING AV DATA VED ROTASJON---------
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        //strenger
+        //outState.putListView("listview", mListView);
+        //mListView
+        populateListView();
+
+        super.onSaveInstanceState(outState);
+    }
+
+
+    //-------HENTING AV LAGRET DATA---------
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        //strenger
+        //tellerSpr.setText(savedInstanceState.getString(NOKKEL_ANTTELLER));
+
+
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
 }
 
 
