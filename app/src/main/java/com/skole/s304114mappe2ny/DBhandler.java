@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
@@ -37,15 +38,16 @@ public class DBhandler extends SQLiteOpenHelper{
     static String BESTILLING_RESTURANTNAVN = "Resturantnavn";
     static String BESTILLING_RESTURANT = "Resturanten_ID"; //FOREIGN KEY(trackartist) REFERENCES artist(artistid)
 
-    static String TABLE_BESTILLINGSMELDING = "Bestillingsmelding";
-    static String MELDING_BESTILLING_ID = "melding_bestilling_ID";
-    static String MELDING_PERSON_ID = "melding_person_id";
-    static String MELDING_RESTURANT_ID = "melding_resturant_ID";
-    static String MELDING_BESTILLING_DATO = "melding_dato";
-    static String MELDING_BESTILLING_TID = "melding_tidspunkt";
+    static String TABLE_DELTAKELSE = "Deltakelse";
+    static String DELTAKELSE_ID = "Deltakelse_id";
+    static String DTK_BESTILLING_ID = "dtk_bestilling_ID";
+    static String DTK_PERSON_ID = "dtk_person_id";
 
 
-    //lternativt kan personnr , restaurant, dato og tidspunkt være bindetabell mellom restaurant og person.
+    //deltakelse(person/bestilling)
+
+
+    //alternativt kan personnr , restaurant, dato og tidspunkt være bindetabell mellom restaurant og person.
 
 
     static int DATABASE_VERSION = 1;
@@ -63,11 +65,13 @@ public class DBhandler extends SQLiteOpenHelper{
             " TEXT," + BESTILLING_RESTURANTNAVN + " TEXT," + BESTILLING_RESTURANT + " " +
             " INTEGER, FOREIGN KEY(Resturanten_ID) REFERENCES TABLE_RESTURANTER (KEY_ID)" + ")";
 
-    String LAG_BESTILLINGSMELDING = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
-            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_VENNER +
-            " TEXT," + BESTILLING_RESTURANTNAVN + " TEXT," + BESTILLING_RESTURANT + " " +
-            " INTEGER, FOREIGN KEY(Resturanten_ID) REFERENCES TABLE_RESTURANTER (KEY_ID)" + ")";
+    String LAG_DELTAKELSE = "CREATE TABLE " + TABLE_DELTAKELSE + "(" + DELTAKELSE_ID +
+            " INTEGER PRIMARY KEY," + DTK_BESTILLING_ID + " INTEGER, " + DTK_PERSON_ID + " " +
+            " INTEGER, FOREIGN KEY(dtk_bestilling_ID) REFERENCES TABLE_BESTILLINGER (BESTILLING_ID)," +
+            " FOREIGN KEY(dtk_person_id) REFERENCES TABLE_VENNER (VENN_ID)" + ")";
 
+
+    //" PRIMARY KEY(DTK_BESTILLING_ID, DTK_PERSON_ID)" + ")";
 
     /*String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
             " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT,"
@@ -88,6 +92,7 @@ public class DBhandler extends SQLiteOpenHelper{
         db.execSQL(LAG_VENNER);
         db.execSQL(LAG_RESTURANTER);
         db.execSQL(LAG_BESTILLINGER);
+        db.execSQL(LAG_DELTAKELSE);
     }
 
     @Override
@@ -95,6 +100,7 @@ public class DBhandler extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESTURANTER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENNER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BESTILLINGER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DELTAKELSE);
 
         onCreate(db);
     }
@@ -129,6 +135,15 @@ public class DBhandler extends SQLiteOpenHelper{
         values.put(BESTILLING_RESTURANTNAVN, bestilling.getResturantNavn());
         values.put(BESTILLING_RESTURANT, bestilling.get_resturantID());
         db.insert(TABLE_BESTILLINGER, null, values);
+        db.close();
+    }
+
+    public void leggTilDeltakelse(Deltakelse deltakelse) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DTK_BESTILLING_ID, deltakelse.getBestillingID());
+        values.put(DTK_PERSON_ID , deltakelse.getVennID());
+        db.insert(TABLE_DELTAKELSE, null, values);
         db.close();
     }
 
@@ -284,7 +299,7 @@ public class DBhandler extends SQLiteOpenHelper{
         return endret;
     }
 
-    public int oppdaterBestilling(Bestilling bestilling) {
+    /*public int oppdaterBestilling(Bestilling bestilling) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(BESTILLING_DATO, bestilling.getDato());
@@ -296,6 +311,6 @@ public class DBhandler extends SQLiteOpenHelper{
         });
         db.close();
         return endret;
-    }
+    }*/
 
 } // Slutt på DBHandler

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
@@ -33,6 +34,8 @@ public class SeBestillingsInfoDialog extends DialogFragment {
     //private String resturantTlf;
     private Resturant resturant;
     private ArrayList<Venn> venner = new ArrayList<>();
+
+    private Bestilling bestilling;
 
 
     public interface DialogClickListener{
@@ -104,8 +107,22 @@ public class SeBestillingsInfoDialog extends DialogFragment {
                     vennene += "Navn: "+i.getNavn()+". ";
                 }
 
+
                 Bestilling bestilling = new Bestilling(dato, tid, vennene, resturant.getNavn(), resturant.get_ID());
                 db.leggTilBestilling(bestilling);
+
+
+                //deltakelse greier - MÅ FÅ DETTE TIL Å FUNGERE, MÅ HA ET LEDD I MELLOM
+                int ID = (int) bestilling.get_ID();
+                //long ekteId = db.finnBestilling(ID).get_ID();
+
+                //genererer en deltakelse for hver venn som er med på bestillingen
+                for(Venn i : venner) {
+                    Deltakelse deltakelse = new Deltakelse(bestilling.get_ID(), i.getID()); //long bestillingID, long vennID
+                    db.leggTilDeltakelse(deltakelse);
+                }
+                //ferdig deltakelese
+
 
                 dismiss();
             }

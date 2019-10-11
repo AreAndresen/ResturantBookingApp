@@ -23,6 +23,7 @@ import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 import java.util.ArrayList;

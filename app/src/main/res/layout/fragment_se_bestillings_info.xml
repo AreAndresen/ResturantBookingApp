@@ -91,6 +91,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp" />
 
+
+
     <LinearLayout
         android:id="@+id/boks"
         android:padding="15dp"
