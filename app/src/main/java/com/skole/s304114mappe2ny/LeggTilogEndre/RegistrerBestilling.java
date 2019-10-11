@@ -4,11 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.Spanned;
-import android.util.Log;
+import android.preference.Preference;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,16 +20,15 @@ import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.Fragmenter.DatoFragment;
 import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
-import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.R;
-import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
+import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 import java.util.ArrayList;
 
 
-public class RegistrerBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoFragment.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
+public class RegistrerBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoDialog.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
 
     //--------DIALOG KNAPPER TIL FULLFORTSPILLDIALOGFRAGMENT--------
     //--------DIALOG KNAPPER TIL AVBRYTDIALOGFRAGMENT--------
@@ -58,10 +55,12 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     private Venn valgtVennSlett;
     private ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
 
-    private ListView mListView;
+    //til lagring av IDer
+    ArrayList<Integer> IDer = new ArrayList<Integer>();
 
+    ListView mListView;
 
-    private String dato, tid, bestillingsinfo;
+    private String dato, tid;
 
     DBhandler db;
 
@@ -69,11 +68,20 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     private Button btnTilbake, btnLeggTilVenn, btnSlettVenn, velgDato, velgTid, btnSeBestillingsinfo;
     //private EditText editText;
 
+
+    //--------LAGRINGSKODER--------
+    private static final String NOKKEL_VENNERARRAY = "vennerArray_nokkel";
+    private static final String NOKKEL_DATO = "dato_nokkel";
+    private static final String NOKKEL_TID = "tid_nokkel";
+    private static final String NOKKEL_RESTURANT = "resturant_nokkel";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrer_bestilling);
 
+        populerValgteVenner();
 
         mListView = (ListView) findViewById(R.id.list);
 
@@ -99,6 +107,12 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         lagVennerSpinner();
 
 
+
+        String s = "";
+        for(int i : IDer) {
+            s += i+" ";
+        }
+        toastMessage(s);
 
 
         btnLeggTilVenn.setOnClickListener(new View.OnClickListener() {
@@ -152,6 +166,10 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         });
 
 
+        for(int i : IDer) {
+            valgteVenner.add(db.finnVenn(i));
+        }
+
         populateListView();
 
     }
@@ -162,9 +180,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     private void visBestillingsinfo()  {
 
         //Spanned info = visBestillingsData();
-
-
-        SeBestillingsInfoFragment bFragment = new SeBestillingsInfoFragment();
+        SeBestillingsInfoDialog bFragment = new SeBestillingsInfoDialog();
         //bFragment.init(info);
 
         bFragment.hentInfo(dato, tid, valgtResturant, valgteVenner, db);
@@ -250,7 +266,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
                 Integer ID = (int) venn.getID();
                 valgtVenn = db.finnVenn(ID);
-                //valgteVenner.add(db.finnVenn(ID));
                 //visResturantData(venn);
 
             }
@@ -268,6 +283,11 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         //Venn venn = (Venn)  spinnerVenner.getSelectedItem();
         //visVennData(venn);
         valgteVenner.add(valgtVenn);
+
+        //brukes til lagring av ID til venner
+        Integer ID = (int) valgtVenn.getID();
+        IDer.add(ID);
+
         Toast.makeText(this, valgtVenn.getNavn()+" lagt til i bestilling.", Toast.LENGTH_LONG).show();
 
         populateListView();
@@ -287,16 +307,37 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             valgteVenner.remove(valgtVenn);
         }
         valgteVenner.remove(valgtVenn);
+
+        //brukes til lagring av ID til venner
+        Integer ID = (int) valgtVennSlett.getID();
+        IDer.remove(ID);
+
         Toast.makeText(this, valgtVenn.getNavn()+" fjernet fra bestilling.", Toast.LENGTH_LONG).show();
+
+        //populerValgteVenner();
+
 
         populateListView();
     }
 
 
+    private void populerValgteVenner() {
+        Venn v = null;
+        String s = "";
+
+        for(int i : IDer) {
+            v =  db.finnVenn(i);
+            valgteVenner.add(v);
+            s += v.getNavn();
+        }
+
+        toastMessage(s);
+    }
+
 
     private void populateListView() {
 
-        //final ArrayList<Venn> opps = valgteVenner;
+        //final ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
 
         //create the list adapter and set the adapter
         final ArrayAdapter<Venn> adapter = new ArrayAdapter<Venn>(this, android.R.layout.simple_list_item_1, valgteVenner);
@@ -313,6 +354,14 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
                 valgtVennSlett = (Venn) mListView.getItemAtPosition(i);
 
                 valgteVenner.remove(valgtVennSlett);
+
+                //brukes til lagring av ID til venner
+                Integer ID = (int) valgtVennSlett.getID();
+                IDer.remove(ID);
+
+                //populerValgteVenner();
+
+
                 adapter.notifyDataSetChanged();
 
             }
@@ -333,13 +382,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     }
 
 
-    //-------METODE FOR Å LAGRE RESTULTAT---------
-    private void lagreBestilling() {
-
-        //ny lagring til disk
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("BESTILLINGSINFO", bestillingsinfo).apply();
-    }
-
 
     //REGISTRERER BESTILLING I DATABASEN
     private void registrerBestilling() {
@@ -359,7 +401,11 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //strenger
-        outState.putString("BESTILLINGSINFO", bestillingsinfo);
+
+        outState.putString(NOKKEL_DATO, visDato.getText().toString());
+        outState.putString(NOKKEL_TID , visTid.getText().toString());
+        //outState.putString(NOKKEL_RESTURANT, antallFeil.getText().toString());
+        outState.putIntegerArrayList(NOKKEL_VENNERARRAY, IDer);
 
 
         super.onSaveInstanceState(outState);
@@ -370,12 +416,31 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState){
         //strenger
-        bestillingsinfo = (savedInstanceState.getString("BESTILLINGSINFO"));
 
+        visDato.setText(savedInstanceState.getString(NOKKEL_DATO));
+        visTid.setText(savedInstanceState.getString(NOKKEL_TID));
+        //antallFeil.setText(savedInstanceState.getString(NOKKEL_ANTFEIL));
+        IDer = savedInstanceState.getIntegerArrayList(NOKKEL_VENNERARRAY);
 
         super.onRestoreInstanceState(savedInstanceState);
     }
 
+
+
+
+   /* @Override
+    protected void onPause(){
+        super.onPause();
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().(NOKKEL_VENNERARRAY, IDer).apply();
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        IDer = getSharedPreferences("APP_INFO",MODE_PRIVATE).getIntegerArrayList(NOKKEL_VENNERARRAY,"");
+    }*/
 
 }
 

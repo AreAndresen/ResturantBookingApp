@@ -15,9 +15,6 @@ import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
-/**
- * Created by User on 2/28/2017.
- */
 
 public class EndreVenn extends AppCompatActivity {
 

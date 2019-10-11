@@ -38,28 +38,10 @@
         android:layout_marginTop="3dp" />
 
     <TextView
-        android:id="@+id/resturantTlf"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resNavn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
-        android:text="Resturant tlf:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/resTlf"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/resturantTlf"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp" />
-
-    <TextView
         android:id="@+id/besDato"
         android:layout_width="396dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/resTlf"
+        android:layout_below="@+id/resNavn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="3dp"
         android:text="Dato:"
@@ -118,8 +100,8 @@
         android:weightSum="100"
         android:layout_below="@+id/bVenner">
 
-        <Button
-            android:id="@+id/btnAvbryt"
+        <!--<Button
+            android:id="@+id/btnTilbake"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bVenner"
@@ -127,7 +109,7 @@
 
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Avbryt" />
+            android:text="Tilbake" />-->
 
         <Button
             android:id="@+id/btnOk"
@@ -138,8 +120,6 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Bestill" />
+            android:text="Ok" />
     </LinearLayout>
-
-
 </RelativeLayout>

@@ -1,40 +1,65 @@
 package com.skole.s304114mappe2ny.Fragmenter;
 
 
-import android.app.FragmentManager;
-import android.os.Bundle;
-
 import android.app.Dialog;
-import android.view.LayoutInflater;
+import android.app.DialogFragment;
+import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.fragment.app.DialogFragment;
-
+import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Resturant;
+import com.skole.s304114mappe2ny.klasser.Venn;
 
+import java.util.ArrayList;
 
 public class SeBestillingsInfoDialog extends DialogFragment {
 
-    TextView resNavn, bDato, bTid, bVenner;
-    private Bestilling bestilling;
-
     private DialogClickListener callback;
+    //TextView bestillingsInfo;
+    //private Spanned bTekst;
+
+    private DBhandler db;
+
+    TextView resNavn, resTlf, bDato, bTid, bVenner;
+
+    //private long _ID;
+    private String dato;
+    private String tid;
+    //private String resturantNavn;
+    //private String resturantTlf;
+    private Resturant resturant;
+    private ArrayList<Venn> venner = new ArrayList<>();
+
+    private static final String NOKKEL_ANTTELLER = "antTeller_nokkel";
+    private static final String NOKKEL_ANTRIKTIG = "antRiktig_nokkel";
+    private static final String NOKKEL_ANTFEIL = "antFeil_nokkel";
+    private static final String NOKKEL_SPORSMAAL = "sporsmaal_nokkel";
+    private static final String NOKKEL_FASIT = "fasit_nokkel";
+
 
 
     public interface DialogClickListener{
+
         void bestillClick();
         void avbrytClick();
     }
 
 
-    public void hentBestilling(Bestilling bestilling) {
-        this.bestilling = bestilling;
+
+   public void hentInfo(String dato, String tid, Resturant valgtResturant, ArrayList<Venn> venner, DBhandler db) {
+        this.dato = dato;
+        this.tid = tid;
+        //this.resturantNavn = resturantNavn;
+        //this.resturantTlf = resturantTlf;
+        this.resturant = valgtResturant;
+        this.venner = venner;
+        this.db = db;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,35 +76,49 @@ public class SeBestillingsInfoDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.activity_se_bestillings_info); //setter egen layout her
+        dialog.setContentView(R.layout.dialog_se_bestillings_info); //setter egen layout her
 
 
         resNavn = dialog.findViewById(R.id.resNavn);
+        resTlf = dialog.findViewById(R.id.resTlf);
         bDato = dialog.findViewById(R.id.bDato);
         bTid = dialog.findViewById(R.id.bTid);
         bVenner = dialog.findViewById(R.id.bVenner);
 
+        resNavn.setText(resturant.getNavn());
+        resTlf.setText(resturant.getTelefon());
+        bDato.setText(dato);
+        bTid.setText(tid);
 
-        resNavn.setText(bestilling.getResturantNavn());
-        bDato.setText(bestilling.getDato());
-        bTid.setText(bestilling.getTid());
-        bVenner.setText(bestilling.getVenner());
+        String vennNavn = "";
+        for (Venn i : venner) {
+            vennNavn += i.getNavn()+" "+i.getTelefon()+".\n";
+        }
+        bVenner.setText(vennNavn);
 
 
-        Button btnOk = dialog.findViewById(R.id.btnOk);
-        Button btnTilbake = dialog.findViewById(R.id.btnTilbake);
+        Button btnBestill = dialog.findViewById(R.id.btnOk);
+        Button btnAvbryt = dialog.findViewById(R.id.btnAvbryt);
 
         //bare en ja knapp når spill er ferdig
-        btnOk.setOnClickListener(new View.OnClickListener() {
+        btnBestill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callback.bestillClick();
+
+                String vennene = "";
+                for(Venn i : venner) {
+                    vennene += "Navn: "+i.getNavn()+". ";
+                }
+
+                Bestilling bestilling = new Bestilling(dato, tid, vennene, resturant.getNavn(), resturant.get_ID());
+                db.leggTilBestilling(bestilling);
 
                 dismiss();
             }
         });
 
-        btnTilbake.setOnClickListener(new View.OnClickListener() {
+        btnAvbryt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callback.avbrytClick();
@@ -88,7 +127,7 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         });
         dialog.show();
         return dialog;
-
     }
-}
 
+
+}

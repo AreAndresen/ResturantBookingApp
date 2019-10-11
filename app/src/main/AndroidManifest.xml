@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SeBestillingsInfo"></activity>
-        <activity android:name=".LeggTilogEndre.EndreBestilling" />
+        <!--<activity android:name=".LeggTilogEndre.EndreBestilling" />-->
         <activity android:name=".ListViews.SeBestillinger" />
         <activity android:name=".LeggTilogEndre.RegistrerBestilling" />
         <activity android:name=".Hovedmenyer.Bestillinger" />
@@ -22,6 +22,7 @@
         <activity android:name=".LeggTilogEndre.EndreResturant" />
         <activity android:name=".ListViews.SeResturanter" />
         <activity android:name=".LeggTilogEndre.LeggTilResturant" />
+        <activity android:name=".Fragmenter.SeBestillingsInfoFragment" />
         <activity android:name=".Hovedmenyer.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

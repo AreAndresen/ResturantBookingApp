@@ -15,29 +15,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.skole.s304114mappe2ny.DBhandler;
-import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
 import com.skole.s304114mappe2ny.LeggTilogEndre.RegistrerBestilling;
 import com.skole.s304114mappe2ny.R;
-import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
+import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 
 import java.util.ArrayList;
 
-/**
- * Created by User on 2/28/2017.
- */
 
-public class SeBestillinger extends AppCompatActivity implements SeBestillingsInfoDialog.DialogClickListener{
+public class SeBestillinger extends AppCompatActivity{
 
-    @Override
-    public void bestillClick() {
 
-    }
 
-    @Override
-    public void avbrytClick() {
 
-    }
 
     private static final String TAG = "ListDataActivity";
 
@@ -111,19 +101,21 @@ public class SeBestillinger extends AppCompatActivity implements SeBestillingsIn
                 //SeBestillingsInfo besFragment = new SeBestillingsInfo();
                 //besFragment.hentBestilling(db.finnBestilling(ID));
 
-                 SeBestillingsInfoDialog besDialog = new SeBestillingsInfoDialog();
-                 besDialog.hentBestilling(db.finnBestilling(ID));
-                 besDialog.show(getSupportFragmentManager(), "Bestillingsinfo");
+                 //DENNE
+                 //SeBestillingsInfoDialog besDialog = new SeBestillingsInfoDialog();
+                 //besDialog.hentBestilling(db.finnBestilling(ID));
+                 //besDialog.show(getSupportFragmentManager(), "Bestillingsinfo");
 
+
+                 //IKKE DENNE
                 //getFragmentManager().beginTransaction().replace(android.R.id.content, new SeBestillingsInfo()).commit();
-
                 //getSupportFragmentManager().beginTransaction().add(android.R.id.content,besDialog).commit();
 
 
-                //finish();
-
-                //startActivity(editScreenIntent);
-                //finish(); //unngår å legge på stack
+                Intent editScreenIntent = new Intent(SeBestillinger.this, SeBestillingsInfoFragment.class);
+                editScreenIntent.putExtra("id",ID);
+                startActivity(editScreenIntent);
+                finish(); //unngår å legge på stack
             }
         });
     }

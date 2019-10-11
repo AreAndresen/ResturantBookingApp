@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.skole.s304114mappe2ny.DBhandler;
-import com.skole.s304114mappe2ny.Hovedmenyer.Venner;
 import com.skole.s304114mappe2ny.LeggTilogEndre.EndreVenn;
 import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilVenn;
 import com.skole.s304114mappe2ny.R;
@@ -23,9 +22,6 @@ import com.skole.s304114mappe2ny.klasser.Venn;
 
 import java.util.ArrayList;
 
-/**
- * Created by User on 2/28/2017.
- */
 
 public class SeVenner extends AppCompatActivity {
 

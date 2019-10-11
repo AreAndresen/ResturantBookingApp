@@ -1,139 +1,103 @@
 package com.skole.s304114mappe2ny.Fragmenter;
 
-
-import android.app.Dialog;
-import android.app.DialogFragment;
+import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.skole.s304114mappe2ny.DBhandler;
-import com.skole.s304114mappe2ny.LeggTilogEndre.RegistrerBestilling;
+import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
-import com.skole.s304114mappe2ny.klasser.Resturant;
-import com.skole.s304114mappe2ny.klasser.Venn;
 
-import java.util.ArrayList;
+public class SeBestillingsInfoFragment extends AppCompatActivity {
 
-public class SeBestillingsInfoFragment extends DialogFragment {
-
-    private DialogClickListener callback;
-    //TextView bestillingsInfo;
-    //private Spanned bTekst;
-
-    private DBhandler db;
-
-    TextView resNavn, resTlf, bDato, bTid, bVenner;
-
-    //private long _ID;
-    private String dato;
-    private String tid;
-    //private String resturantNavn;
-    //private String resturantTlf;
-    private Resturant resturant;
-    private ArrayList<Venn> venner = new ArrayList<>();
-
-
-
-    public interface DialogClickListener{
-
-        void bestillClick();
-        void avbrytClick();
-    }
-
-
-
-   public void hentInfo(String dato, String tid, Resturant valgtResturant, ArrayList<Venn> venner, DBhandler db) {
-        this.dato = dato;
-        this.tid = tid;
-        //this.resturantNavn = resturantNavn;
-        //this.resturantTlf = resturantTlf;
-        this.resturant = valgtResturant;
-        this.venner = venner;
-        this.db = db;
-    }
+    Integer ID;
+    DBhandler db;
+    Bestilling bestilling;
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try{
-            callback = (DialogClickListener)getActivity();
-        }
-        catch(ClassCastException e) {
-            throw new ClassCastException("Feil ved kalling av interface!");
-        }
+
+        Intent receivedIntent = getIntent();
+        db = new DBhandler(this);
+
+        ID = receivedIntent.getIntExtra("id",0); //NOTE: -1 is just the default value
+
+        bestilling = db.finnBestilling(ID);
+
+        //Load setting fragment
+        getFragmentManager().beginTransaction().replace(android.R.id.content,
+                new SeBestillingsInfo()).commit();
+
+    }
+
+    public Bestilling getBestiling() {
+        return bestilling;
     }
 
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Dialog dialog = new Dialog(getActivity());
-        dialog.setContentView(R.layout.fragment_se_bestillings_info); //setter egen layout her
+
+    //----- start fragment----
+    public static class SeBestillingsInfo extends Fragment {
+
+        TextView resNavn, bDato, bTid, bVenner;
 
 
-        resNavn = dialog.findViewById(R.id.resNavn);
-        resTlf = dialog.findViewById(R.id.resTlf);
-        bDato = dialog.findViewById(R.id.bDato);
-        bTid = dialog.findViewById(R.id.bTid);
-        bVenner = dialog.findViewById(R.id.bVenner);
-
-        resNavn.setText(resturant.getNavn());
-        resTlf.setText(resturant.getTelefon());
-        bDato.setText(dato);
-        bTid.setText(tid);
-
-        String vennNavn = "";
-        for (Venn i : venner) {
-            vennNavn += i.getNavn()+" "+i.getTelefon()+".\n";
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
         }
-        bVenner.setText(vennNavn);
 
 
-        Button btnBestill = dialog.findViewById(R.id.btnOk);
-        Button btnAvbryt = dialog.findViewById(R.id.btnAvbryt);
 
-        //bare en ja knapp når spill er ferdig
-        btnBestill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.bestillClick();
 
-                String vennene = "";
-                for(Venn i : venner) {
-                    vennene += "Navn: "+i.getNavn()+". ";
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.fragment_se_bestillings_info, container, false);
+
+
+
+            Bestilling bestilling = ((SeBestillingsInfoFragment)getActivity()).getBestiling();
+
+            resNavn = v.findViewById(R.id.resNavn);
+            bDato = v.findViewById(R.id.bDato);
+            bTid = v.findViewById(R.id.bTid);
+            bVenner = v.findViewById(R.id.bVenner);
+
+            resNavn.setText(bestilling.getResturantNavn());
+            bDato.setText(bestilling.getDato());
+            bTid.setText(bestilling.getTid());
+            bVenner.setText(bestilling.getVenner());
+
+
+            Button btnOk = v.findViewById(R.id.btnOk);
+            Button btnTilbake = v.findViewById(R.id.btnTilbake);
+
+            //bare en ja knapp når spill er ferdig
+            btnOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
                 }
+            });
+            return v;
+        }
+    } //SLUTT FRAGMENT
 
-                Bestilling bestilling = new Bestilling(dato, tid, vennene, resturant.getNavn(), resturant.get_ID());
-                db.leggTilBestilling(bestilling);
-
-                dismiss();
-            }
-        });
-
-        btnAvbryt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.avbrytClick();
-                dismiss();
-            }
-        });
-        dialog.show();
-        return dialog;
+    //-------TILBAKEKNAPP - OPPDATERER INTENT FOR Å OPPDATERE SPRÅKENDRING---------
+    @Override
+    public void onBackPressed() {
+        Intent intent_tilbake = new Intent (SeBestillingsInfoFragment.this, SeBestillinger.class);
+        startActivity(intent_tilbake);
+        finish();
     }
-
-
-
-
-
-
-
 }
