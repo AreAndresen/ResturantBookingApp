@@ -34,13 +34,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
     private Resturant resturant;
     private ArrayList<Venn> venner = new ArrayList<>();
 
-    private static final String NOKKEL_ANTTELLER = "antTeller_nokkel";
-    private static final String NOKKEL_ANTRIKTIG = "antRiktig_nokkel";
-    private static final String NOKKEL_ANTFEIL = "antFeil_nokkel";
-    private static final String NOKKEL_SPORSMAAL = "sporsmaal_nokkel";
-    private static final String NOKKEL_FASIT = "fasit_nokkel";
-
-
 
     public interface DialogClickListener{
 

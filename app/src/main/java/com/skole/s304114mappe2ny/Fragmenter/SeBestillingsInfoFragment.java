@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.LeggTilogEndre.EndreResturant;
 import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
+import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 
@@ -44,6 +47,10 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
         return bestilling;
     }
 
+    public DBhandler getDB() {
+        return db;
+    }
+
 
 
     //----- start fragment----
@@ -66,7 +73,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
 
 
 
-            Bestilling bestilling = ((SeBestillingsInfoFragment)getActivity()).getBestiling();
+            final Bestilling bestilling = ((SeBestillingsInfoFragment)getActivity()).getBestiling();
 
             resNavn = v.findViewById(R.id.resNavn);
             bDato = v.findViewById(R.id.bDato);
@@ -80,13 +87,26 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
 
 
             Button btnOk = v.findViewById(R.id.btnOk);
-            Button btnTilbake = v.findViewById(R.id.btnTilbake);
+            Button btnAvbestill = v.findViewById(R.id.btnAvbestill);
 
             //bare en ja knapp når spill er ferdig
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
+                }
+            });
+
+            btnAvbestill.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    ((SeBestillingsInfoFragment)getActivity()).getDB().slettBestilling(bestilling.get_ID());
+                    ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
+
+                    //Toast.makeText(this, bestilling.get_ID() + " lagt til i bestilling.", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),"Bestilling utført",Toast.LENGTH_LONG).show();
+
                 }
             });
             return v;

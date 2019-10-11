@@ -104,7 +104,7 @@ public class Bestilling {
 
     @Override
     public String toString() {
-        return "Bestilling for: "+getResturantNavn()+" "+getDato()+ " "+getTid(); // "Resturant: "+get_ID()
+        return "Nr: "+get_ID()+". Dato: "+getDato()+ ". Tidspunkt: "+getTid()+"."; // "Resturant: "+get_ID()
     }
 
 }

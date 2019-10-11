@@ -36,8 +36,16 @@ public class DBhandler extends SQLiteOpenHelper{
     static String BESTILLING_VENNER = "Venner";
     static String BESTILLING_RESTURANTNAVN = "Resturantnavn";
     static String BESTILLING_RESTURANT = "Resturanten_ID"; //FOREIGN KEY(trackartist) REFERENCES artist(artistid)
-    //private Resturant resturant;
-    //private ArrayList<Venn> venner = new ArrayList<>();
+
+    static String TABLE_BESTILLINGSMELDING = "Bestillingsmelding";
+    static String MELDING_BESTILLING_ID = "melding_bestilling_ID";
+    static String MELDING_PERSON_ID = "melding_person_id";
+    static String MELDING_RESTURANT_ID = "melding_resturant_ID";
+    static String MELDING_BESTILLING_DATO = "melding_dato";
+    static String MELDING_BESTILLING_TID = "melding_tidspunkt";
+
+
+    //lternativt kan personnr , restaurant, dato og tidspunkt være bindetabell mellom restaurant og person.
 
 
     static int DATABASE_VERSION = 1;
@@ -51,6 +59,11 @@ public class DBhandler extends SQLiteOpenHelper{
             " INTEGER PRIMARY KEY," + VENN_NAME + " TEXT," + VENN_TLF + " TEXT" + ")";
 
     String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
+            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_VENNER +
+            " TEXT," + BESTILLING_RESTURANTNAVN + " TEXT," + BESTILLING_RESTURANT + " " +
+            " INTEGER, FOREIGN KEY(Resturanten_ID) REFERENCES TABLE_RESTURANTER (KEY_ID)" + ")";
+
+    String LAG_BESTILLINGSMELDING = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
             " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_VENNER +
             " TEXT," + BESTILLING_RESTURANTNAVN + " TEXT," + BESTILLING_RESTURANT + " " +
             " INTEGER, FOREIGN KEY(Resturanten_ID) REFERENCES TABLE_RESTURANTER (KEY_ID)" + ")";

@@ -30,8 +30,6 @@ import java.util.ArrayList;
 
 public class RegistrerBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoDialog.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
 
-    //--------DIALOG KNAPPER TIL FULLFORTSPILLDIALOGFRAGMENT--------
-    //--------DIALOG KNAPPER TIL AVBRYTDIALOGFRAGMENT--------
     @Override
     public void bestillClick() {
 
@@ -83,12 +81,11 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
         populerValgteVenner();
 
-        mListView = (ListView) findViewById(R.id.list);
 
         //Knapper
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnLeggTilVenn = (Button) findViewById(R.id.btnLeggTilVenn);
-        btnSlettVenn = (Button) findViewById(R.id.btnSlettVenn);
+        //btnSlettVenn = (Button) findViewById(R.id.btnSlettVenn);
         velgDato = (Button) findViewById(R.id.velgDato);
         velgTid = (Button) findViewById(R.id.velgTid);
         btnSeBestillingsinfo = (Button) findViewById(R.id.btnSeBestillingsinfo);
@@ -99,6 +96,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         spinnerVenner = (Spinner) findViewById(R.id.spinVenn);
         visDato = (TextView) findViewById(R.id.visDato);
         visTid = (TextView) findViewById(R.id.visTid);
+        mListView = (ListView) findViewById(R.id.list);
+
 
         db = new DBhandler(this);
 
@@ -124,14 +123,14 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             }
         });
 
-        btnSlettVenn.setOnClickListener(new View.OnClickListener() {
+        /*btnSlettVenn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 slettValgtVenn();
                 //bestillingTekst.setText(visBestillingsData());
             }
-        });
+        });*/
 
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +160,12 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             @Override
             public void onClick(View v) {
 
-                visBestillingsinfo();
+                if (visDato.getText().toString().equals("") || visTid.getText().toString().equals("")) { //kontrollerer at svar ikke er tom
+                    Toast.makeText(RegistrerBestilling.this, "Tid og dato for bestilling må være fylt ut.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    visBestillingsinfo();
+                }
             }
         });
 
@@ -261,12 +265,13 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         spinnerVenner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Venn venn = (Venn) parent.getSelectedItem();
+                //Venn venn = (Venn) parent.getSelectedItem();
+                valgtVenn = (Venn) parent.getSelectedItem();
 
-
-                Integer ID = (int) venn.getID();
-                valgtVenn = db.finnVenn(ID);
+                //Integer ID = (int) venn.getID();
+                //valgtVenn = db.finnVenn(ID);
                 //visResturantData(venn);
+
 
             }
 
@@ -278,46 +283,53 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     }
 
 
+    //-------SJEKK OM TALL/INDEKS ER BRUKT TIDLIGERE (SPØRSMÅL)---------
+    private boolean sjekkVenn(Venn venn) {
+        boolean sjekk = false;
+        //går gjennom arrayet som er fylt med brukte indekser
+
+        for (Venn v : valgteVenner) {
+            if (v == venn) {
+                sjekk = true; //finnes i arrayet
+                break;
+            }
+        }
+        return sjekk;
+    }
+
+
     //MÅ GJØRES SÅ DETTE GJØRES MOT DATABASEN OG TABLE BESTILLINGER
     public void leggTilValgtVenn() {
-        //Venn venn = (Venn)  spinnerVenner.getSelectedItem();
-        //visVennData(venn);
-        valgteVenner.add(valgtVenn);
+        if(!sjekkVenn(valgtVenn)) {
+            valgteVenner.add(valgtVenn);
+            //brukes til lagring av ID til venner
+            Integer ID = (int) valgtVenn.getID();
+            IDer.add(ID);
 
-        //brukes til lagring av ID til venner
-        Integer ID = (int) valgtVenn.getID();
-        IDer.add(ID);
-
-        Toast.makeText(this, valgtVenn.getNavn()+" lagt til i bestilling.", Toast.LENGTH_LONG).show();
-
-        populateListView();
-
+            Toast.makeText(this, valgtVenn.getNavn() + " lagt til i bestilling.", Toast.LENGTH_LONG).show();
+            populateListView();
+        }
+        else {
+            Toast.makeText(this, valgtVenn.getNavn()+" er allerede lagt til i bestilling.", Toast.LENGTH_LONG).show();
+        }
     }
 
 
     //må gjøre så siste venn også kan bli slettet
     public void slettValgtVenn() {
-        //Venn venn = (Venn)  spinnerVenner.getSelectedItem();
-        //visVennData(venn);
+        if(sjekkVenn(valgtVenn)) {
+            valgteVenner.remove(valgtVenn);
 
-        if(valgteVenner.size() == 1) {
-            valgteVenner.clear();
+            //brukes til lagring av ID til venner
+            Integer ID = (int) valgtVenn.getID();
+            IDer.remove(ID);
+
+            Toast.makeText(this, valgtVenn.getNavn()+" fjernet fra bestilling.", Toast.LENGTH_LONG).show();
+            populateListView();
         }
         else {
-            valgteVenner.remove(valgtVenn);
+            Toast.makeText(this, valgtVenn.getNavn()+" finnes ikke i bestillingen.", Toast.LENGTH_LONG).show();
         }
-        valgteVenner.remove(valgtVenn);
-
-        //brukes til lagring av ID til venner
-        Integer ID = (int) valgtVennSlett.getID();
-        IDer.remove(ID);
-
-        Toast.makeText(this, valgtVenn.getNavn()+" fjernet fra bestilling.", Toast.LENGTH_LONG).show();
-
-        //populerValgteVenner();
-
-
-        populateListView();
     }
 
 
@@ -348,16 +360,18 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String name = adapterView.getItemAtPosition(i).toString();
-                toastMessage(name);
+                valgtVenn = (Venn) mListView.getItemAtPosition(i);
+                adapter.remove(valgtVenn);
 
-                valgtVennSlett = (Venn) mListView.getItemAtPosition(i);
+                //Integer ID = (int) venn.getID();
+                //valgtVenn = db.finnVenn(ID);
 
-                valgteVenner.remove(valgtVennSlett);
+                //slettValgtVenn();
+                //valgteVenner.remove(valgtVennSlett);
 
                 //brukes til lagring av ID til venner
-                Integer ID = (int) valgtVennSlett.getID();
-                IDer.remove(ID);
+                //Integer ID = (int) valgtVennSlett.getID();
+                //IDer.remove(ID);
 
                 //populerValgteVenner();
 

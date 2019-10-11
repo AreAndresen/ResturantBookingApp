@@ -60,24 +60,37 @@
 
         <Button
             android:id="@+id/btnLeggTilVenn"
-            android:layout_width="104dp"
-            android:layout_height="match_parent"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Legg til" />
 
-        <Button
+        <!--<Button
             android:id="@+id/btnSlettVenn"
             android:layout_width="104dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Slett" />
+            android:text="Slett" />-->
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/melding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/boks"
+        android:padding="3dp"
+        android:text="Trykk på valgt venn for å fjerne fra bestilling"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="127dp"
-        android:layout_below="@+id/boks"></ListView>
+        android:layout_below="@+id/melding">
+
+    </ListView>
 
     <LinearLayout
         android:id="@+id/datoBoks"
@@ -148,7 +161,7 @@
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/btnDelete"
             android:padding="15dp"
-            android:text="Avbryt" />
+            android:text="Tilbake" />
         <Button
             android:id="@+id/btnSeBestillingsinfo"
             android:layout_width="149dp"

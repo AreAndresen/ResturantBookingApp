@@ -100,8 +100,8 @@
         android:weightSum="100"
         android:layout_below="@+id/bVenner">
 
-        <!--<Button
-            android:id="@+id/btnTilbake"
+        <Button
+            android:id="@+id/btnAvbestill"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/bVenner"
@@ -109,7 +109,7 @@
 
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="Tilbake" />-->
+            android:text="Avbestill" />
 
         <Button
             android:id="@+id/btnOk"
