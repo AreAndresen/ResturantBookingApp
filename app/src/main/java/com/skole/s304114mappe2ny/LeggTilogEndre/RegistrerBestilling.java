@@ -406,7 +406,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             venner += "Navn: "+i.getNavn()+". ";
         }
 
-        Bestilling bestilling = new Bestilling(dato, tid, venner, valgtResturant.getNavn(), valgtResturant.get_ID());
+        Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID());
         db.leggTilBestilling(bestilling);
     }
 

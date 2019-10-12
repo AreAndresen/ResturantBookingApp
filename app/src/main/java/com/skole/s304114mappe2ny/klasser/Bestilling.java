@@ -15,30 +15,28 @@ public class Bestilling {
     private String tid;
     private String resturantNavn;
     private long resturantID;
-    //private Resturant resturant;// long resturantID
-    private String venner;
-    //private ArrayList<Venn> venner = new ArrayList<>();
+    //private String venner;
 
     //konstruktører
     public Bestilling() {
         this._ID = _ID;
     }
 
-    public Bestilling(String dato, String tid, String venner, String resturantNavn, long resturantID) { //Date dato, Time tid, Resturant resturanten, ArrayList<Venn> venner
+    public Bestilling(String dato, String tid, String resturantNavn, long resturantID) { //Date dato, Time tid, Resturant resturanten, ArrayList<Venn> venner
         this.dato = dato;
         this.tid = tid;
         this.resturantNavn = resturantNavn;
         this.resturantID = resturantID;
-        this.venner = venner;
+        //this.venner = venner;
     }
 
-    public Bestilling(long _ID, String dato, String tid, String venner, String resturantNavn, long resturantID) { //
+    public Bestilling(long _ID, String dato, String tid, String resturantNavn, long resturantID) { //String venner,
         this.dato = dato;
         this.tid = tid;
         //this.resturant = resturanten;
         this.resturantNavn = resturantNavn;
         this.resturantID = resturantID;
-        this.venner = venner;
+        //this.venner = venner;
         this._ID = _ID;
     }
 
@@ -57,8 +55,8 @@ public class Bestilling {
     public String getTid() { return tid; }
     public void setTid(String tid) { this.tid = tid; }
 
-    public String getVenner() { return venner; }
-    public void setVenner(String venner) { this.venner = venner; }
+    //public String getVenner() { return venner; }
+    //public void setVenner(String venner) { this.venner = venner; }
 
     public String getResturantNavn() { return resturantNavn; }
     public void setResturantNavn(String resturantNavn) { this.resturantNavn = resturantNavn; }

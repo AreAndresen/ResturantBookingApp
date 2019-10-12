@@ -34,7 +34,7 @@ public class DBhandler extends SQLiteOpenHelper{
     static String BESTILLING_ID = "IDen";
     static String BESTILLING_DATO = "Dato";
     static String BESTILLING_TID = "Tidspunkt";
-    static String BESTILLING_VENNER = "Venner";
+    //static String BESTILLING_VENNER = "Venner";
     static String BESTILLING_RESTURANTNAVN = "Resturantnavn";
     static String BESTILLING_RESTURANT = "Resturanten_ID"; //FOREIGN KEY(trackartist) REFERENCES artist(artistid)
 
@@ -42,6 +42,7 @@ public class DBhandler extends SQLiteOpenHelper{
     static String DELTAKELSE_ID = "Deltakelse_id";
     static String DTK_BESTILLING_ID = "dtk_bestilling_ID";
     static String DTK_PERSON_ID = "dtk_person_id";
+    static String DTK_PERSON_NAVN = "dtk_person_navn";
 
 
     //deltakelse(person/bestilling)
@@ -61,13 +62,12 @@ public class DBhandler extends SQLiteOpenHelper{
             " INTEGER PRIMARY KEY," + VENN_NAME + " TEXT," + VENN_TLF + " TEXT" + ")";
 
     String LAG_BESTILLINGER = "CREATE TABLE " + TABLE_BESTILLINGER + "(" + BESTILLING_ID +
-            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_VENNER +
-            " TEXT," + BESTILLING_RESTURANTNAVN + " TEXT," + BESTILLING_RESTURANT + " " +
+            " INTEGER PRIMARY KEY," + BESTILLING_DATO + " TEXT," + BESTILLING_TID + " TEXT," + BESTILLING_RESTURANTNAVN + " TEXT," + BESTILLING_RESTURANT + " " +
             " INTEGER, FOREIGN KEY(Resturanten_ID) REFERENCES TABLE_RESTURANTER (KEY_ID)" + ")";
 
     String LAG_DELTAKELSE = "CREATE TABLE " + TABLE_DELTAKELSE + "(" + DELTAKELSE_ID +
-            " INTEGER PRIMARY KEY," + DTK_BESTILLING_ID + " INTEGER, " + DTK_PERSON_ID + " " +
-            " INTEGER, FOREIGN KEY(dtk_bestilling_ID) REFERENCES TABLE_BESTILLINGER (BESTILLING_ID)," +
+            " INTEGER PRIMARY KEY," + DTK_BESTILLING_ID + " INTEGER, " + DTK_PERSON_ID + " INTEGER, " + DTK_PERSON_NAVN + " "+
+            " TEXT, FOREIGN KEY(dtk_bestilling_ID) REFERENCES TABLE_BESTILLINGER (BESTILLING_ID)," +
             " FOREIGN KEY(dtk_person_id) REFERENCES TABLE_VENNER (VENN_ID)" + ")";
 
 
@@ -131,7 +131,7 @@ public class DBhandler extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(BESTILLING_DATO, bestilling.getDato());
         values.put(BESTILLING_TID, bestilling.getTid().toString());
-        values.put(BESTILLING_VENNER, bestilling.getVenner());
+        //values.put(BESTILLING_VENNER, bestilling.getVenner());
         values.put(BESTILLING_RESTURANTNAVN, bestilling.getResturantNavn());
         values.put(BESTILLING_RESTURANT, bestilling.get_resturantID());
         db.insert(TABLE_BESTILLINGER, null, values);
@@ -143,6 +143,7 @@ public class DBhandler extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(DTK_BESTILLING_ID, deltakelse.getBestillingID());
         values.put(DTK_PERSON_ID , deltakelse.getVennID());
+        values.put(DTK_PERSON_NAVN , deltakelse.getVennNavn());
         db.insert(TABLE_DELTAKELSE, null, values);
         db.close();
     }
@@ -200,9 +201,9 @@ public class DBhandler extends SQLiteOpenHelper{
                 bestilling.set_ID(cursor.getLong(0));
                 bestilling.setDato((cursor.getString(1)));
                 bestilling.setTid((cursor.getString(2)));
-                bestilling.setVenner(cursor.getString(3));
-                bestilling.setResturantNavn(cursor.getString(4));
-                bestilling.set_resturantID((cursor.getLong(5)));
+                //bestilling.setVenner(cursor.getString(3));
+                bestilling.setResturantNavn(cursor.getString(3));
+                bestilling.set_resturantID((cursor.getLong(4)));
                 bestillingerListe.add(bestilling);
             }
             while(cursor.moveToNext());
@@ -210,6 +211,26 @@ public class DBhandler extends SQLiteOpenHelper{
             db.close();
         }
         return bestillingerListe;
+    }
+
+    public ArrayList<Deltakelse> finnAlleDeltakelser() {
+        ArrayList<Deltakelse> deltakelseListe = new ArrayList<Deltakelse>();
+        String selectQuery= "SELECT * FROM " + TABLE_DELTAKELSE;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor= db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {Deltakelse deltakelse = new Deltakelse();
+                deltakelse.setID(cursor.getLong(0));
+                deltakelse.setBestillingID(cursor.getLong(1));
+                deltakelse.setVennID(cursor.getLong(2));
+                deltakelse.setVennNavn((cursor.getString(3)));
+                deltakelseListe.add(deltakelse);
+            }
+            while(cursor.moveToNext());
+            cursor.close();
+            db.close();
+        }
+        return deltakelseListe;
     }
 
 
@@ -243,12 +264,12 @@ public class DBhandler extends SQLiteOpenHelper{
     public Bestilling finnBestilling(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_BESTILLINGER, new String[]{
-                BESTILLING_ID, BESTILLING_DATO, BESTILLING_TID, BESTILLING_VENNER, BESTILLING_RESTURANTNAVN, BESTILLING_RESTURANT}, BESTILLING_ID + "=?", new String[]{String.valueOf(id)
+                BESTILLING_ID, BESTILLING_DATO, BESTILLING_TID, BESTILLING_RESTURANTNAVN, BESTILLING_RESTURANT}, BESTILLING_ID + "=?", new String[]{String.valueOf(id)
         }, null, null, null, null);
         if(cursor!= null)
             cursor.moveToFirst();
-        Bestilling bestilling = new Bestilling(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),
-                Long.parseLong(cursor.getString(5)));
+        Bestilling bestilling = new Bestilling(Long.parseLong(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3),
+                Long.parseLong(cursor.getString(4)));
         cursor.close();
         db.close();
         return bestilling;
@@ -271,6 +292,12 @@ public class DBhandler extends SQLiteOpenHelper{
     public void slettBestilling(Long inn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_BESTILLINGER, BESTILLING_ID + " =? ", new String[]{Long.toString(inn_id)}); //KAN OGSÅ ENDRE TIL NAVN HR ISTDEN FOR ID
+        db.close();
+    }
+
+    public void slettDeltakelse(Long inn_id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_DELTAKELSE, DTK_BESTILLING_ID + " =? ", new String[]{Long.toString(inn_id)}); //KAN OGSÅ ENDRE TIL NAVN HR ISTDEN FOR ID
         db.close();
     }
 

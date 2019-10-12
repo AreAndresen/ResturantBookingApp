@@ -102,13 +102,13 @@ public class SeBestillingsInfoDialog extends DialogFragment {
             public void onClick(View v) {
                 callback.bestillClick();
 
-                String vennene = "";
+                /*String vennene = "";
                 for(Venn i : venner) {
                     vennene += "Navn: "+i.getNavn()+". ";
-                }
+                }*/
 
 
-                Bestilling bestilling = new Bestilling(dato, tid, vennene, resturant.getNavn(), resturant.get_ID());
+                Bestilling bestilling = new Bestilling(dato, tid, resturant.getNavn(), resturant.get_ID()); //, vennene
                 db.leggTilBestilling(bestilling);
 
 
@@ -116,9 +116,10 @@ public class SeBestillingsInfoDialog extends DialogFragment {
                 int ID = (int) bestilling.get_ID();
                 //long ekteId = db.finnBestilling(ID).get_ID();
 
+
                 //genererer en deltakelse for hver venn som er med på bestillingen
                 for(Venn i : venner) {
-                    Deltakelse deltakelse = new Deltakelse(bestilling.get_ID(), i.getID()); //long bestillingID, long vennID
+                    Deltakelse deltakelse = new Deltakelse(bestilling.get_ID(), i.getID(), i.getNavn()); //long bestillingID, long vennID
                     db.leggTilDeltakelse(deltakelse);
                 }
                 //ferdig deltakelese

@@ -5,6 +5,7 @@ public class Deltakelse {
     private long ID;
     private long bestillingID;
     private long vennID;
+    private String vennNavn;
 
 
 
@@ -13,15 +14,17 @@ public class Deltakelse {
         this.ID = ID;
     }
 
-    public Deltakelse(long bestillingID, long vennID) {
+    public Deltakelse(long bestillingID, long vennID, String vennNavn) {
         this.bestillingID = bestillingID;
         this.vennID = vennID;
+        this.vennNavn = vennNavn;
     }
 
-    public Deltakelse(long ID, long bestillingID, long vennID) {
+    public Deltakelse(long ID, long bestillingID, long vennID, String vennNavn) {
         this.ID = ID;
         this.bestillingID = bestillingID;
         this.vennID = vennID;
+        this.vennNavn = vennNavn;
     }
 
 
@@ -47,11 +50,18 @@ public class Deltakelse {
         this.vennID = vennID;
     }
 
+    public String getVennNavn() {
+        return vennNavn;
+    }
+    public void setVennNavn(String VennNavn) {
+        this.vennNavn = VennNavn;
+    }
+
 
 
     @Override
     public String toString() {
-        return "Deltakelse: " +getID()+ ". Bestilling: "+getBestillingID()+". Personid: "+getVennID();
+        return "Deltakelseid: " +getID()+" Navn: "+getVennNavn();
     }
 }
 

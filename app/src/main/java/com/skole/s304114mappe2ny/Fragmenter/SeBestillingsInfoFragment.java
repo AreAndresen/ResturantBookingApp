@@ -18,12 +18,16 @@ import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Deltakelse;
+
+import java.util.ArrayList;
 
 public class SeBestillingsInfoFragment extends AppCompatActivity {
 
     Integer ID;
     DBhandler db;
     Bestilling bestilling;
+    ArrayList<Deltakelse> deltakelser = new ArrayList<>();
 
 
     @Override
@@ -36,6 +40,8 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
         ID = receivedIntent.getIntExtra("id",0); //NOTE: -1 is just the default value
 
         bestilling = db.finnBestilling(ID);
+        deltakelser = db.finnAlleDeltakelser();
+
 
         //Load setting fragment
         getFragmentManager().beginTransaction().replace(android.R.id.content,
@@ -46,6 +52,18 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
     public Bestilling getBestiling() {
         return bestilling;
     }
+
+
+    public String visDeltakelser() {
+        String s = "";
+        for(Deltakelse d : deltakelser) {
+            if(d.getBestillingID() == bestilling.get_ID()) {
+                s += d.getVennNavn();
+            }
+        }
+        return s;
+    }
+
 
     public DBhandler getDB() {
         return db;
@@ -74,6 +92,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
 
 
             final Bestilling bestilling = ((SeBestillingsInfoFragment)getActivity()).getBestiling();
+            String visVenner = ((SeBestillingsInfoFragment)getActivity()).visDeltakelser();
 
             resNavn = v.findViewById(R.id.resNavn);
             bDato = v.findViewById(R.id.bDato);
@@ -83,7 +102,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
             resNavn.setText(bestilling.getResturantNavn());
             bDato.setText(bestilling.getDato());
             bTid.setText(bestilling.getTid());
-            bVenner.setText(bestilling.getVenner());
+            bVenner.setText(visVenner);
 
 
             Button btnOk = v.findViewById(R.id.btnOk);
@@ -102,6 +121,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
                 public void onClick(View view) {
 
                     ((SeBestillingsInfoFragment)getActivity()).getDB().slettBestilling(bestilling.get_ID());
+                    ((SeBestillingsInfoFragment)getActivity()).getDB().slettDeltakelse(bestilling.get_ID());
                     ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
 
                     //Toast.makeText(this, bestilling.get_ID() + " lagt til i bestilling.", Toast.LENGTH_LONG).show();
