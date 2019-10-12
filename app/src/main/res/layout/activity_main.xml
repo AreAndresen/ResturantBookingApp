@@ -32,6 +32,13 @@
         android:layout_height="wrap_content"
         android:text="Bestilling" />
 
+
+    <Button
+        android:id="@+id/innstillingerKnapp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Innstillinger" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"

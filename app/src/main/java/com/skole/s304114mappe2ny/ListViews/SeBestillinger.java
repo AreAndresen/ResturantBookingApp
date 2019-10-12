@@ -26,9 +26,6 @@ import java.util.ArrayList;
 public class SeBestillinger extends AppCompatActivity{
 
 
-
-
-
     private static final String TAG = "ListDataActivity";
 
     private Button btnTilbake, btnRegistrerBestilling;
@@ -90,25 +87,6 @@ public class SeBestillinger extends AppCompatActivity{
                 toastMessage(""+bestilling.get_ID());
                 //ny lagring til disk
                 Integer ID = (int) bestilling.get_ID();
-
-                //Intent editScreenIntent = new Intent(SeBestillinger.this, SeBestillingsInfo.class);
-                //editScreenIntent.putExtra("id",ID);
-
-
-                //--------LOADER FRAGMENTT--------
-                //SeBestillingsInfo besFragment = new SeBestillingsInfo();
-                //besFragment.hentBestilling(db.finnBestilling(ID));
-
-                 //DENNE
-                 //SeBestillingsInfoDialog besDialog = new SeBestillingsInfoDialog();
-                 //besDialog.hentBestilling(db.finnBestilling(ID));
-                 //besDialog.show(getSupportFragmentManager(), "Bestillingsinfo");
-
-
-                 //IKKE DENNE
-                //getFragmentManager().beginTransaction().replace(android.R.id.content, new SeBestillingsInfo()).commit();
-                //getSupportFragmentManager().beginTransaction().add(android.R.id.content,besDialog).commit();
-
 
                 Intent editScreenIntent = new Intent(SeBestillinger.this, SeBestillingsInfoFragment.class);
                 editScreenIntent.putExtra("id",ID);

@@ -3,7 +3,9 @@ package com.skole.s304114mappe2ny.Fragmenter;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,9 +19,14 @@ import com.skole.s304114mappe2ny.klasser.Venn;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class SeBestillingsInfoDialog extends DialogFragment {
 
     private DialogClickListener callback;
+
+    private String meldingUt;
+    private static final String NOKKEL_MELDINGUT = "meldingUt_nokkel";
 
     private DBhandler db;
 
@@ -30,13 +37,14 @@ public class SeBestillingsInfoDialog extends DialogFragment {
     private Resturant resturant;
     private ArrayList<Venn> venner = new ArrayList<>();
 
+    SharedPreferences sharedPreferences;
+
 
     public interface DialogClickListener{
 
         void bestillClick();
         void avbrytClick();
     }
-
 
 
    public void hentInfo(String dato, String tid, Resturant valgtResturant, ArrayList<Venn> venner, DBhandler db) {
@@ -57,6 +65,7 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         catch(ClassCastException e) {
             throw new ClassCastException("Feil ved kalling av interface!");
         }
+
     }
 
 
@@ -84,6 +93,12 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         bVenner.setText(vennNavn);
 
 
+        meldingUt = "Påminnelse for bestilling hos "+resturant.getNavn()+". Dato: "+dato+". Kl: "+tid;
+        //ny lagring til disk
+
+
+
+
         Button btnBestill = dialog.findViewById(R.id.btnOk);
         Button btnAvbryt = dialog.findViewById(R.id.btnAvbryt);
 
@@ -106,7 +121,14 @@ public class SeBestillingsInfoDialog extends DialogFragment {
                     Deltakelse deltakelse = new Deltakelse(index, i.getID(), i.getNavn()); //long bestillingID, long vennID
                     db.leggTilDeltakelse(deltakelse);
                 }
-                //ferdig deltakelese
+
+
+                /*lagrer melding MÅ FINNE UT AV GETSAHRED PREF
+                SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(NOKKEL_MELDINGUT, meldingUt);
+                editor.commit();
+                //slutt lagring av melding*/
 
 
                 dismiss();
@@ -123,4 +145,8 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         dialog.show();
         return dialog;
     }
+
+
+
+
 }

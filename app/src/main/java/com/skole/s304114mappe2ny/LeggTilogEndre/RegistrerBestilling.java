@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,7 +31,19 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
     @Override
     public void bestillClick() {
-        Toast.makeText(getApplicationContext(),"Bestilling utført",Toast.LENGTH_LONG).show();
+
+        //lagrer melding
+        String meldingUt = "Påminnelse for bestilling hos "+valgtResturant.getNavn()+". Dato: "+dato+". Kl: "+tid;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(NOKKEL_MELDINGUT, meldingUt);
+        editor.commit();
+        //slutt lagring av melding
+
+        String meldingUt2 = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(NOKKEL_MELDINGUT,"");
+
+        Toast.makeText(getApplicationContext(),meldingUt2,Toast.LENGTH_LONG).show();
         return;
     }
 
@@ -46,6 +59,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     private Venn valgtVenn;
     private Venn valgtVennSlett;
     private ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
+
+    private static final String NOKKEL_MELDINGUT = "meldingUt_nokkel";
 
     //til lagring av IDer
     ArrayList<Integer> IDer = new ArrayList<Integer>();
@@ -178,6 +193,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         //Spanned info = visBestillingsData();
         SeBestillingsInfoDialog bFragment = new SeBestillingsInfoDialog();
         //bFragment.init(info);
+
+
 
         bFragment.hentInfo(dato, tid, valgtResturant, valgteVenner, db);
 

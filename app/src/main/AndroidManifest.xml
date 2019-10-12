@@ -9,8 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SeBestillingsInfo"></activity>
-        <!--<activity android:name=".LeggTilogEndre.EndreBestilling" />-->
+        <activity android:name=".Resultat"></activity>
+        //<activity android:name=".Fragmenter.NotifikasjonFragment" /> <!-- android:theme="@style/Theme.AppCompat.NoActionBar"> -->
+        <!-- <activity android:name=".LeggTilogEndre.EndreBestilling" /> -->
         <activity android:name=".ListViews.SeBestillinger" />
         <activity android:name=".LeggTilogEndre.RegistrerBestilling" />
         <activity android:name=".Hovedmenyer.Bestillinger" />
@@ -23,6 +24,22 @@
         <activity android:name=".ListViews.SeResturanter" />
         <activity android:name=".LeggTilogEndre.LeggTilResturant" />
         <activity android:name=".Fragmenter.SeBestillingsInfoFragment" />
+
+        <service
+            android:name=".SettPeriodiskService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".MinService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".MinBroadcastReciver">
+            <intent-filter>
+                <action android:name="com.skole.servicebroadcast" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".Hovedmenyer.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
