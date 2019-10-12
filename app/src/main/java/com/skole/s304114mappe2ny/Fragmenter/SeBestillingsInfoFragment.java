@@ -58,7 +58,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
         String s = "";
         for(Deltakelse d : deltakelser) {
             if(d.getBestillingID() == bestilling.get_ID()) {
-                s += d.getVennNavn();
+                s += d.getVennNavn()+".\n";
             }
         }
         return s;

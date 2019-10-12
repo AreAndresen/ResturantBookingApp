@@ -111,15 +111,17 @@ public class SeBestillingsInfoDialog extends DialogFragment {
                 Bestilling bestilling = new Bestilling(dato, tid, resturant.getNavn(), resturant.get_ID()); //, vennene
                 db.leggTilBestilling(bestilling);
 
-
                 //deltakelse greier - MÅ FÅ DETTE TIL Å FUNGERE, MÅ HA ET LEDD I MELLOM
                 int ID = (int) bestilling.get_ID();
                 //long ekteId = db.finnBestilling(ID).get_ID();
 
 
+                Integer index = db.finnAlleBestillinger().size();
+
+
                 //genererer en deltakelse for hver venn som er med på bestillingen
                 for(Venn i : venner) {
-                    Deltakelse deltakelse = new Deltakelse(bestilling.get_ID(), i.getID(), i.getNavn()); //long bestillingID, long vennID
+                    Deltakelse deltakelse = new Deltakelse(index, i.getID(), i.getNavn()); //long bestillingID, long vennID
                     db.leggTilDeltakelse(deltakelse);
                 }
                 //ferdig deltakelese
