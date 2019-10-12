@@ -8,14 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.skole.s304114mappe2ny.DBhandler;
-import com.skole.s304114mappe2ny.LeggTilogEndre.EndreResturant;
 import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
-import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
@@ -37,11 +32,11 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
         Intent receivedIntent = getIntent();
         db = new DBhandler(this);
 
-        ID = receivedIntent.getIntExtra("id",0); //NOTE: -1 is just the default value
+        //Henter valgt ID fra se bestillinger
+        ID = receivedIntent.getIntExtra("id",0);
 
         bestilling = db.finnBestilling(ID);
         deltakelser = db.finnAlleDeltakelser();
-
 
         //Load setting fragment
         getFragmentManager().beginTransaction().replace(android.R.id.content,
@@ -63,7 +58,6 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
         }
         return s;
     }
-
 
     public DBhandler getDB() {
         return db;
@@ -120,12 +114,12 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
+                    //Sletter valgt bestilling fra db
                     ((SeBestillingsInfoFragment)getActivity()).getDB().slettBestilling(bestilling.get_ID());
+                    //Sletter alle deltakelser til bestillingen fra db
                     ((SeBestillingsInfoFragment)getActivity()).getDB().slettDeltakelse(bestilling.get_ID());
-                    ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
 
-                    //Toast.makeText(this, bestilling.get_ID() + " lagt til i bestilling.", Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getApplicationContext(),"Bestilling utført",Toast.LENGTH_LONG).show();
+                    ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
 
                 }
             });

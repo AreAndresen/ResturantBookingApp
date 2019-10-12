@@ -11,21 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 
 import com.skole.s304114mappe2ny.DBhandler;
-import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
+import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 
-/**
- * Created by User on 2/28/2017.
- */
+import java.util.ArrayList;
 
 public class EndreResturant extends AppCompatActivity {
-
-    private static final String TAG = "EditDataActivity";
 
     private Button btnSave,btnDelete;
 
@@ -79,7 +75,9 @@ public class EndreResturant extends AppCompatActivity {
                 valgtResturant.setType(type);
 
                 if(!navn.equals("") && !tlf.equals("") && !type.equals("")){
+
                     db.oppdaterResturant(valgtResturant);
+
                     //gjørs så viewet oppdaterer fortløpende
                     Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
                     startActivity(intent_tilbake);
@@ -96,6 +94,26 @@ public class EndreResturant extends AppCompatActivity {
             public void onClick(View view) {
 
                 db.slettResturant(valgtResturant.get_ID());
+
+
+                //sletter også alle bestillinger til slettet resturant
+                ArrayList<Bestilling> bestillinger = db.finnAlleBestillinger();
+                for (Bestilling b : bestillinger) {
+                    if(b.get_resturantID() == valgtResturant.get_ID()) {
+
+                        //sletter også alle deltakelser til slettet bestilling
+                        ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
+                        for (Deltakelse d : deltakelser) {
+                            if(d.getBestillingID() == b.get_ID()) {
+                                db.slettDeltakelse(d.getID());
+                            }
+                        }
+
+                        //sletter bestilling
+                        db.slettBestilling(b.get_ID());
+                    }
+                }
+
 
                 EnavnResturant.setText("");
                 EtlfResturant.setText("");

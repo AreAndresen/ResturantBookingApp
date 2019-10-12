@@ -71,9 +71,7 @@ public class SeBestillinger extends AppCompatActivity{
 
 
     private void populateListView() {
-        Log.d(TAG, "populateListView: Displaying data in the ListView.");
-
-        //leggr alle resturanter i array
+        //leggEr alle resturanter i array
         final ArrayList<Bestilling> bestillinger = db.finnAlleBestillinger();
 
         //create the list adapter and set the adapter
@@ -126,10 +124,7 @@ public class SeBestillinger extends AppCompatActivity{
         finish();
     }
 
-    /**
-     * customizable toast
-     * @param message
-     */
+
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }

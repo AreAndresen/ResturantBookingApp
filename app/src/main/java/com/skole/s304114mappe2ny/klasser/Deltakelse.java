@@ -7,8 +7,6 @@ public class Deltakelse {
     private long vennID;
     private String vennNavn;
 
-
-
     //konstruktører
     public Deltakelse() {
         this.ID = ID;

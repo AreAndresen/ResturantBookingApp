@@ -20,22 +20,15 @@ import java.util.ArrayList;
 public class SeBestillingsInfoDialog extends DialogFragment {
 
     private DialogClickListener callback;
-    //TextView bestillingsInfo;
-    //private Spanned bTekst;
 
     private DBhandler db;
 
     TextView resNavn, resTlf, bDato, bTid, bVenner;
 
-    //private long _ID;
     private String dato;
     private String tid;
-    //private String resturantNavn;
-    //private String resturantTlf;
     private Resturant resturant;
     private ArrayList<Venn> venner = new ArrayList<>();
-
-    private Bestilling bestilling;
 
 
     public interface DialogClickListener{
@@ -49,8 +42,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
    public void hentInfo(String dato, String tid, Resturant valgtResturant, ArrayList<Venn> venner, DBhandler db) {
         this.dato = dato;
         this.tid = tid;
-        //this.resturantNavn = resturantNavn;
-        //this.resturantTlf = resturantTlf;
         this.resturant = valgtResturant;
         this.venner = venner;
         this.db = db;
@@ -88,7 +79,7 @@ public class SeBestillingsInfoDialog extends DialogFragment {
 
         String vennNavn = "";
         for (Venn i : venner) {
-            vennNavn += i.getNavn()+" "+i.getTelefon()+".\n";
+            vennNavn += i.getNavn()+". Tlf: "+i.getTelefon()+".\n";
         }
         bVenner.setText(vennNavn);
 
@@ -102,20 +93,11 @@ public class SeBestillingsInfoDialog extends DialogFragment {
             public void onClick(View v) {
                 callback.bestillClick();
 
-                /*String vennene = "";
-                for(Venn i : venner) {
-                    vennene += "Navn: "+i.getNavn()+". ";
-                }*/
-
 
                 Bestilling bestilling = new Bestilling(dato, tid, resturant.getNavn(), resturant.get_ID()); //, vennene
                 db.leggTilBestilling(bestilling);
 
-                //deltakelse greier - MÅ FÅ DETTE TIL Å FUNGERE, MÅ HA ET LEDD I MELLOM
-                int ID = (int) bestilling.get_ID();
-                //long ekteId = db.finnBestilling(ID).get_ID();
-
-
+                //genererer tallet som skal brukes som bestillingsID i deltakelse - må gjøre det slik ettersom ID til bestilling og deltakelse genereres likt i DB.
                 Integer index = db.finnAlleBestillinger().size();
 
 
@@ -141,6 +123,4 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         dialog.show();
         return dialog;
     }
-
-
 }

@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +21,6 @@ import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
-import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 import java.util.ArrayList;
@@ -33,10 +30,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
     @Override
     public void bestillClick() {
-
-        //lagreBestilling(); //lagrer ved klikk fullført
-        //registrerBestilling();
-
         Toast.makeText(getApplicationContext(),"Bestilling utført",Toast.LENGTH_LONG).show();
         return;
     }
@@ -64,8 +57,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     DBhandler db;
 
     private TextView visDato, visTid;
-    private Button btnTilbake, btnLeggTilVenn, btnSlettVenn, velgDato, velgTid, btnSeBestillingsinfo;
-    //private EditText editText;
+    private Button btnTilbake, btnLeggTilVenn, velgDato, velgTid, btnSeBestillingsinfo;
 
 
     //--------LAGRINGSKODER--------
@@ -92,7 +84,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         btnSeBestillingsinfo = (Button) findViewById(R.id.btnSeBestillingsinfo);
 
         //Tekst ++
-        //bestillingTekst = (TextView) findViewById(R.id.bestillingTekst);
         spinnerResturanter = (Spinner) findViewById(R.id.spinResturant);
         spinnerVenner = (Spinner) findViewById(R.id.spinVenn);
         visDato = (TextView) findViewById(R.id.visDato);
@@ -240,8 +231,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Resturant resturant = (Resturant) parent.getSelectedItem();
 
-                //visResturantData(resturant);
-
                 Integer ID = (int) resturant.get_ID();
                 valgtResturant = db.finnResturant(ID);
             }
@@ -272,8 +261,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
                 //Integer ID = (int) venn.getID();
                 //valgtVenn = db.finnVenn(ID);
                 //visResturantData(venn);
-
-
             }
 
             @Override
@@ -362,6 +349,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 valgtVenn = (Venn) mListView.getItemAtPosition(i);
+
+                //sletter valgt venn direkte fra listviewet ved trykk
                 adapter.remove(valgtVenn);
 
                 //Integer ID = (int) venn.getID();
@@ -376,9 +365,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
                 //populerValgteVenner();
 
-
                 adapter.notifyDataSetChanged();
-
             }
         });
     }
