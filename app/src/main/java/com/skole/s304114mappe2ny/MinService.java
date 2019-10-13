@@ -47,6 +47,8 @@ public class MinService extends Service {
 
         datoIdag = day+"/"+month+"/"+year;
 
+        //int antall = 0;
+
 
         ArrayList<Bestilling> alleBestillinger = db.finnAlleBestillinger();
         for(Bestilling b : alleBestillinger) {
@@ -71,7 +73,16 @@ public class MinService extends Service {
                 e.printStackTrace();
             }
 
-            if(dato2.compareTo(dato4) == 0) {
+            boolean bestilling = false;
+
+            if((dato2.compareTo(dato4) == 0)) {
+                bestilling = true;
+
+
+
+            //while (dato2.compareTo(dato4) == 0) {
+
+                int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
 
                 //MÅ TA MED ET TALL HER - INDEKS
                 Intent intentet = new Intent(MinService.this, SeBestillinger.class);
@@ -86,11 +97,13 @@ public class MinService extends Service {
                         .setContentIntent(pIntent).build();
                 notifikasjon.flags|= Notification.FLAG_AUTO_CANCEL;
 
-                notificationManager.notify(0, notifikasjon);
+                notificationManager.notify(m, notifikasjon);
                 //notificationManager.notify(Unique_Integer_Number, notification);
 
+                //antall ++;
             }
         }
+
         return super.onStartCommand(intent, flags, startId);
     }
 

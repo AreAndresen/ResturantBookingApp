@@ -386,10 +386,10 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                valgtVenn = (Venn) mListView.getItemAtPosition(i);
+                valgtVennSlett = (Venn) mListView.getItemAtPosition(i);
 
                 //sletter valgt venn direkte fra listviewet ved trykk
-                adapter.remove(valgtVenn);
+                adapter.remove(valgtVennSlett);
 
                 //Integer ID = (int) venn.getID();
                 //valgtVenn = db.finnVenn(ID);
