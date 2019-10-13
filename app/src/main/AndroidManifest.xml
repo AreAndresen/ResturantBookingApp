@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.skole.s304114mappe2ny">
 
+    <uses-permission android:name ="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name = "android.permission.SEND_SMS"/>
+    <uses-permission android:name = "android.permission.SET_ALARM"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

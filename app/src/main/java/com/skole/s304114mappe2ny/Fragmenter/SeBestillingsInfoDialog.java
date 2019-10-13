@@ -25,9 +25,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
 
     private DialogClickListener callback;
 
-    private String meldingUt;
-    private static final String NOKKEL_MELDINGUT = "meldingUt_nokkel";
-
     private DBhandler db;
 
     TextView resNavn, resTlf, bDato, bTid, bVenner;
@@ -36,8 +33,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
     private String tid;
     private Resturant resturant;
     private ArrayList<Venn> venner = new ArrayList<>();
-
-    SharedPreferences sharedPreferences;
 
 
     public interface DialogClickListener{
@@ -65,7 +60,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         catch(ClassCastException e) {
             throw new ClassCastException("Feil ved kalling av interface!");
         }
-
     }
 
 
@@ -91,12 +85,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
             vennNavn += i.getNavn()+". Tlf: "+i.getTelefon()+".\n";
         }
         bVenner.setText(vennNavn);
-
-
-        meldingUt = "Påminnelse for bestilling hos "+resturant.getNavn()+". Dato: "+dato+". Kl: "+tid;
-        //ny lagring til disk
-
-
 
 
         Button btnBestill = dialog.findViewById(R.id.btnOk);

@@ -103,12 +103,18 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         mTextView.setText("Alarm canceled");
     }
 
+
+
+
+
     public void startService(View v) {
         /*Intentintent= newIntent(this, MinService.class);
         this.startService(intent);*/
 
         Intent intent = new Intent();
         intent.setAction("com.skole.s304114mappe2ny");
+
+        //TIL MinBroadcastReciver
         sendBroadcast(intent);
     }
 

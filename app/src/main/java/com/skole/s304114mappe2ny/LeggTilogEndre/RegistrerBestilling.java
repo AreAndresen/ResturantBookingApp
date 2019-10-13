@@ -24,7 +24,14 @@ import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class RegistrerBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoDialog.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
@@ -32,30 +39,32 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     @Override
     public void bestillClick() {
 
-        //lagrer melding
-        String meldingUt = valgtResturant.getNavn()+". Dato: "+dato+". Kl: "+tid;
+            //lagrer melding
+            String meldingUt = valgtResturant.getNavn() + ". Dato: " + dato + ". Kl: " + tid;
 
-        SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+            SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Integer index = db.finnAlleBestillinger().size();
-        index++;
-        String NOKKEL = index+""; //løpende nøkkel
+            Integer index = db.finnAlleBestillinger().size();
 
-        String nokkel_MELDING = "melding"+index;
+            //plusser på 1 her fordi ant er 0 til å starte med
+            index++;
+            String NOKKEL = index + ""; //løpende nøkkel
 
-        editor.putString(nokkel_MELDING, meldingUt);
-        editor.putInt(NOKKEL,index); //lagrer nøkkel med nøkkel string
+            String nokkel_MELDING = "melding" + index;
 
-        editor.commit();
-        //slutt lagring av melding
+            editor.putString(nokkel_MELDING, meldingUt);
+            editor.putInt(NOKKEL, index); //lagrer nøkkel med nøkkel string
 
-        String meldingUt2 = ""+getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt(NOKKEL,2);
-        meldingUt2 += getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(nokkel_MELDING,"");
+            editor.commit();
+            //slutt lagring av melding
+
+            String meldingUt2 = "" + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt(NOKKEL, 2);
+            meldingUt2 += getSharedPreferences("APP_INFO", MODE_PRIVATE).getString(nokkel_MELDING, "");
 
 
-        Toast.makeText(getApplicationContext(),meldingUt2,Toast.LENGTH_LONG).show();
-        return;
+            Toast.makeText(getApplicationContext(), meldingUt2, Toast.LENGTH_LONG).show();
+            return;
     }
 
     @Override
@@ -71,7 +80,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     private Venn valgtVennSlett;
     private ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
 
-    private static final String NOKKEL_MELDINGUT = "meldingUt_nokkel";
 
     //til lagring av IDer
     ArrayList<Integer> IDer = new ArrayList<Integer>();

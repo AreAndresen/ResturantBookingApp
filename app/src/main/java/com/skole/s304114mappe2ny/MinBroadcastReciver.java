@@ -1,9 +1,12 @@
 package com.skole.s304114mappe2ny;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
+import com.skole.s304114mappe2ny.Fragmenter.NotifikasjonFragment;
 
 public class MinBroadcastReciver extends BroadcastReceiver {
     @Override
@@ -13,7 +16,14 @@ public class MinBroadcastReciver extends BroadcastReceiver {
         /*Intent i = new Intent(context, MinService.class);
         context.startService(i);*/
 
+        //TIL SettPeriodiskService
         Intent i = new Intent(context, SettPeriodiskService.class);
         context.startService(i);
+
+
+        //NY TESTKODE
+
+        //NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        //Intent repeating_intent = new Intent(context, SettPeriodiskService.class);
     }
 }

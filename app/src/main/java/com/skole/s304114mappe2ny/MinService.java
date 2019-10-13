@@ -5,32 +5,22 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
-
 import androidx.core.app.NotificationCompat;
-
-import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
 import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
-
+import com.skole.s304114mappe2ny.klasser.Bestilling;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class MinService extends Service {
 
-    /*
-    Når MinService kjører vil jeg at den skal gi en Notification.
-    Når det klikkes på denne vil jeg at aktiviteten Resultat.java skal startes opp.
-    Resulat.java har layout fil resultat.xml som bare setter bakgrunn til blå
-     */
-    private static final String NOKKEL_MELDINGUT = "meldingUt_nokkel";
     DBhandler db;
+
+    String datoIdag;
 
     public MinService() {
     }
@@ -47,61 +37,62 @@ public class MinService extends Service {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         db = new DBhandler(this);
-        Integer index = db.finnAlleBestillinger().size();
-        //index--;
 
-        String NOKKEL = index+""; //løpende nøkkel
-        String nokkel_MELDING = "melding"+index;
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
 
-        //Henter meldingen fra MINNE
-        String meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(nokkel_MELDING,"");
+        month++;
 
-        //henter og finner indeks
-        int indeks = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt(NOKKEL,2);
+        datoIdag = day+"/"+month+"/"+year;
 
 
-
-        //sender oss til RESULTAT.JAVA
-        //Intent inten = new Intent(this, Resultat.class);
-
-        String valid_until = db.finnBestilling(indeks).getDato();
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date strDate = null;
-        try {
-            strDate = sdf.parse(valid_until);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        //if (System.currentTimeMillis() == strDate.getTime()) {
-        if (1 == 1) {
-
-            //MÅ TA MED ET TALL HER - INDEKS
-            Intent intentet = new Intent(MinService.this, SeBestillinger.class);
-
-            //intentet.putExtra("id",indeks++);
-            //startActivity(intentet);
-            //finish(); //unngår å legge på stack
+        ArrayList<Bestilling> alleBestillinger = db.finnAlleBestillinger();
+        for(Bestilling b : alleBestillinger) {
 
 
-            PendingIntent pIntent = PendingIntent.getActivity(this, 0, intentet, 0);
-            Notification notifikasjon = new NotificationCompat.Builder(this)
-                    .setContentTitle("Påminnelse for bestilling i dag.")
-                    .setContentText(meldingUt)
+            int index = (int) b.get_ID();
 
+            String nokkel_MELDING = "melding"+index;
 
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentIntent(pIntent).build();
-            notifikasjon.flags|= Notification.FLAG_AUTO_CANCEL;
-            notificationManager.notify(0, notifikasjon);
+            String meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(nokkel_MELDING,"");
 
+            String dato1 = b.getDato();
 
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date dato2 = null;
+            Date dato4 = null;
 
+            try {
+                dato2 = sdf.parse(dato1);
+                dato4 = sdf.parse(datoIdag);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            if(dato2.compareTo(dato4) == 0) {
+
+                //MÅ TA MED ET TALL HER - INDEKS
+                Intent intentet = new Intent(MinService.this, SeBestillinger.class);
+
+                PendingIntent pIntent = PendingIntent.getActivity(this, 0, intentet, 0); //100. FLAG  - PendingIntent.FLAG_UPDATE_CURRENT
+
+                Notification notifikasjon = new NotificationCompat.Builder(this)
+                        .setContentTitle("Påminnelse for bestilling i dag.")
+                        .setContentText(meldingUt)
+
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentIntent(pIntent).build();
+                notifikasjon.flags|= Notification.FLAG_AUTO_CANCEL;
+
+                notificationManager.notify(0, notifikasjon);
+                //notificationManager.notify(Unique_Integer_Number, notification);
+
+            }
         }
         return super.onStartCommand(intent, flags, startId);
-
-
-
     }
+
 }
 
