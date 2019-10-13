@@ -281,7 +281,7 @@ public class DBhandler extends SQLiteOpenHelper{
 
     public void slettDeltakelse(Long inn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_DELTAKELSE, DTK_BESTILLING_ID + " =? ", new String[]{Long.toString(inn_id)});
+        db.delete(TABLE_DELTAKELSE, DELTAKELSE_ID + " =? ", new String[]{Long.toString(inn_id)});
         db.close();
     }
 

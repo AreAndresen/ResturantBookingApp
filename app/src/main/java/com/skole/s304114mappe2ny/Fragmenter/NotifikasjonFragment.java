@@ -116,6 +116,8 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         Intent intent = new Intent();
         intent.setAction("com.skole.s304114mappe2ny");
 
+
+        //gir tillatelse til å sende melding
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},0);
 
         //TIL MinBroadcastReciver

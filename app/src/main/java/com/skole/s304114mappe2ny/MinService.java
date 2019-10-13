@@ -53,6 +53,7 @@ public class MinService extends Service {
 
         db = new DBhandler(this);
 
+        //henter dagens dato i riktig format til sammenligning av det som ligger i db
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);

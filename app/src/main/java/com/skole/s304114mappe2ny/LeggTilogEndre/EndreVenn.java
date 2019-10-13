@@ -13,7 +13,11 @@ import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeVenner;
+import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Venn;
+
+import java.util.ArrayList;
 
 
 public class EndreVenn extends AppCompatActivity {
@@ -98,8 +102,16 @@ public class EndreVenn extends AppCompatActivity {
             public void onClick(View view) {
 
                 Venn slettVenn = db.finnVenn(valgtID);
-
                 db.slettVenn(slettVenn.getID());
+
+                //sletter også alle deltakelser til slettet venn
+                ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
+                for (Deltakelse d : deltakelser) {
+                    if(d.getVennID() == slettVenn.getID()) {
+                        db.slettDeltakelse(d.getID());
+                    }
+                }
+
 
                 EnavnVenn.setText("");
                 EtlfVenn.setText("");
