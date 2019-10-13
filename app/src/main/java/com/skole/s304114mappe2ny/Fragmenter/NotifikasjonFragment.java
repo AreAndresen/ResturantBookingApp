@@ -26,12 +26,24 @@ import java.util.Calendar;
 public class NotifikasjonFragment  extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
     private TextView mTextView;
 
+    private Button btnTilbake;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifikasjon_fragment);
 
         mTextView = findViewById(R.id.textView);
+
+        btnTilbake = findViewById(R.id.btnTilbake);
+        btnTilbake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
 
         Button buttonTimePicker = findViewById(R.id.button_timepicker);
         buttonTimePicker.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +108,7 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         this.startService(intent);*/
 
         Intent intent = new Intent();
-        intent.setAction("com.skole.servicebroadcast");
+        intent.setAction("com.skole.s304114mappe2ny");
         sendBroadcast(intent);
     }
 

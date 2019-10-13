@@ -47,4 +47,25 @@
         android:text="Stopp periodisk service"
         android:onClick="stoppPeriodisk"/>
 
+
+    <Switch
+        android:layout_marginTop="27dp"
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_cancel"
+        android:layout_centerHorizontal="true"
+        android:text="Notifikasjoner"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnTilbake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/switch1"
+        android:layout_centerHorizontal="true"
+        android:text="Tilbake" />
+
+
+
 </RelativeLayout>

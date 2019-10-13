@@ -33,15 +33,26 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     public void bestillClick() {
 
         //lagrer melding
-        String meldingUt = "Påminnelse for bestilling hos "+valgtResturant.getNavn()+". Dato: "+dato+". Kl: "+tid;
+        String meldingUt = valgtResturant.getNavn()+". Dato: "+dato+". Kl: "+tid;
 
         SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(NOKKEL_MELDINGUT, meldingUt);
+
+        Integer index = db.finnAlleBestillinger().size();
+        index++;
+        String NOKKEL = index+""; //løpende nøkkel
+
+        String nokkel_MELDING = "melding"+index;
+
+        editor.putString(nokkel_MELDING, meldingUt);
+        editor.putInt(NOKKEL,index); //lagrer nøkkel med nøkkel string
+
         editor.commit();
         //slutt lagring av melding
 
-        String meldingUt2 = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(NOKKEL_MELDINGUT,"");
+        String meldingUt2 = ""+getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt(NOKKEL,2);
+        meldingUt2 += getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(nokkel_MELDING,"");
+
 
         Toast.makeText(getApplicationContext(),meldingUt2,Toast.LENGTH_LONG).show();
         return;
@@ -212,6 +223,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());*/
 
         //ny
+        month++;
+
         dato = dayOfMonth+"/"+month+"/"+year;
         visDato.setText(dato);
     }

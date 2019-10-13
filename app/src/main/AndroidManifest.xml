@@ -25,6 +25,7 @@
         <activity android:name=".LeggTilogEndre.LeggTilResturant" />
         <activity android:name=".Fragmenter.SeBestillingsInfoFragment" />
 
+
         <service
             android:name=".SettPeriodiskService"
             android:enabled="true"
@@ -36,9 +37,10 @@
 
         <receiver android:name=".MinBroadcastReciver">
             <intent-filter>
-                <action android:name="com.skole.servicebroadcast" />
+                <action android:name="com.skole.s304114mappe2ny" />
             </intent-filter>
         </receiver>
+
 
         <activity android:name=".Hovedmenyer.MainActivity">
             <intent-filter>

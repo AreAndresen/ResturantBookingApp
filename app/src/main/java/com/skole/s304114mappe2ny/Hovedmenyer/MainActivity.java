@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_preferanser = new Intent (MainActivity.this, NotifikasjonFragment.class);
                 startActivity(intent_preferanser);
-                finish(); //bruker finish her fordi vi kommer tilbake med en ny intent fra preferanser for å oppdatere språk - unngå å legge på stack
+                 //bruker finish her fordi vi kommer tilbake med en ny intent fra preferanser for å oppdatere språk - unngå å legge på stack
             }
         });
 

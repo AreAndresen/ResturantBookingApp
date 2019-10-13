@@ -27,25 +27,16 @@ public class Resultat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.se_bestilling_melding);
 
-        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         meldingT = findViewById(R.id.melding);
 
 
-        //Intent editScreenIntent = new Intent(Resultat.this, SeBestillingsInfoFragment.class);
-
-
-        //prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        prefs = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-        meldingUt = prefs.getString(NOKKEL_MELDINGUT,"");
-
+        meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(NOKKEL_MELDINGUT,"");
 
 
         meldingT.setText(meldingUt);
 
 
-        //String utmelding  = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(NOKKEL_MELDINGUT,"");
 
         //editScreenIntent.putExtra("id",ID);
         //startActivity(editScreenIntent);

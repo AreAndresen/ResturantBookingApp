@@ -35,6 +35,8 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
         //Henter valgt ID fra se bestillinger
         ID = receivedIntent.getIntExtra("id",0);
 
+
+
         bestilling = db.finnBestilling(ID);
         deltakelser = db.finnAlleDeltakelser();
 
