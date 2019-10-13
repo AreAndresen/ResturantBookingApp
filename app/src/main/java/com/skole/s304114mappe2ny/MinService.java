@@ -1,15 +1,27 @@
 package com.skole.s304114mappe2ny;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
+import android.telephony.SmsManager;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+
 import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
+import com.skole.s304114mappe2ny.klasser.Deltakelse;
+import com.skole.s304114mappe2ny.klasser.Venn;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +33,8 @@ public class MinService extends Service {
     DBhandler db;
 
     String datoIdag;
+
+    ArrayList<Integer> sendteMeldinger = new ArrayList<>();
 
     public MinService() {
     }
@@ -35,6 +49,7 @@ public class MinService extends Service {
         Toast.makeText(getApplicationContext(), "I MinService", Toast.LENGTH_SHORT).show();
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
 
         db = new DBhandler(this);
 
@@ -60,6 +75,23 @@ public class MinService extends Service {
 
             String meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(nokkel_MELDING,"");
 
+
+            //Samler alle venner til aktuell bestilling
+            ArrayList<Venn> vennerUtmelding = new ArrayList<>();
+
+            ArrayList<Deltakelse> alleDeltakelser = db.finnAlleDeltakelser();
+            for(Deltakelse d : alleDeltakelser) {
+                if(d.getBestillingID() == b.get_ID()) {
+                        ArrayList<Venn> alleVenner = db.finnAlleVenner();
+                        for(Venn v : alleVenner) {
+                            if(v.getID() == d.getVennID()) {
+                               vennerUtmelding.add(v);
+                            }
+                        }
+                }
+            }
+
+
             String dato1 = b.getDato();
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -73,14 +105,11 @@ public class MinService extends Service {
                 e.printStackTrace();
             }
 
-            boolean bestilling = false;
 
             if((dato2.compareTo(dato4) == 0)) {
-                bestilling = true;
-
-
 
             //while (dato2.compareTo(dato4) == 0) {
+
 
                 int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
 
@@ -90,7 +119,7 @@ public class MinService extends Service {
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, intentet, 0); //100. FLAG  - PendingIntent.FLAG_UPDATE_CURRENT
 
                 Notification notifikasjon = new NotificationCompat.Builder(this)
-                        .setContentTitle("Påminnelse for bestilling i dag.")
+                        .setContentTitle("Påminnelse")
                         .setContentText(meldingUt)
 
                         .setSmallIcon(R.mipmap.ic_launcher)
@@ -100,7 +129,13 @@ public class MinService extends Service {
                 notificationManager.notify(m, notifikasjon);
                 //notificationManager.notify(Unique_Integer_Number, notification);
 
-                //antall ++;
+
+                //sender melding til alle venner som er i deltakelsen
+                SmsManager minSmsManager = SmsManager.getDefault();
+                for(Venn v : vennerUtmelding) {
+                    minSmsManager.sendTextMessage(v.getTelefon(), null, meldingUt, null, null);
+                }
+
             }
         }
 

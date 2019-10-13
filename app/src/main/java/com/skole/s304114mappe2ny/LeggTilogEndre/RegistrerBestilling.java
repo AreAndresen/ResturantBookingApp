@@ -40,7 +40,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     public void bestillClick() {
 
             //lagrer melding
-            String meldingUt = valgtResturant.getNavn() + ". Dato: " + dato + ". Kl: " + tid;
+            String meldingUt = "Husk bestilling i dag hos "+valgtResturant.getNavn() + ". Dato: " + dato + ". Kl: " + tid;
 
             SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();

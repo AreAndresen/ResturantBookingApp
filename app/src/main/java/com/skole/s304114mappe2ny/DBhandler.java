@@ -174,6 +174,8 @@ public class DBhandler extends SQLiteOpenHelper{
         return vennerListe;
     }
 
+
+
     public ArrayList<Bestilling> finnAlleBestillinger() {
         ArrayList<Bestilling> bestillingerListe = new ArrayList<Bestilling>();
         String selectQuery= "SELECT * FROM " + TABLE_BESTILLINGER;

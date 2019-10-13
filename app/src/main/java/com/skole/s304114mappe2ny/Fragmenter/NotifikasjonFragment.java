@@ -1,7 +1,9 @@
 package com.skole.s304114mappe2ny.Fragmenter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.os.Bundle;
 
 import android.app.AlarmManager;
@@ -113,6 +115,8 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
 
         Intent intent = new Intent();
         intent.setAction("com.skole.s304114mappe2ny");
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},0);
 
         //TIL MinBroadcastReciver
         sendBroadcast(intent);
