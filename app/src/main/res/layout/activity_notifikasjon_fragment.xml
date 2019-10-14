@@ -6,65 +6,58 @@
     android:layout_height="match_parent"
     tools:context="com.skole.s304114mappe2ny.Fragmenter.NotifikasjonFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/button_timepicker"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:text="No Alarm set"
-        android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/button_timepicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="open time picker" />
 
-    <Button
-        android:id="@+id/button_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/button_timepicker"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
-        android:text="cancel alarm" />
+
 
     <Button
         android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="startService"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="Start service" />
     <Button
         android:layout_below="@+id/start"
         android:id="@+id/stopp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="Stopp periodisk service"
         android:onClick="stoppPeriodisk"/>
 
 
     <Switch
+        android:id="@+id/notifikasjonPaAv"
         android:layout_marginTop="27dp"
-        android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button_cancel"
+        android:layout_below="@id/stopp"
         android:layout_centerHorizontal="true"
-        android:text="Notifikasjoner"
+        android:layout_centerVertical="true"
+        android:text="Varselmelding"
         android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/klokkeslett"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notifikasjonPaAv"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:text="Ingen varselmelding"
+        />
 
     <Button
         android:id="@+id/btnTilbake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/switch1"
+        android:layout_below="@id/klokkeslett"
         android:layout_centerHorizontal="true"
         android:text="Tilbake" />
+
 
 
 

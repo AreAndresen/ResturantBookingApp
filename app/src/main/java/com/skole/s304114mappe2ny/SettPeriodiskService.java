@@ -24,10 +24,13 @@ public class SettPeriodiskService extends Service {
 
         java.util.Calendar cal = Calendar.getInstance();
 
+        int time = getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDTIME", 3); //standard tidspunkt er 0930 for vanlig notifikasjon om ikke melding er aktivert
+        int min =  getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDMIN", 40);
+
         //setter tiden notifikasjonen skal gå
-        //cal.set(Calendar.HOUR_OF_DAY, 11);
-        //cal.set(Calendar.MINUTE, 30);
-        //cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.HOUR_OF_DAY, time);
+        cal.set(Calendar.MINUTE, min);
+        cal.set(Calendar.SECOND, 0);
 
         //TIL MinService
         Intent i = new Intent(this, MinService.class);
@@ -36,7 +39,7 @@ public class SettPeriodiskService extends Service {
 
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 6 * 1000, pintent); //6 * 100 AlarmManager.INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent); //6 * 100 AlarmManager.INTERVAL_DAY
 
         return super.onStartCommand(intent, flags, startId);
     }

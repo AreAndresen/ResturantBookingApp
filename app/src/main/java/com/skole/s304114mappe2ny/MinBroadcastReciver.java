@@ -20,10 +20,5 @@ public class MinBroadcastReciver extends BroadcastReceiver {
         Intent i = new Intent(context, SettPeriodiskService.class);
         context.startService(i);
 
-
-        //NY TESTKODE
-
-        //NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        //Intent repeating_intent = new Intent(context, SettPeriodiskService.class);
     }
 }

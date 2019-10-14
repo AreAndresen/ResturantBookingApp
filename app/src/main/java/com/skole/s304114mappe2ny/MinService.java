@@ -89,7 +89,6 @@ public class MinService extends Service {
                 }
             }
 
-
             String dato1 = b.getDato();
 
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -104,7 +103,7 @@ public class MinService extends Service {
             }
 
 
-            if((dato2.compareTo(dato4) == 0)) {
+            if((dato2.compareTo(dato4) == 0)) { //hvis datoen er i dag
 
             //while (dato2.compareTo(dato4) == 0) {
 
@@ -130,12 +129,16 @@ public class MinService extends Service {
                 //notificationManager.notify(Unique_Integer_Number, notification);
 
 
-                //sender melding til alle venner som er i deltakelsen
-                SmsManager minSmsManager = SmsManager.getDefault();
-                for(Venn v : vennerUtmelding) {
-                    minSmsManager.sendTextMessage(v.getTelefon(), null, meldingUt, null, null);
-                }
+                //MÅ HA EN HVIS NOTIFIKASJON - MELDING ER SKRUDD PÅ HER IF TRUE
+                boolean avPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("AVPAA",true);
 
+                if(avPaa) {
+                    //sender melding til alle venner som er i deltakelsen
+                    SmsManager minSmsManager = SmsManager.getDefault();
+                    for(Venn v : vennerUtmelding) {
+                        minSmsManager.sendTextMessage(v.getTelefon(), null, meldingUt, null, null);
+                    }
+                }
             }
         }
 

@@ -126,7 +126,6 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
                             ((SeBestillingsInfoFragment)getActivity()).getDB().slettDeltakelse(d.getID());
                         }
                     }
-
                     ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
 
                 }
