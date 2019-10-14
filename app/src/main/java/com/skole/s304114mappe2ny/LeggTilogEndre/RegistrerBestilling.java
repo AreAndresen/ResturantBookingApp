@@ -40,23 +40,23 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     @Override
     public void bestillClick() {
 
-            Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID()); //, vennene
-            db.leggTilBestilling(bestilling);
 
             //genererer tallet som skal brukes som bestillingsID i deltakelse - må gjøre det slik ettersom ID til bestilling og deltakelse genereres likt i DB.
-            //Integer index = db.finnAlleBestillinger().size();
             Integer indeksen = 1 + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("LOPENUMMERBESTILLING", 0);
 
             SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("LOPENUMMERBESTILLING", indeksen); //lagrer nøkkel med nøkkel string
 
+
+            Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID()); //, vennene
+            db.leggTilBestilling(bestilling, indeksen); //legger inn løpenummer som ID
+
             //genererer en deltakelse for hver venn som er med på bestillingen
             for(Venn i : valgteVenner) {
                 Deltakelse deltakelse = new Deltakelse(indeksen, i.getID(), i.getNavn()); //long bestillingID, long vennID
                 db.leggTilDeltakelse(deltakelse);
             }
-
 
 
             //lagrer melding
@@ -443,7 +443,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
 
 
-    //REGISTRERER BESTILLING I DATABASEN
+    /*REGISTRERER BESTILLING I DATABASEN
     private void registrerBestilling() {
         //String dato, String tid, long resturantID, String venner
         String venner = "";
@@ -453,7 +453,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
         Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID());
         db.leggTilBestilling(bestilling);
-    }
+    }*/
 
 
 

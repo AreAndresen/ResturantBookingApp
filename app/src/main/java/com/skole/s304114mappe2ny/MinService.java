@@ -104,7 +104,7 @@ public class MinService extends Service {
             }
 
 
-            //if((dato2.compareTo(dato4) == 0)) {
+            if((dato2.compareTo(dato4) == 0)) {
 
             //while (dato2.compareTo(dato4) == 0) {
 
@@ -136,7 +136,7 @@ public class MinService extends Service {
                     minSmsManager.sendTextMessage(v.getTelefon(), null, meldingUt, null, null);
                 }
 
-            //}
+            }
         }
 
         return super.onStartCommand(intent, flags, startId);

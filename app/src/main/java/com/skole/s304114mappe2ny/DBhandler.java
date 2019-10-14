@@ -110,10 +110,10 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
     }
 
-    public void leggTilBestilling(Bestilling bestilling) {
+    public void leggTilBestilling(Bestilling bestilling, long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        //values.put(BESTILLING_ID, bestilling.get_ID()); //autogenererer IKKE Denne
+        values.put(BESTILLING_ID, id); //autogenererer IKKE Denne
         values.put(BESTILLING_DATO, bestilling.getDato());
         values.put(BESTILLING_TID, bestilling.getTid());
         values.put(BESTILLING_RESTURANTNAVN, bestilling.getResturantNavn());
