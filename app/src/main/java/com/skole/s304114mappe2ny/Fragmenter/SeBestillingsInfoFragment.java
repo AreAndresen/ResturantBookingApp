@@ -118,8 +118,14 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
 
                     //Sletter valgt bestilling fra db
                     ((SeBestillingsInfoFragment)getActivity()).getDB().slettBestilling(bestilling.get_ID());
+
                     //Sletter alle deltakelser til bestillingen fra db
-                    ((SeBestillingsInfoFragment)getActivity()).getDB().slettDeltakelse(bestilling.get_ID());
+                    ArrayList<Deltakelse> deltakelser = ((SeBestillingsInfoFragment)getActivity()).getDB().finnAlleDeltakelser();
+                    for (Deltakelse d : deltakelser) {
+                        if(d.getBestillingID() == bestilling.get_ID()) {
+                            ((SeBestillingsInfoFragment)getActivity()).getDB().slettDeltakelse(d.getID());
+                        }
+                    }
 
                     ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
 

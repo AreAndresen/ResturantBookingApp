@@ -48,8 +48,6 @@ public class MinService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(getApplicationContext(), "I MinService", Toast.LENGTH_SHORT).show();
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
 
         db = new DBhandler(this);
 
@@ -68,7 +66,6 @@ public class MinService extends Service {
 
         ArrayList<Bestilling> alleBestillinger = db.finnAlleBestillinger();
         for(Bestilling b : alleBestillinger) {
-
 
             int index = (int) b.get_ID();
 
@@ -107,12 +104,14 @@ public class MinService extends Service {
             }
 
 
-            if((dato2.compareTo(dato4) == 0)) {
+            //if((dato2.compareTo(dato4) == 0)) {
 
             //while (dato2.compareTo(dato4) == 0) {
 
 
                 int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                 //MÅ TA MED ET TALL HER - INDEKS
                 Intent intentet = new Intent(MinService.this, SeBestillinger.class);
@@ -137,7 +136,7 @@ public class MinService extends Service {
                     minSmsManager.sendTextMessage(v.getTelefon(), null, meldingUt, null, null);
                 }
 
-            }
+            //}
         }
 
         return super.onStartCommand(intent, flags, startId);

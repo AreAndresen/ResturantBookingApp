@@ -36,7 +36,7 @@ public class SettPeriodiskService extends Service {
 
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 6 * 100, pintent); //6 * 100 AlarmManager.INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 6 * 1000, pintent); //6 * 100 AlarmManager.INTERVAL_DAY
 
         return super.onStartCommand(intent, flags, startId);
     }

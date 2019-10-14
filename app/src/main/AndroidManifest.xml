@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Resultat"></activity>
-        //<activity android:name=".Fragmenter.NotifikasjonFragment" /> <!-- android:theme="@style/Theme.AppCompat.NoActionBar"> -->
+        <activity android:name=".Fragmenter.NotifikasjonFragment" /> <!-- android:theme="@style/Theme.AppCompat.NoActionBar"> -->
         <!-- <activity android:name=".LeggTilogEndre.EndreBestilling" /> -->
         <activity android:name=".ListViews.SeBestillinger" />
         <activity android:name=".LeggTilogEndre.RegistrerBestilling" />

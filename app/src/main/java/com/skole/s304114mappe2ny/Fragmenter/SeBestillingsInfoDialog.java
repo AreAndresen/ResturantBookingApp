@@ -97,18 +97,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
                 callback.bestillClick();
 
 
-                Bestilling bestilling = new Bestilling(dato, tid, resturant.getNavn(), resturant.get_ID()); //, vennene
-                db.leggTilBestilling(bestilling);
-
-                //genererer tallet som skal brukes som bestillingsID i deltakelse - må gjøre det slik ettersom ID til bestilling og deltakelse genereres likt i DB.
-                Integer index = db.finnAlleBestillinger().size();
-
-
-                //genererer en deltakelse for hver venn som er med på bestillingen
-                for(Venn i : venner) {
-                    Deltakelse deltakelse = new Deltakelse(index, i.getID(), i.getNavn()); //long bestillingID, long vennID
-                    db.leggTilDeltakelse(deltakelse);
-                }
 
 
                 /*lagrer melding MÅ FINNE UT AV GETSAHRED PREF
