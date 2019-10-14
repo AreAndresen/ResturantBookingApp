@@ -25,9 +25,9 @@ public class SettPeriodiskService extends Service {
         java.util.Calendar cal = Calendar.getInstance();
 
         //setter tiden notifikasjonen skal gå
-        cal.set(Calendar.HOUR_OF_DAY, 11);
-        cal.set(Calendar.MINUTE, 30);
-        cal.set(Calendar.SECOND, 0);
+        //cal.set(Calendar.HOUR_OF_DAY, 11);
+        //cal.set(Calendar.MINUTE, 30);
+        //cal.set(Calendar.SECOND, 0);
 
         //TIL MinService
         Intent i = new Intent(this, MinService.class);

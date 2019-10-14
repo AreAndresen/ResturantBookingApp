@@ -97,16 +97,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
                 callback.bestillClick();
 
 
-
-
-                /*lagrer melding MÅ FINNE UT AV GETSAHRED PREF
-                SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(NOKKEL_MELDINGUT, meldingUt);
-                editor.commit();
-                //slutt lagring av melding*/
-
-
                 dismiss();
             }
         });

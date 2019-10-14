@@ -51,7 +51,6 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("LOPENUMMERBESTILLING", indeksen); //lagrer nøkkel med nøkkel string
 
-
             //genererer en deltakelse for hver venn som er med på bestillingen
             for(Venn i : valgteVenner) {
                 Deltakelse deltakelse = new Deltakelse(indeksen, i.getID(), i.getNavn()); //long bestillingID, long vennID
