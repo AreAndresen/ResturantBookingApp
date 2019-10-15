@@ -64,9 +64,14 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         if(avPaa ) {
             klokkeslett.setText(tid);
 
+
         }
         //sørger for at switch er koblet ut om service er slått av
         if(servicePAA) {
+            //starter service hver gang tlfen starter opp
+            ServiceAuto();
+            notifikasjonPaAv.setEnabled(servicePAA);
+
             notifikasjonPaAv.setEnabled(true);
         }
         else{
@@ -110,7 +115,7 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         editor.putString("TID", tid);
 
         //editor.putInt("MELDINGAVPAAVERDI", avPaaVerdi); //lagrer nøkkel med nøkkel string
-        editor.commit();
+        editor.apply(); //apply
 
 
 
@@ -171,16 +176,22 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         servicePAA = true;
         notifikasjonPaAv.setEnabled(servicePAA);
 
+        ServiceAuto();
+
+        //TIL MinBroadcastReciver
+        //sendBroadcast(intent);
+    }
+
+
+    public void ServiceAuto() {
         Intent intent = new Intent();
         intent.setAction("com.skole.s304114mappe2ny");
         sendBroadcast(intent);
 
         //gir tillatelse til å sende melding
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},0);
-
-        //TIL MinBroadcastReciver
-        //sendBroadcast(intent);
     }
+
 
     public void stoppPeriodisk(View v) {
         Intent i = new Intent(this, MinService.class);
