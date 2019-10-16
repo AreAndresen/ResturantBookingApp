@@ -50,6 +50,7 @@ public class ResturantProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues values) {
         SQLiteDatabase db = DBhelper.getWritableDatabase();
 
+        //1
         /*static String KEY_NAME = "Navn";
         static String KEY_PH_NO = "Telefon";
         static String KEY_TYPE = "Type";
@@ -57,6 +58,16 @@ public class ResturantProvider extends ContentProvider {
         values.put("Navn", );*/
 
 
+        /*2
+        if(uriMatcher.match(uri) ==  BOK) {
+            db.insert(TABLE_RESTURANTER, null, values);
+        }
+        db.close();
+        getContext().getContentResolver().notifyChange(uri,null);
+        return null;*/
+
+
+        //lærers
         db.insert(TABLE_RESTURANTER, null, values);
         Cursor c = db.query(TABLE_RESTURANTER,null,null,null,null,null,null);
         c.moveToLast();
