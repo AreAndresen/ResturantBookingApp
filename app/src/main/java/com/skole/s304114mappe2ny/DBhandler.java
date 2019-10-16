@@ -136,7 +136,7 @@ public class DBhandler extends SQLiteOpenHelper{
     //-----------FINN ALLE METODER------------
     public ArrayList<Resturant> finnAlleResturanter() {
         ArrayList<Resturant> resturantListe = new ArrayList<Resturant>();
-        String selectQuery= "SELECT * FROM " + TABLE_RESTURANTER;
+        String selectQuery = "SELECT * FROM " + TABLE_RESTURANTER;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor= db.rawQuery(selectQuery, null);
         if(cursor.moveToFirst()) {

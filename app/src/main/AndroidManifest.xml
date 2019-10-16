@@ -7,6 +7,11 @@
     <uses-permission android:name = "android.permission.READ_SMS"/>
     <uses-permission android:name = "android.permission.SET_ALARM"/>
 
+    <uses-permission android:name="com.skole.s304114mappe2ny.permission"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">
+    </uses-permission>
+    <permission android:name="com.skole.s304114mappe2ny.permission"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -45,6 +50,14 @@
                 <action android:name="com.skole.s304114mappe2ny" />
             </intent-filter>
         </receiver>
+
+        <provider android:name="com.skole.s304114mappe2ny.ResturantProvider"
+            android:authorities="com.skole.s304114mappe2ny"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.skole.s304114mappe2ny.permission"
+            android:writePermission="com.skole.s304114mappe2ny.permission">
+        </provider>
 
 
         <activity android:name=".Hovedmenyer.MainActivity">
