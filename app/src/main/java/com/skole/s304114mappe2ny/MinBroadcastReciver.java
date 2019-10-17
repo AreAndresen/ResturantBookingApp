@@ -12,8 +12,6 @@ public class MinBroadcastReciver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        //if(Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-
         Toast.makeText(context, "I BroadcastReceiver", Toast.LENGTH_SHORT).show();
 
         Intent i = new Intent(context, SettPeriodiskService.class);

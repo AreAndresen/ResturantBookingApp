@@ -65,7 +65,6 @@
             android:writePermission="com.skole.s304114mappe2ny.permission">
         </provider>
 
-
         <activity android:name=".Hovedmenyer.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
