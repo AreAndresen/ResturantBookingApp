@@ -51,7 +51,8 @@
             </intent-filter>
         </receiver>
 
-        <provider android:name="com.skole.s304114mappe2ny.ResturantProvider"
+        <provider
+            android:name="com.skole.s304114mappe2ny.ResturantProvider"
             android:authorities="com.skole.s304114mappe2ny"
             android:enabled="true"
             android:exported="true"
