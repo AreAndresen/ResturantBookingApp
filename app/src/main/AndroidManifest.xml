@@ -47,7 +47,12 @@
 
         <receiver android:name=".MinBroadcastReciver">
             <intent-filter>
+                <!--FOR Å STARTE BROADCASTRECIVER NÅR APPEN SLÅS PÅ-->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+
                 <action android:name="com.skole.s304114mappe2ny" />
+
             </intent-filter>
         </receiver>
 

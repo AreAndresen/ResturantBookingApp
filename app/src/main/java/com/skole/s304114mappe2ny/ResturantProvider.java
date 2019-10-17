@@ -11,7 +11,6 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.skole.s304114mappe2ny.klasser.Resturant;
 
 import static com.skole.s304114mappe2ny.DBhandler.KEY_ID;
 import static com.skole.s304114mappe2ny.DBhandler.KEY_NAME;
@@ -54,23 +53,6 @@ public class ResturantProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         SQLiteDatabase db = DBhelper.getWritableDatabase();
-
-        //1
-        /*static String KEY_NAME = "Navn";
-        static String KEY_PH_NO = "Telefon";
-        static String KEY_TYPE = "Type";
-
-        values.put("Navn", );*/
-
-
-        /*2
-        if(uriMatcher.match(uri) ==  BOK) {
-            db.insert(TABLE_RESTURANTER, null, values);
-        }
-        db.close();
-        getContext().getContentResolver().notifyChange(uri,null);
-        return null;*/
-
         //FUNKER
         values.put(KEY_NAME, values.get(KEY_NAME).toString());
         values.put(KEY_PH_NO, values.get(KEY_PH_NO).toString());
@@ -83,15 +65,6 @@ public class ResturantProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri,null);
         return ContentUris.withAppendedId(uri, minid);
         //FUNKER SLUTT
-
-
-        //lærers
-        /*db.insert(TABLE_RESTURANTER, null, values);
-        Cursor c = db.query(TABLE_RESTURANTER,null,null,null,null,null,null);
-        c.moveToLast();
-        long minid = c.getLong(0);
-        getContext().getContentResolver().notifyChange(uri,null);
-        return ContentUris.withAppendedId(uri, minid);*/
     }
 
     @Override

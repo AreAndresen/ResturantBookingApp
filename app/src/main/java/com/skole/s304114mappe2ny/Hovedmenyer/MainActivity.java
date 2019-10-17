@@ -16,9 +16,6 @@ import com.skole.s304114mappe2ny.R;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static String PROVIDER = "com.skole.304114mappe2ny";
-    public static final Uri CONTENT_URI = Uri.parse("content://"+ PROVIDER + "/resturant");
-
     //--------KNAPPER-------
     Button resturanterKnapp, vennerKnapp, bestillingKnapp, innstillingerKnapp;
 
@@ -26,13 +23,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        //ContentValues v = new ContentValues();
-
-        //v.put("Tittel", "Sult");
-
-        //getContentResolver().insert(CONTENT_URI,v);
 
 
         //--------KNAPPER--------

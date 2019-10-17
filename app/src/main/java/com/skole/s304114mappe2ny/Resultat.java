@@ -27,12 +27,9 @@ public class Resultat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.se_bestilling_melding);
 
-
         meldingT = findViewById(R.id.melding);
 
-
         meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(NOKKEL_MELDINGUT,"");
-
 
         meldingT.setText(meldingUt);
 

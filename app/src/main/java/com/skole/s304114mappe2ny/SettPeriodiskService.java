@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -24,8 +25,11 @@ public class SettPeriodiskService extends Service {
 
         java.util.Calendar cal = Calendar.getInstance();
 
-        int time = getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDTIME", 3); //standard tidspunkt er 0930 for vanlig notifikasjon om ikke melding er aktivert
-        int min =  getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDMIN", 40);
+        int time = getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDTIME", 15); //standard tidspunkt er 0930 for vanlig notifikasjon om ikke melding er aktivert
+        int min =  getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDMIN", 26);
+
+        Toast.makeText(this, "I BroadcastReceiver - tidspunkt: "+time+" : "+min, Toast.LENGTH_SHORT).show();
+
 
         //setter tiden notifikasjonen skal gå
         cal.set(Calendar.HOUR_OF_DAY, time);
@@ -35,7 +39,7 @@ public class SettPeriodiskService extends Service {
         //TIL MinService
         Intent i = new Intent(this, MinService.class);
 
-        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0); //100. FLAG  - PendingIntent.FLAG_UPDATE_CURRENT
+        PendingIntent pintent = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); //100. FLAG  - PendingIntent.FLAG_UPDATE_CURRENT - Oppdaterer gammel
 
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
