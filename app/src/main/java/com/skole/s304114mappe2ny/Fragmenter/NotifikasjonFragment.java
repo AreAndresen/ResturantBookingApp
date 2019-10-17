@@ -28,18 +28,12 @@ import com.skole.s304114mappe2ny.TimePickerFragment;
 
 public class NotifikasjonFragment  extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
-
     private TextView klokkeslettmld, klokkeslettNtf;
-
     private Button btnTilbake;
-
-    private Switch notifikasjonPaAv, meldingPaAv;
-
+    private Switch notifikasjonPaAv, VarselmeldingPaAv;
     private String tid;
-
     private int time, minutt; //brukes til overføring i minne og når melding sendes
-
-    private boolean avPaa, servicePAA;
+    private boolean mldAvPaa, servicePAA;
 
 
     @Override
@@ -47,110 +41,82 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         super.onCreate(savedInstanceState);
 
         servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",true);
-        avPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("AVPAA",false);
+        mldAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",false);
         tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","");
-
 
         setContentView(R.layout.activity_notifikasjon_fragment);
 
-        meldingPaAv = (Switch) findViewById(R.id.meldingPaAv);
+        VarselmeldingPaAv = (Switch) findViewById(R.id.meldingPaAv);
         notifikasjonPaAv = (Switch) findViewById(R.id.notifikasjonPaAv);
-
-
         klokkeslettmld = findViewById(R.id.klokkeslettmld);
         klokkeslettNtf = findViewById(R.id.klokkeslettNtf);
 
-        if(avPaa) {
+
+        if(mldAvPaa) {
             klokkeslettmld.setText(tid);
         }
+
         //sørger for at switch er koblet ut om service er slått av
         if(servicePAA) {
             //starter service hver gang tlfen starter opp
-            startService();
-            ServiceAuto();
+            startLayout();
+            //ServiceAuto();
         }
         else{
-            meldingPaAv.setEnabled(servicePAA);
-
+            VarselmeldingPaAv.setEnabled(servicePAA);
         }
 
 
         klokkeslettNtf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment timePicker = new TimePickerFragment();
 
-                timePicker.show(getFragmentManager(), "time picker");
-                ServiceAuto();
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getFragmentManager(), "time picker");;
             }
         });
-        /*klokkeslettmld.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment timePicker = new TimePickerFragment();
-
-                timePicker.show(getFragmentManager(), "time picker");
-                ServiceAuto();
-            }
-        });*/
-
 
         Toast.makeText(getApplicationContext(), servicePAA+" ", Toast.LENGTH_LONG).show();
-        //lagrer om switch er aktivert for melding eller ikke
-        SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-
-        meldingPaAv.setChecked(avPaa);
-
-        //avPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("AVPAA",true);
         notifikasjonPaAv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-
                     stoppPeriodisk();
 
                 } else {
-                    startService();
-                    ServiceAuto();
+                    startLayout();
                 }
             }
         });
 
 
-        meldingPaAv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        VarselmeldingPaAv.setChecked(mldAvPaa);
+        VarselmeldingPaAv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    avPaa = false;
+                    mldAvPaa = false;
                     klokkeslettmld.setText("Ingen varselmelding");
                 } else {
-                    startService();
+                    mldAvPaa = true;
+                    startLayout();
 
-                    //DialogFragment timePicker = new TimePickerFragment();
-
-                    //timePicker.show(getFragmentManager(), "time picker");
-
-                    ServiceAuto();
-                    avPaa = true;
                 }
             }
         });
 
-        editor.putBoolean("SERVICEPAA", servicePAA); //lagrer nøkkel med nøkkel string
-        editor.putBoolean("AVPAA", avPaa); //lagrer nøkkel med nøkkel string
-
-
-        editor.putString("TID", tid);
-
-        //editor.putInt("MELDINGAVPAAVERDI", avPaaVerdi); //lagrer nøkkel med nøkkel string
-        editor.apply(); //apply
-
+        /*getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("SERVICEPAA", servicePAA).apply();
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("MLDAVPAA", mldAvPaa).apply();
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("TID", tid).apply();*/
 
 
         btnTilbake = findViewById(R.id.btnTilbake);
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //aktiverer service hvis aktivert
+                if(servicePAA) {
+                    ServiceAuto();
+                }
                 finish();
             }
         });
@@ -161,14 +127,14 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        /*getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDTIME", hourOfDay).apply();
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDMIN", minute).apply();
+
+        time = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDTIME",17);
+        minutt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDMIN",0);*/
+
         time = hourOfDay;
         minutt = minute;
-
-        editor.putInt("MLDTIME", time);
-        editor.putInt("MLDMIN", minutt);
-
 
         tid = "Kl: " + hourOfDay + ":";
         //sørger for at det står f.eks 10:05 isteden for 10:5
@@ -176,34 +142,36 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
             tid += "0";
         }
         tid += minute;
+        //setter tidspunktet for notifikasjonen og melding
         klokkeslettmld.setText(tid);
         klokkeslettNtf.setText(tid);
     }
 
-    public void startService() {
-        /*Intentintent= newIntent(this, MinService.class);
-        this.startService(intent);*/
 
-        klokkeslettmld.setText(tid);
-
+    //------METODE SOM SETTER ALLE SWITCHER OG TEXT
+    public void startLayout() {
         servicePAA = true;
-        meldingPaAv.setEnabled(servicePAA);
+        VarselmeldingPaAv.setEnabled(servicePAA);
+        klokkeslettmld.setEnabled(servicePAA);
         klokkeslettNtf.setEnabled(servicePAA);
         notifikasjonPaAv.setChecked(servicePAA);
+
         klokkeslettNtf.setText(tid);
+
+        if(mldAvPaa) {
+            klokkeslettmld.setText(tid);
+        }
     }
 
 
+    //-------METODE SOM STARTER SERVICE------
     public void ServiceAuto() {
         Intent intent = new Intent();
         intent.setAction("com.skole.s304114mappe2ny");
         sendBroadcast(intent);
-
-        //gir tillatelse til å sende melding
-        //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},0);
     }
 
-
+    //-------METODE SOM STOPPER SERVICE------
     public void stoppPeriodisk() {
         Intent i = new Intent(this, MinService.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
@@ -212,14 +180,16 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
             alarm.cancel(pintent);
         }
         servicePAA = false;
-        meldingPaAv.setEnabled(servicePAA);
+        mldAvPaa = false;
+
+        VarselmeldingPaAv.setEnabled(servicePAA);
+        VarselmeldingPaAv.setChecked(mldAvPaa);
+
         klokkeslettNtf.setEnabled(servicePAA);
+        klokkeslettmld.setEnabled(servicePAA);
 
         klokkeslettNtf.setText("Notifikasjon deaktivert");
         klokkeslettmld.setText("Ingen varselmelding");
-        avPaa = false;
-        meldingPaAv.setChecked(avPaa);
-
     }
 
 
@@ -228,7 +198,7 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
     protected void onPause(){
         super.onPause();
         getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("SERVICEPAA", servicePAA).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("AVPAA", avPaa).apply();
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("MLDAVPAA", mldAvPaa).apply();
         getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("TID", tid).apply();
         getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDTIME", time).apply();
         getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDMIN", minutt).apply();
@@ -240,7 +210,7 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         super.onResume();
 
         servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",false);
-        avPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("AVPAA",false);
+        mldAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",false);
         tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","");
         time = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDTIME",17);
         minutt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDMIN",0);

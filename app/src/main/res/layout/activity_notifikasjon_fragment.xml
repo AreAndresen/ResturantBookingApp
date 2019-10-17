@@ -7,37 +7,73 @@
     tools:context="com.skole.s304114mappe2ny.Fragmenter.NotifikasjonFragment">
 
 
-    <Switch
-        android:id="@+id/notifikasjonPaAv"
-        android:layout_marginTop="100dp"
+    <TextView
+        android:id="@+id/overskrift"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Innstillinger"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/notifikasjontxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/overskrift"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
         android:text="Notifikasjon for resturantbestilling"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
+
+    <Switch
+        android:id="@+id/notifikasjonPaAv"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/notifikasjontxt"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/klokkeslettNtf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/notifikasjonPaAv"
         android:layout_centerHorizontal="true"
-        android:textSize="18sp"
         android:text="Ingen notifikasjon"
-        />
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/hint"
+        android:layout_below="@id/klokkeslettNtf"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trykk for å endre tidspunkt" />
 
 
+    <TextView
+        android:id="@+id/mldtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Valg av varselmelding"
+        android:textSize="24sp" />
 
     <Switch
         android:id="@+id/meldingPaAv"
-        android:layout_marginTop="27dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/klokkeslettNtf"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Varselmelding"
-        android:textSize="18sp" />
+        android:layout_below="@id/mldtxt"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/klokkeslettmld"
@@ -45,18 +81,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/meldingPaAv"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
         android:textSize="18sp"
         android:text="Ingen varselmelding"
         />
 
     <Button
-        android:layout_marginTop="27dp"
         android:id="@+id/btnTilbake"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/klokkeslettmld"
         android:layout_centerHorizontal="true"
-        android:text="Tilbake" />
+        android:layout_marginTop="27dp"
+        android:text="Ok"
+        android:textSize="18sp" />
 
 
 

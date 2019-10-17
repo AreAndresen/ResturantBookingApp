@@ -32,13 +32,6 @@ public class Resultat extends AppCompatActivity {
         meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(NOKKEL_MELDINGUT,"");
 
         meldingT.setText(meldingUt);
-
-
-
-        //editScreenIntent.putExtra("id",ID);
-        //startActivity(editScreenIntent);
-        //finish();
-
     }
 }
 

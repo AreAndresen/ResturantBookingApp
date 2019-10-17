@@ -20,15 +20,5 @@ public class MinBroadcastReciver extends BroadcastReceiver {
         //Erstatter gammel service hvis den kjøres igjen
         i.setFlags((Intent.FLAG_ACTIVITY_CLEAR_TOP));
         context.startService(i);
-
-
-
-
-        /*Intent i = new Intent(context, MinService.class);
-        context.startService(i);*/
-
-        //TIL SettPeriodiskService
-
-        //}
     }
 }

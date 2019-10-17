@@ -34,8 +34,6 @@ public class MinService extends Service {
 
     String datoIdag;
 
-    ArrayList<Integer> sendteMeldinger = new ArrayList<>();
-
     public MinService() {
     }
 
@@ -61,8 +59,6 @@ public class MinService extends Service {
 
         datoIdag = day+"/"+month+"/"+year;
 
-        //int antall = 0;
-
 
         ArrayList<Bestilling> alleBestillinger = db.finnAlleBestillinger();
         for(Bestilling b : alleBestillinger) {
@@ -72,7 +68,6 @@ public class MinService extends Service {
             String nokkel_MELDING = "melding"+index;
 
             String meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(nokkel_MELDING,"");
-
 
             //Samler alle venner til aktuell bestilling
             ArrayList<Venn> vennerUtmelding = new ArrayList<>();
@@ -129,10 +124,10 @@ public class MinService extends Service {
                 //notificationManager.notify(Unique_Integer_Number, notification);
 
 
-                //MÅ HA EN HVIS NOTIFIKASJON - MELDING ER SKRUDD PÅ HER IF TRUE
-                boolean avPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("AVPAA",true);
+                //-----HENTER FRA MINNE OM MLD ER AKTIVERT ELLER IKKE-------
+                boolean mdlAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",true);
 
-                if(avPaa) {
+                if(mdlAvPaa) {
                     //sender melding til alle venner som er i deltakelsen
                     SmsManager minSmsManager = SmsManager.getDefault();
                     for(Venn v : vennerUtmelding) {
