@@ -93,7 +93,7 @@ public class SeBestillinger extends AppCompatActivity{
                 //SLUTT NY VARI
 
                 Intent editScreenIntent = new Intent(SeBestillinger.this, SeBestillingsInfoFragment.class);
-                editScreenIntent.putExtra("id",ID);
+                //editScreenIntent.putExtra("id",ID);
                 startActivity(editScreenIntent);
                 finish(); //unngår å legge på stack
             }
