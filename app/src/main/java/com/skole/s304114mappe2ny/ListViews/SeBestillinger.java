@@ -88,6 +88,10 @@ public class SeBestillinger extends AppCompatActivity{
                 //ny lagring til disk
                 Integer ID = (int) bestilling.get_ID();
 
+                //NY VARIABEL
+                getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("VISNINGSID", ID).apply();
+                //SLUTT NY VARI
+
                 Intent editScreenIntent = new Intent(SeBestillinger.this, SeBestillingsInfoFragment.class);
                 editScreenIntent.putExtra("id",ID);
                 startActivity(editScreenIntent);

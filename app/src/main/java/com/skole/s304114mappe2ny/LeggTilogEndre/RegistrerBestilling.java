@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,9 @@ import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.Fragmenter.DatoFragment;
 import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
+import com.skole.s304114mappe2ny.Hovedmenyer.Bestillinger;
+import com.skole.s304114mappe2ny.Hovedmenyer.MainActivity;
+import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
@@ -41,50 +45,53 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     public void bestillClick() {
 
 
-            //genererer tallet som skal brukes som bestillingsID i deltakelse - må gjøre det slik ettersom ID til bestilling og deltakelse genereres likt i DB.
-            Integer indeksen = 1 + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("LOPENUMMERBESTILLING", 0);
+        //genererer tallet som skal brukes som bestillingsID i deltakelse - må gjøre det slik ettersom ID til bestilling og deltakelse genereres likt i DB.
+        Integer indeksen = 1 + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("LOPENUMMERBESTILLING", 0);
 
-            SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("LOPENUMMERBESTILLING", indeksen); //lagrer nøkkel med nøkkel string
-
-
-            Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID()); //, vennene
-            db.leggTilBestilling(bestilling, indeksen); //legger inn løpenummer som ID
-
-            //genererer en deltakelse for hver venn som er med på bestillingen
-            for(Venn i : valgteVenner) {
-                Deltakelse deltakelse = new Deltakelse(indeksen, i.getID(), i.getNavn()); //long bestillingID, long vennID
-                db.leggTilDeltakelse(deltakelse);
-            }
+        SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("LOPENUMMERBESTILLING", indeksen); //lagrer nøkkel med nøkkel string
 
 
-            //lagrer melding
-            String meldingUt = "Husk bestilling i dag hos "+valgtResturant.getNavn() + ". Dato: " + dato + ". Kl: " + tid;
+        Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID()); //, vennene
+        db.leggTilBestilling(bestilling, indeksen); //legger inn løpenummer som ID
 
-            //SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-            //SharedPreferences.Editor editor = sharedPreferences.edit();
+        //genererer en deltakelse for hver venn som er med på bestillingen
+        for(Venn i : valgteVenner) {
+            Deltakelse deltakelse = new Deltakelse(indeksen, i.getID(), i.getNavn()); //long bestillingID, long vennID
+            db.leggTilDeltakelse(deltakelse);
+        }
 
-            //Integer index = db.finnAlleBestillinger().size();
 
-            //plusser på 1 her fordi ant er 0 til å starte med
-            //index++;
-            String NOKKEL = indeksen + ""; //løpende nøkkel
+        //lagrer melding
+        String meldingUt = "Husk bestilling i dag hos "+valgtResturant.getNavn() + ". Dato: " + dato + ". Kl: " + tid;
 
-            String nokkel_MELDING = "melding" + indeksen;
+        //SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
+        //SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            editor.putString(nokkel_MELDING, meldingUt);
-            editor.putInt(NOKKEL, indeksen); //lagrer nøkkel med nøkkel string
+        //Integer index = db.finnAlleBestillinger().size();
 
-            editor.commit();
+        //plusser på 1 her fordi ant er 0 til å starte med
+        //index++;
+        String NOKKEL = indeksen + ""; //løpende nøkkel
+
+        String nokkel_MELDING = "melding" + indeksen;
+
+        editor.putString(nokkel_MELDING, meldingUt);
+        editor.putInt(NOKKEL, indeksen); //lagrer nøkkel med nøkkel string
+        editor.commit();
             //slutt lagring av melding
 
-            String meldingUt2 = "" + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt(NOKKEL, 2);
-            meldingUt2 += getSharedPreferences("APP_INFO", MODE_PRIVATE).getString(nokkel_MELDING, "");
+        String meldingUt2 = "" + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt(NOKKEL, 2);
+        meldingUt2 += getSharedPreferences("APP_INFO", MODE_PRIVATE).getString(nokkel_MELDING, "");
 
 
-            Toast.makeText(getApplicationContext(), meldingUt2, Toast.LENGTH_LONG).show();
-            return;
+        Toast.makeText(getApplicationContext(), meldingUt2, Toast.LENGTH_LONG).show();
+
+        Intent intent_preferanser = new Intent (RegistrerBestilling.this, SeBestillinger.class);
+        startActivity(intent_preferanser);
+        finish();
+        //return;
     }
 
     @Override

@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
 import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
@@ -108,7 +109,13 @@ public class MinService extends Service {
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
                 //MÅ TA MED ET TALL HER - INDEKS
-                Intent intentet = new Intent(MinService.this, SeBestillinger.class);
+                //Intent intentet = new Intent(MinService.this, SeBestillinger.class);
+
+                //NY VISNING HER-------
+                Intent intentet = new Intent(MinService.this, SeBestillingsInfoFragment.class);
+                getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("VISNINGSID", index).apply();
+                //SLUTT----
+
 
                 PendingIntent pIntent = PendingIntent.getActivity(this, 0, intentet, 0); //100. FLAG  - PendingIntent.FLAG_UPDATE_CURRENT
 

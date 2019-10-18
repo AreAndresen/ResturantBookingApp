@@ -33,7 +33,10 @@ public class SeBestillingsInfoFragment extends AppCompatActivity {
         db = new DBhandler(this);
 
         //Henter valgt ID fra se bestillinger
-        ID = receivedIntent.getIntExtra("id",0);
+        //ID = receivedIntent.getIntExtra("id",0);
+
+        //ny variabel
+        ID = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("VISNINGSID", 0);
 
 
 
