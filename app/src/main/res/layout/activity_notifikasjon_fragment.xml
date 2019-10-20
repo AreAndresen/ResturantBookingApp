@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -14,9 +13,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Innstillinger"
-        android:textSize="36sp"
+        android:fontFamily="@font/trocchi"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:text="@string/insTittel"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <TextView
@@ -24,9 +30,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/overskrift"
+        android:fontFamily="@font/trocchi"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="56dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:text="Notifikasjon for resturantbestilling"
+        android:text="@string/notRes"
         android:textSize="24sp" />
 
     <Switch
@@ -42,12 +55,18 @@
         android:id="@+id/klokkeslettNtf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_below="@id/notifikasjonPaAv"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
         android:text="Ingen notifikasjon"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/hint"
@@ -55,6 +74,8 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorText"
+        android:textSize="14sp"
         android:text="Trykk for å endre tidspunkt" />
 
 
@@ -64,6 +85,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/hint"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/trocchi"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
         android:layout_marginTop="40dp"
         android:text="Valg av varselmelding"
         android:textSize="24sp" />
@@ -85,16 +113,42 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:textSize="18sp"
+        android:textColor="@color/colorText"
         android:text="Ingen varselmelding"
         />
 
     <Button
-        android:id="@+id/btnTilbake"
-        android:layout_width="80dp"
+        android:id="@+id/btnLagre"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/klokkeslettmld"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
-        android:text="Ok"
+        android:layout_marginTop="35dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:text="Lagre"
+        android:textColor="@color/colorText"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btnAvbryt"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLagre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:text="Avbryt"
+        android:textColor="@color/colorText"
+        android:textSize="18sp" />
+
 </RelativeLayout>

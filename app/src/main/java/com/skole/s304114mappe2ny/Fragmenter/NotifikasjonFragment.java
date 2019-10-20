@@ -29,7 +29,7 @@ import com.skole.s304114mappe2ny.TimePickerFragment;
 public class NotifikasjonFragment  extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private TextView klokkeslettmld, klokkeslettNtf;
-    private Button btnTilbake;
+    private Button btnAvbryt, btnLagre;
     private Switch notifikasjonPaAv, VarselmeldingPaAv;
     private String tid;
     private int time, minutt; //brukes til overføring i minne og når melding sendes
@@ -109,14 +109,22 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("TID", tid).apply();*/
 
 
-        btnTilbake = findViewById(R.id.btnTilbake);
-        btnTilbake.setOnClickListener(new View.OnClickListener() {
+        btnLagre = findViewById(R.id.btnLagre);
+        btnLagre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //aktiverer service hvis aktivert
                 if(servicePAA) {
                     ServiceAuto();
                 }
+                finish();
+            }
+        });
+
+        btnAvbryt = findViewById(R.id.btnAvbryt);
+        btnAvbryt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

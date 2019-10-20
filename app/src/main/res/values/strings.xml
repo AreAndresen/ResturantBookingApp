@@ -17,33 +17,13 @@
     <string name="nei">Nei</string>
     <string name="ja">Ja</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!--Preferanser-->
-    <string name="hovedTittelSpraak">Språk</string>
-    <string name="tittelSpraak">Velg språk</string>
+    <!--Innstillinger-->
+    <string name="insTittel">Innstillinger</string>
+    <string name="notRes">Notifikasjon for resturantbestilling</string>
 
     <string name="hovedTittelSpill">Spill størrelse</string>
     <string name="tittelSpill">Velg antall regnestykker</string>
 
-    <string-array name="spraakValg">
-        <item>Norsk</item>
-        <item>Tysk</item>
-    </string-array>
-    <string-array name="spraakVerdier">
-        <item>no</item>
-        <item>de</item>
-    </string-array>
 
-    <string-array name="spillStorrelse">
-        <item>Standard (5)</item>
-        <item>Moderat (10)</item>
-        <item>Viderekommende (25)</item>
-    </string-array>
-    <string-array name="spillStorrelseVerdier">
-        <item>5</item>
-        <item>10</item>
-        <item>25</item>
-    </string-array>
 </resources>
