@@ -26,20 +26,20 @@ public class Resturanter extends AppCompatActivity {
 
 
         //--------KNAPPER--------
-        //resturanterKnapp = findViewById(R.id.resturanterKnapp);
+        resturanterKnapp = findViewById(R.id.resturanterKnapp);
         seResturanterKnapp = findViewById(R.id.seResturanterKnapp);
         btnTilbake = findViewById(R.id.btnTilbake);
         //--------SLUTT KNAPPER--------
 
 
-        /*--------LISTENERS--------
+        //--------LISTENERS--------
         resturanterKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (Resturanter.this, LeggTilResturant.class);
                 startActivity(intent_startspill);
             }
-        });*/
+        });
 
         //--------LISTENERS--------
         seResturanterKnapp.setOnClickListener(new View.OnClickListener() {

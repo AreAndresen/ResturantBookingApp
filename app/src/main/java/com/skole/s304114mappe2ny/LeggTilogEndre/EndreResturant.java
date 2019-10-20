@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class EndreResturant extends AppCompatActivity {
 
-    private Button btnSave,btnDelete;
+    private Button btnLagre,btnSlett, btnTilbake;
 
 
     private EditText EnavnResturant;
@@ -40,8 +40,9 @@ public class EndreResturant extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endre_resturant);
 
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnLagre = (Button) findViewById(R.id.btnLagre);
+        btnSlett = (Button) findViewById(R.id.btnSlett);
+        btnTilbake = (Button) findViewById(R.id.btnTilbake);
 
 
         EnavnResturant = (EditText)findViewById(R.id.navnResturant);
@@ -62,7 +63,7 @@ public class EndreResturant extends AppCompatActivity {
         EtlfResturant.setText(valgtResturant.getTelefon());
         EtypeResturant.setText(valgtResturant.getType());
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnLagre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -74,7 +75,10 @@ public class EndreResturant extends AppCompatActivity {
                 valgtResturant.setTelefon(tlf);
                 valgtResturant.setType(type);
 
-                if(!navn.equals("") && !tlf.equals("") && !type.equals("")){
+                //en liten inputvalidering, ofr kontroll av telefonnummer
+                if(!navn.equals("") && !tlf.equals("") && !type.equals("") && tlf.matches(
+                        "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\-\\ \\.]{2,50}+")
+                        && type.matches("[a-zA-ZæøåÆØÅ0-9\\-\\ \\.]{2,50}+")){
 
                     db.oppdaterResturant(valgtResturant);
 
@@ -84,12 +88,12 @@ public class EndreResturant extends AppCompatActivity {
                     finish();
 
                 }else{
-                    toastMessage("You must enter a name");
+                    toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
                 }
             }
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btnSlett.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -125,6 +129,16 @@ public class EndreResturant extends AppCompatActivity {
                 finish();
 
                 toastMessage("removed from database");
+            }
+        });
+
+        btnTilbake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //gjørs så viewet oppdaterer fortløpende
+                Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
+                startActivity(intent_tilbake);
+                finish();
             }
         });
 

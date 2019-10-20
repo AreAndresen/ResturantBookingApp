@@ -119,7 +119,7 @@
 
     <Button
         android:id="@+id/btnLagre"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/klokkeslettmld"
         android:layout_centerHorizontal="true"
@@ -136,7 +136,7 @@
 
     <Button
         android:id="@+id/btnAvbryt"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/btnLagre"
         android:layout_centerHorizontal="true"

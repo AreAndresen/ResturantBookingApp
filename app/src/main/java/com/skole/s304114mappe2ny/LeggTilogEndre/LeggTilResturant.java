@@ -54,13 +54,16 @@ public class LeggTilResturant extends AppCompatActivity {
                 String tlf = EtlfResturant.getText().toString();
                 String type = EtypeResturant.getText().toString();
 
-                if (EnavnResturant.length() != 0 && EtlfResturant.length() != 0 && EtypeResturant.length() != 0) {
+                //en liten inputvalidering, ofr kontroll av telefonnummer
+                if(!navn.equals("") && !tlf.equals("") && !type.equals("") && tlf.matches(
+                        "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\-\\ \\.]{2,50}+")
+                        && type.matches("[a-zA-ZæøåÆØÅ0-9\\-\\ \\.]{2,50}+")){
 
                     leggtil(navn, tlf, type);
 
 
                 } else {
-                    toastMessage("Du må fylle ut alle felter. Prøv igjen.");
+                    toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
                 }
 
             }
