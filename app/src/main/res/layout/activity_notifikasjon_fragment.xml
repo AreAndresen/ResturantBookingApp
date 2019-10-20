@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.skole.s304114mappe2ny.Fragmenter.NotifikasjonFragment">
 
 
@@ -12,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="Innstillinger"
         android:textSize="36sp"
         android:textStyle="bold" />
@@ -95,8 +97,4 @@
         android:layout_marginTop="27dp"
         android:text="Ok"
         android:textSize="18sp" />
-
-
-
-
 </RelativeLayout>
