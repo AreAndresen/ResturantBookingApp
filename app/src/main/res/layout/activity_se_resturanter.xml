@@ -43,13 +43,12 @@
 
     <ListView
         android:id="@+id/list"
-        android:fontFamily="@font/trocchi"
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="356dp"
+        android:layout_height="318dp"
         android:layout_below="@id/hintRes"
-        android:textColor="@color/colorText">
-    </ListView>
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"></ListView>
 
     <Button
         android:id="@+id/leggTilResturant"
