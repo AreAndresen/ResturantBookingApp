@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     android:background="@color/colorPrimary"
     android:layout_height="match_parent">
-
-
 
 
     <TextView
@@ -35,7 +35,6 @@
         android:shadowRadius="9"
         android:layout_marginTop="40dp"
         android:textSize="22sp"
-        android:paddingLeft="10dp"
         android:layout_below="@+id/tittelInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/trocchi"
-        android:paddingLeft="15dp"
         android:textColor="@color/colorText"
         android:shadowColor="#EE020202"
         android:shadowDx="1"
@@ -66,7 +64,6 @@
         android:shadowRadius="9"
         android:layout_marginTop="10dp"
         android:textSize="22sp"
-        android:paddingLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Skriv inn telefon:"  />
@@ -81,7 +78,6 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="9"
-        android:paddingLeft="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
          />
@@ -135,8 +131,8 @@
         android:background="@color/colorPrimaryDark"
         android:fontFamily="@font/trocchi"
         android:shadowColor="@color/colorAccent"
-        android:shadowDx="1"
-        android:shadowDy="1"
+        android:shadowDx="2"
+        android:shadowDy="2"
         android:shadowRadius="9"
         android:textColor="@color/colorText"
         android:textSize="20dp"

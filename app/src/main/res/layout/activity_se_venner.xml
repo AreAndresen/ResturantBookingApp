@@ -1,47 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android= "http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android= "http://schemas.android.com/apk/res/android"
     xmlns:tools= "http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/colorPrimary"
     tools:context=".LeggTilogEndre.LeggTilResturant">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/tittelInfo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/trocchi"
         android:text="Venner"
         android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorText"
+        android:shadowColor="#001496"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:textSize="40sp"
+        android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/hintVenn"
         android:layout_width="match_parent"
+        android:layout_below="@id/tittelInfo"
+        android:shadowColor="@color/colorAccent"
+        android:fontFamily="@font/trocchi"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
         android:layout_height="wrap_content"
-        android:text="Trykk på venn for å endre"
+        android:textColor="@color/colorText"
+        android:layout_marginTop="25dp"
+        android:text="Trykk på venn for å se eller endre info"
         android:textAlignment="center"
-        android:textSize="18sp" />
+        android:textSize="18sp"  />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="396dp">
-
+        android:layout_height="318dp"
+        android:layout_below="@id/hintVenn"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText">
     </ListView>
 
     <Button
         android:id="@+id/leggTilVenn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrer ny venn" />
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/list"
+        android:textSize="16sp"
+        android:layout_marginTop="15dp"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:text="Registrer ny venn"  />
 
     <Button
         android:id="@+id/btnTilbake"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:textColor="@color/colorText"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/leggTilVenn"
         android:text="Tilbake" />
 
-
-</LinearLayout>
+</RelativeLayout>

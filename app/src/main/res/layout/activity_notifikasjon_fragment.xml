@@ -30,16 +30,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/overskrift"
+        android:layout_marginTop="57dp"
         android:fontFamily="@font/trocchi"
-        android:textAlignment="center"
-        android:textColor="@color/colorText"
         android:shadowColor="@color/colorAccent"
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="9"
-        android:layout_marginTop="56dp"
-        android:layout_centerHorizontal="true"
         android:text="@string/notRes"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
         android:textSize="24sp" />
 
     <Switch
@@ -58,15 +57,16 @@
         android:layout_below="@id/notifikasjonPaAv"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:shadowColor="@color/colorAccent"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorText2"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="9"
         android:text="Ingen notifikasjon"
         android:textAlignment="center"
         android:textColor="@color/colorText"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textSize="22sp"
+        android:textStyle="bold|italic" />
 
     <TextView
         android:id="@+id/hint"

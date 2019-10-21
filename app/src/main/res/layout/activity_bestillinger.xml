@@ -1,35 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/tittelBes"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bestilling"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/trocchi"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:text="Bestilling"
+        android:textSize="40sp"
+        android:textStyle="bold"/>
 
 
     <Button
         android:id="@+id/bestillingKnapp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrer bestilling" />
+        android:layout_width="270dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/tittelBes"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="18sp"
+        android:text="Registrer bestilling"  />
 
     <Button
         android:id="@+id/seBestillingerKnapp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Se bestillinger" />
+        android:layout_width="270dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/bestillingKnapp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="18sp"
+        android:text="Se bestillinger"  />
 
     <Button
         android:id="@+id/btnTilbake"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="65dp"
+        android:layout_below="@id/seBestillingerKnapp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="18sp"
         android:text="Tilbake til start" />
 
 
-</LinearLayout>
+</RelativeLayout>

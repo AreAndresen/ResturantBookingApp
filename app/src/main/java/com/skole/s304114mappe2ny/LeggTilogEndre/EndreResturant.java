@@ -2,6 +2,7 @@ package com.skole.s304114mappe2ny.LeggTilogEndre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -15,13 +16,25 @@ import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
+import com.skole.s304114mappe2ny.SlettDialoger.SlettResturantDialog;
+import com.skole.s304114mappe2ny.SlettDialoger.SlettVennDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 
 import java.util.ArrayList;
 
-public class EndreResturant extends AppCompatActivity {
+public class EndreResturant extends AppCompatActivity implements SlettResturantDialog.DialogClickListener{
+
+    @Override
+    public void jaClick() {
+        fullforSlettAvResturant();
+    }
+
+    @Override
+    public void neiClick() {
+
+    }
 
     private Button btnLagre,btnSlett, btnTilbake;
 
@@ -97,38 +110,8 @@ public class EndreResturant extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                db.slettResturant(valgtResturant.get_ID());
-
-
-                //sletter også alle bestillinger til slettet resturant
-                ArrayList<Bestilling> bestillinger = db.finnAlleBestillinger();
-                for (Bestilling b : bestillinger) {
-                    if(b.get_resturantID() == valgtResturant.get_ID()) {
-
-                        //sletter også alle deltakelser til slettet bestilling
-                        ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
-                        for (Deltakelse d : deltakelser) {
-                            if(d.getBestillingID() == b.get_ID()) {
-                                db.slettDeltakelse(d.getID());
-                            }
-                        }
-
-                        //sletter bestilling
-                        db.slettBestilling(b.get_ID());
-                    }
-                }
-
-
-                EnavnResturant.setText("");
-                EtlfResturant.setText("");
-                EtypeResturant.setText("");
-
-                //gjørs så viewet oppdaterer fortløpende
-                Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
-                startActivity(intent_tilbake);
-                finish();
-
-                toastMessage("Slettet resturant fra databasen");
+                //-------VISER DIALOG VED AVBRYT---------
+                visSlettResturantDialog();
             }
         });
 
@@ -144,6 +127,48 @@ public class EndreResturant extends AppCompatActivity {
 
     }
 
+    private void fullforSlettAvResturant() {
+        db.slettResturant(valgtResturant.get_ID());
+
+        //sletter også alle bestillinger til slettet resturant
+        ArrayList<Bestilling> bestillinger = db.finnAlleBestillinger();
+        for (Bestilling b : bestillinger) {
+            if(b.get_resturantID() == valgtResturant.get_ID()) {
+
+                //sletter også alle deltakelser til slettet bestilling
+                ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
+                for (Deltakelse d : deltakelser) {
+                    if(d.getBestillingID() == b.get_ID()) {
+                        db.slettDeltakelse(d.getID());
+                    }
+                }
+
+                //sletter bestilling
+                db.slettBestilling(b.get_ID());
+            }
+        }
+
+
+        EnavnResturant.setText("");
+        EtlfResturant.setText("");
+        EtypeResturant.setText("");
+
+        //gjørs så viewet oppdaterer fortløpende
+        Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
+        startActivity(intent_tilbake);
+        finish();
+
+        toastMessage("Slettet resturant fra databasen");
+    }
+
+
+    //-------VISER DIALOG VED AVBRYT---------
+    private void visSlettResturantDialog() {
+        DialogFragment dialog = new SlettResturantDialog();
+        dialog.show(getFragmentManager(), "Avslutt");
+    }
+
+
     //-------VISER DIALOG VED TILBAKEKNAPP---------
     @Override
     public void onBackPressed() {
@@ -156,4 +181,5 @@ public class EndreResturant extends AppCompatActivity {
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -2,6 +2,7 @@ package com.skole.s304114mappe2ny.LeggTilogEndre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeVenner;
+import com.skole.s304114mappe2ny.SlettDialoger.AvbestillDialog;
+import com.skole.s304114mappe2ny.SlettDialoger.SlettVennDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Venn;
@@ -21,7 +24,17 @@ import com.skole.s304114mappe2ny.klasser.Venn;
 import java.util.ArrayList;
 
 
-public class EndreVenn extends AppCompatActivity {
+public class EndreVenn extends AppCompatActivity implements SlettVennDialog.DialogClickListener{
+
+    @Override
+    public void jaClick() {
+        fullforSlettAvVenn();
+    }
+
+    @Override
+    public void neiClick() {
+
+    }
 
     private static final String TAG = "EditDataActivity";
 
@@ -104,27 +117,7 @@ public class EndreVenn extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Venn slettVenn = db.finnVenn(valgtID);
-                db.slettVenn(slettVenn.getID());
-
-                //sletter også alle deltakelser til slettet venn
-                ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
-                for (Deltakelse d : deltakelser) {
-                    if(d.getVennID() == slettVenn.getID()) {
-                        db.slettDeltakelse(d.getID());
-                    }
-                }
-
-
-                EnavnVenn.setText("");
-                EtlfVenn.setText("");
-
-                //gjørs så viewet oppdaterer fortløpende
-                Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
-                startActivity(intent_tilbake);
-                finish();
-
-                toastMessage("removed from database");
+                visSlettVennDialog();
             }
         });
 
@@ -140,6 +133,39 @@ public class EndreVenn extends AppCompatActivity {
 
 
     }
+
+    //slettmetode av venn
+    private void fullforSlettAvVenn() {
+        Venn slettVenn = db.finnVenn(valgtID);
+        db.slettVenn(slettVenn.getID());
+
+        //sletter også alle deltakelser til slettet venn
+        ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
+        for (Deltakelse d : deltakelser) {
+            if(d.getVennID() == slettVenn.getID()) {
+                db.slettDeltakelse(d.getID());
+            }
+        }
+
+
+        EnavnVenn.setText("");
+        EtlfVenn.setText("");
+
+        //gjørs så viewet oppdaterer fortløpende
+        Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
+        startActivity(intent_tilbake);
+        finish();
+
+        toastMessage("removed from database");
+    }
+
+
+    //-------VISER DIALOG VED AVBRYT---------
+    private void visSlettVennDialog() {
+        DialogFragment dialog = new SlettVennDialog();
+        dialog.show(getFragmentManager(), "Avslutt");
+    }
+
 
     //-------VISER DIALOG VED TILBAKEKNAPP---------
     //-------VISER DIALOG VED TILBAKEKNAPP---------
@@ -157,5 +183,7 @@ public class EndreVenn extends AppCompatActivity {
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
 

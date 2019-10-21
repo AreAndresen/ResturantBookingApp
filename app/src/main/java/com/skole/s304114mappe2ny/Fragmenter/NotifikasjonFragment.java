@@ -1,12 +1,7 @@
 package com.skole.s304114mappe2ny.Fragmenter;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
-import android.Manifest;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.app.AlarmManager;
 import android.app.DialogFragment;
 import android.app.PendingIntent;

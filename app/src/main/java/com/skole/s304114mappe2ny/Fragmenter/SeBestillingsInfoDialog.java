@@ -3,23 +3,18 @@ package com.skole.s304114mappe2ny.Fragmenter;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.R;
-import com.skole.s304114mappe2ny.klasser.Bestilling;
-import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
 import java.util.ArrayList;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class SeBestillingsInfoDialog extends DialogFragment {
 
@@ -82,7 +77,7 @@ public class SeBestillingsInfoDialog extends DialogFragment {
 
         String vennNavn = "";
         for (Venn i : venner) {
-            vennNavn += i.getNavn()+". Tlf: "+i.getTelefon()+".\n";
+            vennNavn += i.getNavn()+"\n";
         }
         bVenner.setText(vennNavn);
 

@@ -2,143 +2,210 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="15dp"
+    android:padding="15dp"
+    android:background="@color/colorPrimary"
     android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/dinBestilling"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tidBoks"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="Bestillingsinformasjon"
+        android:fontFamily="@font/trocchi"
+        android:text="Bestillingsinfo"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="9"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/resturantNavn"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:textSize="22sp"
         android:layout_below="@+id/dinBestilling"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Resturant navn:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resturant navn:"/>
     <TextView
         android:id="@+id/resNavn"
-        android:layout_width="396dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/resturantNavn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp" />
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/resturantTlf"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
         android:layout_below="@+id/resNavn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
-        android:text="Resturant tlf:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resturant tlf:" />
     <TextView
         android:id="@+id/resTlf"
-        android:layout_width="396dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/resturantTlf"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp" />
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textSize="20sp"  />
 
     <TextView
         android:id="@+id/besDato"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
         android:layout_below="@+id/resTlf"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
-        android:text="Dato:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dato:"/>
     <TextView
         android:id="@+id/bDato"
-        android:layout_width="396dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/besDato"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp" />
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/besTid"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
         android:layout_below="@+id/bDato"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
-        android:text="Tidspunkt:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tidspunkt:"/>
     <TextView
         android:id="@+id/bTid"
-        android:layout_width="396dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/besTid"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp" />
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/besVenner"
-        android:layout_width="396dp"
-        android:layout_height="wrap_content"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
         android:layout_below="@+id/bTid"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp"
-        android:text="Inviterte venner:"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Inviterte venner:" />
+
     <TextView
         android:id="@+id/bVenner"
-        android:layout_width="396dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/besVenner"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="3dp" />
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/boks"
-        android:padding="15dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:weightSum="100"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/bVenner">
 
         <Button
             android:id="@+id/btnAvbryt"
-            android:layout_width="120dp"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bVenner"
-            android:layout_centerHorizontal="true"
-
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Avbryt" />
+            android:layout_below="@id/typeResturant"
+            android:layout_marginRight="7dp"
+            android:layout_toRightOf="@+id/btnSlett"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/trocchi"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="9"
+            android:text="Avbryt"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"  />
 
         <Button
             android:id="@+id/btnOk"
-            android:layout_width="120dp"
-
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bVenner"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="Bestill" />
+            android:layout_below="@id/typeResturant"
+            android:layout_marginLeft="7dp"
+            android:layout_toRightOf="@+id/btnSlett"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/trocchi"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="9"
+            android:text="Bestill"
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
     </LinearLayout>
 
 

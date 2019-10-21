@@ -2,68 +2,98 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tittelBestilling"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:fontFamily="@font/trocchi"
         android:text="Registrer bestilling"
         android:textAlignment="center"
-        android:textSize="28sp"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="9"
+        android:layout_marginTop="15dp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/velgResturant"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+
+        android:layout_below="@+id/tittelBestilling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tittelBestilling"
-        android:layout_marginTop="15dp"
-        android:padding="5dp"
-        android:text="Velg resturant"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:text="Velg resturant" />
 
     <Spinner
         android:id="@+id/spinResturant"
-        android:layout_width="206dp"
+        android:layout_width="216dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/velgResturant" />
+        android:layout_below="@+id/velgResturant"
+        android:layout_marginTop="-1dp" />
 
     <TextView
         android:id="@+id/velgVenner"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+
+        android:layout_below="@+id/spinResturant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinResturant"
-        android:layout_marginTop="10dp"
-        android:padding="5dp"
-        android:text="Velg venner"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:text="Velg venner" />
 
     <LinearLayout
         android:id="@+id/boks"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="100"
         android:layout_below="@+id/velgVenner">
 
         <Spinner
             android:id="@+id/spinVenn"
-            android:layout_width="205dp"
+            android:layout_width="216dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/btnLeggTilVenn"
             android:layout_gravity="center"
-            android:layout_height="36dp" />
+          />
 
         <Button
             android:id="@+id/btnLeggTilVenn"
-            android:layout_width="205dp"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Legg til" />
+            android:layout_toRightOf="@+id/spinVenn"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/trocchi"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="9"
+            android:text="Legg til"
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
 
         <!--<Button
             android:id="@+id/btnSlettVenn"
@@ -78,16 +108,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/boks"
+        android:layout_marginTop="10dp"
         android:padding="3dp"
         android:text="Trykk på valgt venn for å fjerne fra bestilling"
         android:textAlignment="center"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorText"
+        android:textStyle="italic" />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="127dp"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
         android:layout_below="@+id/melding">
 
     </ListView>
@@ -98,6 +132,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:weightSum="100">
 
         <TextView
@@ -105,17 +140,34 @@
             android:layout_width="205dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Velg dato"
+            android:textColor="@color/colorText"
+            android:shadowColor="#EE020202"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="9"
+            android:hint="Dato"
             android:padding="5dp"
+            android:layout_toRightOf="@+id/spinVenn"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textAlignment="center"
             android:textSize="21sp" />
 
         <Button
             android:id="@+id/velgDato"
-            android:layout_width="204dp"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Dato" />
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/spinVenn"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/trocchi"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="9"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:text="Velg dato" />
     </LinearLayout>
 
     <LinearLayout
@@ -124,6 +176,7 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:weightSum="100">
 
         <TextView
@@ -131,17 +184,34 @@
             android:layout_width="205dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Velg tidspunkt"
+            android:textColor="@color/colorText"
+            android:shadowColor="#EE020202"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="9"
+            android:hint="Tidspunkt"
             android:padding="5dp"
+            android:layout_toRightOf="@+id/spinVenn"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:textAlignment="center"
-            android:textSize="21sp" />
+            android:textSize="21sp"  />
 
         <Button
             android:id="@+id/velgTid"
-            android:layout_width="204dp"
-            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Tidspunkt" />
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/spinVenn"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/trocchi"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="9"
+            android:textColor="@color/colorText"
+            android:textSize="16sp"
+            android:text="Velg tidspunkt" />
     </LinearLayout>
 
 
@@ -150,25 +220,42 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:weightSum="100"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/tidBoks"
         >
 
         <Button
             android:id="@+id/btnTilbake"
-            android:layout_width="149dp"
-            android:layout_height="match_parent"
-            android:layout_toRightOf="@+id/btnDelete"
-            android:padding="15dp"
-            android:text="Tilbake" />
+            android:layout_width="180dp"
+            android:layout_height="55dp"
+            android:layout_toLeftOf="@+id/btnSeBestillingsinfo"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/trocchi"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="9"
+            android:text="Tilbake"
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
+
         <Button
             android:id="@+id/btnSeBestillingsinfo"
-            android:layout_width="149dp"
-            android:padding="15dp"
-            android:layout_height="wrap_content"
-            android:text="Utfør bestilling"/>
+            android:layout_width="180dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/btnSlett"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/trocchi"
+            android:shadowColor="@color/colorAccent"
+            android:padding="5dp"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="9"
+            android:text="Utfør bestilling"
+            android:textColor="@color/colorText"
+            android:textSize="16sp" />
 
     </LinearLayout>
-
 </RelativeLayout>
