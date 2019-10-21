@@ -1,15 +1,15 @@
 package com.skole.s304114mappe2ny.klasser;
 
 
-
+//------VENN-KLASSE-------
 public class Venn {
 
+    //-------ATTRIBUTTER-------
     private long ID;
     private String navn, telefon;
-    //private long bestilling_ID;
 
 
-    //konstruktører
+    //-------KONSTRUKTØRER-------
     public Venn() {
         this.ID = ID;
     }
@@ -24,10 +24,10 @@ public class Venn {
         this.telefon = telefon;
         this.ID = ID;
     }
+    //-------SLUTT KONTRUKSTØRER-------
 
 
-
-    //getter og setter
+    //-------GET/SET-------
     public long getID() {
         return ID;
     }
@@ -48,9 +48,10 @@ public class Venn {
     public void setTelefon(String telefon) {
         this.telefon = telefon;
     }
+    //-------SLUTT GET/SET-------
 
 
-
+    //-------TOSTRING BRUKES I LISTVIEW, DERFOR FÆRRE VERDIER FOR RYDDIGHET-------
     @Override
     public String toString() {
         return getNavn();

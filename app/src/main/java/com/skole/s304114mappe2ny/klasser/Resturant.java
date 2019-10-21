@@ -1,18 +1,15 @@
 package com.skole.s304114mappe2ny.klasser;
 
 
-import com.skole.s304114mappe2ny.DBhandler;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
+//-------RESTURANT-KLASSE-------
 public class Resturant {
 
+    //-------ATTRIBUTTER-------
     private long _ID;
     private String navn, telefon, type;
 
 
-    //konstruktører
+    //-------KONSTRUKTØRER-------
     public Resturant() {
         this._ID = _ID;
     }
@@ -29,10 +26,10 @@ public class Resturant {
         this.type = type;
         this._ID = _ID;
     }
+    //-------SLUTT KONTRUKSTØRER-------
 
 
-
-    //getter og setter
+    //-------GET/SET-------
     public long get_ID() {
         return _ID;
     }
@@ -60,10 +57,13 @@ public class Resturant {
     public void setType(String type) {
         this.type = type;
     }
+    //-------SLUTT GET/SET-------
 
+
+    //-------TOSTRING BRUKES I LISTVIEW, DERFOR FÆRRE VERDIER FOR RYDDIGHET-------
     @Override
     public String toString() {
-        return getNavn(); //+ "\nTelefonnummer: " + getTelefon() + "\nType resturant: " + getType()
+        return getNavn();
     }
 }
 

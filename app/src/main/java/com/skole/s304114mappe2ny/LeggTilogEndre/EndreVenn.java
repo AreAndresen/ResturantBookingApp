@@ -9,15 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
 import com.skole.s304114mappe2ny.DBhandler;
-import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeVenner;
-import com.skole.s304114mappe2ny.SlettDialoger.AvbestillDialog;
 import com.skole.s304114mappe2ny.SlettDialoger.SlettVennDialog;
-import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Venn;
 
@@ -33,7 +28,7 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
 
     @Override
     public void neiClick() {
-
+        return;
     }
 
     private static final String TAG = "EditDataActivity";
@@ -160,15 +155,14 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
     }
 
 
-    //-------VISER DIALOG VED AVBRYT---------
+    //-------VISER DIALOG VED SLETT KNAPP---------
     private void visSlettVennDialog() {
         DialogFragment dialog = new SlettVennDialog();
         dialog.show(getFragmentManager(), "Avslutt");
     }
 
 
-    //-------VISER DIALOG VED TILBAKEKNAPP---------
-    //-------VISER DIALOG VED TILBAKEKNAPP---------
+
     @Override
     public void onBackPressed() {
         Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);

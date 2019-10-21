@@ -1,28 +1,24 @@
 package com.skole.s304114mappe2ny.LeggTilogEndre;
 
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.app.DialogFragment;
 import android.os.Bundle;
-
 import android.content.Intent;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.SlettDialoger.SlettResturantDialog;
-import com.skole.s304114mappe2ny.SlettDialoger.SlettVennDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
-
 import java.util.ArrayList;
+
+
 
 public class EndreResturant extends AppCompatActivity implements SlettResturantDialog.DialogClickListener{
 
@@ -33,7 +29,7 @@ public class EndreResturant extends AppCompatActivity implements SlettResturantD
 
     @Override
     public void neiClick() {
-
+        return;
     }
 
     private Button btnLagre,btnSlett, btnTilbake;

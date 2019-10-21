@@ -1,13 +1,16 @@
 package com.skole.s304114mappe2ny.klasser;
 
+
+
+//-------DELTAKELSE-KLASSE-------
 public class Deltakelse {
 
-    private long ID;
-    private long bestillingID;
-    private long vennID;
+    //-------ATTRIBUTTER-------
+    private long ID, bestillingID, vennID;
     private String vennNavn;
 
-    //konstruktører
+
+    //-------KONSTRUKTØRER-------
     public Deltakelse() {
         this.ID = ID;
     }
@@ -18,15 +21,17 @@ public class Deltakelse {
         this.vennNavn = vennNavn;
     }
 
+    //FJERN
     public Deltakelse(long ID, long bestillingID, long vennID, String vennNavn) {
         this.ID = ID;
         this.bestillingID = bestillingID;
         this.vennID = vennID;
         this.vennNavn = vennNavn;
     }
+    //-------SLUTT KONTRUKSTØRER-------
 
 
-    //getter og setter
+    //-------GET/SET-------
     public long getID() {
         return ID;
     }
@@ -54,9 +59,10 @@ public class Deltakelse {
     public void setVennNavn(String VennNavn) {
         this.vennNavn = VennNavn;
     }
+    //-------SLUTT GET/SET-------
 
 
-
+    //-------TOSTRING BRUKES I LISTVIEW, DERFOR FÆRRE VERDIER FOR RYDDIGHET-------
     @Override
     public String toString() {
         return "Deltakelseid: " +getID()+" Navn: "+getVennNavn();

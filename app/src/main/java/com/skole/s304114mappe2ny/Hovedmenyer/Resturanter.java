@@ -2,12 +2,10 @@ package com.skole.s304114mappe2ny.Hovedmenyer;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
 import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilResturant;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeResturanter;
@@ -29,7 +27,6 @@ public class Resturanter extends AppCompatActivity {
         resturanterKnapp = findViewById(R.id.resturanterKnapp);
         seResturanterKnapp = findViewById(R.id.seResturanterKnapp);
         btnTilbake = findViewById(R.id.btnTilbake);
-        //--------SLUTT KNAPPER--------
 
 
         //--------LISTENERS--------
@@ -41,7 +38,6 @@ public class Resturanter extends AppCompatActivity {
             }
         });
 
-        //--------LISTENERS--------
         seResturanterKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,10 +53,11 @@ public class Resturanter extends AppCompatActivity {
             }
         });
         //--------SLUTT LISTENERS--------
-    }
-    //-------CREATE SLUTTER---------
 
-    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    }//-------CREATE SLUTTER---------
+
+
+    //-------TILBAKEKNAPP - FORHINDRER STACK (FINISH)---------
     @Override
     public void onBackPressed() {
         finish();

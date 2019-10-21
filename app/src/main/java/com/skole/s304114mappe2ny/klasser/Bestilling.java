@@ -2,19 +2,16 @@ package com.skole.s304114mappe2ny.klasser;
 
 
 
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Date;
-
+//-------BESTILLING-KLASSE-------
 public class Bestilling {
 
+    //-------ATTRIBUTTER-------
     private long _ID;
-    private String dato;
-    private String tid;
-    private String resturantNavn;
+    private String dato, tid, resturantNavn;
     private long resturantID;
 
-    //konstruktører
+
+    //-------KONSTRUKTØRER-------
     public Bestilling() {
         this._ID = _ID;
     }
@@ -33,9 +30,10 @@ public class Bestilling {
         this.resturantID = resturantID;
         this._ID = _ID;
     }
+    //-------SLUTT KONTRUKSTØRER-------
 
 
-    //getter og setter
+    //-------GET/SET-------
     public long get_ID() {
         return _ID;
     }
@@ -58,13 +56,14 @@ public class Bestilling {
     public void set_resturantID(long resturantID) {
         this.resturantID = resturantID;
     }
+    //-------SLUTT GET/SET-------
 
 
+    //-------TOSTRING BRUKES I LISTVIEW, DERFOR FÆRRE VERDIER FOR RYDDIGHET-------
     @Override
     public String toString() {
-        return "Nr: "+get_ID()+". Dato: "+getDato()+ ". Tidspunkt: "+getTid()+"."; // "Resturant: "+get_ID()
+        return "Nr: "+get_ID()+". Dato: "+getDato()+ ". Tidspunkt: "+getTid()+".";
     }
-
 }
 
 
