@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.ListViews.SeResturanter;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
@@ -24,7 +25,7 @@ public class EndreVenn extends AppCompatActivity {
 
     private static final String TAG = "EditDataActivity";
 
-    private Button btnSave,btnDelete;
+    private Button btnLagre,btnSlett, btnTilbake;
 
 
     private EditText EnavnVenn;
@@ -40,8 +41,9 @@ public class EndreVenn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endre_venn);
 
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnLagre = (Button) findViewById(R.id.btnLagre);
+        btnSlett = (Button) findViewById(R.id.btnSlett);
+        btnTilbake = (Button) findViewById(R.id.btnTilbake);
 
 
         EnavnVenn = (EditText)findViewById(R.id.navnVenn);
@@ -67,7 +69,7 @@ public class EndreVenn extends AppCompatActivity {
         EnavnVenn.setText(valgtNavn);
         EtlfVenn.setText(valgtTlf);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnLagre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //String item = editable_item.getText().toString();
@@ -81,7 +83,8 @@ public class EndreVenn extends AppCompatActivity {
                 //Resturant oppdatertResturant = new Resturant(navn,tlf, type);;
 
 
-                if(!navn.equals("") && !tlf.equals("")){
+                if(!navn.equals("") && !tlf.equals("") && tlf.matches(
+                        "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")){
                     //mDatabaseHelper.updateName(item,selectedID,selectedName);
 
                     db.oppdaterVenn(venn);
@@ -92,12 +95,12 @@ public class EndreVenn extends AppCompatActivity {
                     finish();
 
                 }else{
-                    toastMessage("You must enter a name");
+                    toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
                 }
             }
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btnSlett.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -124,6 +127,17 @@ public class EndreVenn extends AppCompatActivity {
                 toastMessage("removed from database");
             }
         });
+
+        btnTilbake.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //gjørs så viewet oppdaterer fortløpende
+                Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
+                startActivity(intent_tilbake);
+                finish();
+            }
+        });
+
 
     }
 

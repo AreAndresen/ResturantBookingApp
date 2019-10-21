@@ -50,13 +50,14 @@ public class LeggTilVenn extends AppCompatActivity {
                 String navn = EnavnVenn.getText().toString();
                 String tlf = EtlfVenn.getText().toString();
 
-                if (EnavnVenn.length() != 0 && EtlfVenn.length() != 0) {
+                if(!navn.equals("") && !tlf.equals("") && tlf.matches(
+                        "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")){
 
                     leggtil(navn, tlf);
 
 
                 } else {
-                    toastMessage("Du må fylle ut alle felter. Prøv igjen.");
+                    toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
                 }
             }
         });

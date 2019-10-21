@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android= "http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android= "http://schemas.android.com/apk/res/android"
     xmlns:tools= "http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,37 +7,119 @@
     android:padding="10dp"
     tools:context=".LeggTilogEndre.LeggTilVenn"
     android:layout_gravity="center"
+    android:background="@color/colorPrimary"
     >
+
     <TextView
+        android:id="@+id/tittelInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/trocchi"
+        android:text="Legg til resturant"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/navn"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:textSize="22sp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/tittelInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Skriv inn navn:" />
+
     <EditText
         android:id="@+id/navnVenn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/navn"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:paddingLeft="15dp"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textSize="20sp"  />
+
     <TextView
+        android:id="@+id/tlf"
+        android:layout_below="@+id/navnVenn"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
+        android:paddingLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Skriv inn telefon:" />
     <EditText
         android:id="@+id/tlfVenn"
+        android:layout_below="@+id/tlf"
+        android:fontFamily="@font/trocchi"
+        android:layout_marginTop="5dp"
+        android:textSize="22sp"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:paddingLeft="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnLeggTil"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Legg til" />
+        android:layout_below="@id/tlfVenn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="20dp"
+        android:text="Legg til"  />
 
     <Button
         android:id="@+id/btnTilbake"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Tilbake" />
+        android:layout_below="@id/btnLeggTil"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="20dp"
+        android:text="Tilbake"  />
 
-
-</LinearLayout>
+</RelativeLayout>

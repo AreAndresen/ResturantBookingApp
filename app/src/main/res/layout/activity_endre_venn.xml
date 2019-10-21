@@ -2,68 +2,143 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
 
+
+
     <TextView
-        android:id="@+id/txtmessage"
-        android:textAlignment="center"
-        android:inputType="textPersonName"
-
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="78dp"
-        android:layout_width="match_parent"
+        android:id="@+id/tittelInfo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:textSize="18sp" />
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/trocchi"
+        android:text="Se/endre venn"
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="9"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/navn"
-        android:layout_below="@+id/txtmessage"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="40dp"
+        android:textSize="22sp"
+        android:paddingLeft="10dp"
+        android:layout_below="@+id/tittelInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Skriv inn navn:" />
+        android:text="Skriv inn navn:"/>
     <EditText
         android:layout_below="@+id/navn"
         android:id="@+id/navnVenn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/trocchi"
+        android:paddingLeft="15dp"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tlf"
         android:layout_below="@+id/navnVenn"
+        android:fontFamily="@font/trocchi"
+        android:textColor="@color/colorText"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
+        android:paddingLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Skriv inn telefon:" />
+        android:text="Skriv inn telefon:"  />
     <EditText
         android:layout_below="@+id/tlf"
         android:id="@+id/tlfVenn"
+        android:fontFamily="@font/trocchi"
+        android:layout_marginTop="5dp"
+        android:textSize="22sp"
+        android:textColor="@color/colorText"
+        android:shadowColor="#EE020202"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:paddingLeft="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:layout_below="@+id/tlfVenn"
-        >
+         />
 
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Slett" />
+    <Button
+        android:id="@+id/btnSlett"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/tlfVenn"
+        android:fontFamily="@font/trocchi"
+        android:padding="5dp"
+        android:background="@color/colorPrimaryDark"
+        android:shadowColor="@color/colorAccent"
+        android:text="Slett"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_toRightOf="@+id/btnDelete"
-            android:text="Lagre" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnLagre"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tlfVenn"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/btnSlett"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:padding="5dp"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="9"
+        android:text="Lagre"
+        android:textColor="@color/colorText"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnTilbake"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLagre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/trocchi"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="9"
+        android:textColor="@color/colorText"
+        android:textSize="20dp"
+        android:text="Tilbake" />
 </RelativeLayout>
