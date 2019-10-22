@@ -40,7 +40,7 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_notifikasjon_fragment);
 
         //HENTER BOOLEAN FRA MINNET OM NOTIFIKASJON ER AKTIVERT
         servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",true);
@@ -51,14 +51,24 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         //HENTER TIDSPUNKT FRA MINNET NÅR MELDING SKAL SENDES
         tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","");
 
-        setContentView(R.layout.activity_notifikasjon_fragment);
 
-        VarselmeldingPaAv = (Switch) findViewById(R.id.meldingPaAv);
-        notifikasjonPaAv = (Switch) findViewById(R.id.notifikasjonPaAv);
+        //--------KNAPPER--------
+        btnLagre = findViewById(R.id.btnLagre);
+        btnAvbryt = findViewById(R.id.btnAvbryt);
+
+        //--------TEKST--------
         klokkeslettmld = findViewById(R.id.klokkeslettmld);
         klokkeslettNtf = findViewById(R.id.klokkeslettNtf);
 
+        //--------SWITCH--------
+        VarselmeldingPaAv = (Switch) findViewById(R.id.meldingPaAv);
+        notifikasjonPaAv = (Switch) findViewById(R.id.notifikasjonPaAv);
 
+        VarselmeldingPaAv.setChecked(mldAvPaa);
+
+
+
+        //--------HVIS MELDING NOTIFIKASJON ER AKTIVERT SETTES TIDSPUNKT --------
         if(mldAvPaa) {
             klokkeslettmld.setText(tid);
         }
@@ -67,24 +77,14 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         if(servicePAA) {
             //starter service hver gang tlfen starter opp
             startLayout();
-            //ServiceAuto();
         }
         else{
             VarselmeldingPaAv.setEnabled(servicePAA);
         }
 
 
-        klokkeslettNtf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                DialogFragment tidValg = new TidFragment();
-                tidValg.show(getSupportFragmentManager(), "tid valg");
-            }
-        });
-
-        Toast.makeText(getApplicationContext(), servicePAA+" ", Toast.LENGTH_LONG).show();
-
+        //--------LISTENERS--------
+        //KLIKK PÅ NOTIFIKASJON SWITCH
         notifikasjonPaAv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
@@ -96,8 +96,17 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
             }
         });
 
+        //KLIKK PÅ TIDSPUNKT
+        klokkeslettNtf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        VarselmeldingPaAv.setChecked(mldAvPaa);
+                DialogFragment tidValg = new TidFragment();
+                tidValg.show(getSupportFragmentManager(), "tid valg");
+            }
+        });
+
+        //KLIKK PÅ VARSELMELDING SWITCH
         VarselmeldingPaAv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
@@ -111,12 +120,7 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
             }
         });
 
-        /*getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("SERVICEPAA", servicePAA).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("MLDAVPAA", mldAvPaa).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("TID", tid).apply();*/
-
-
-        btnLagre = findViewById(R.id.btnLagre);
+        //KLIKK PÅ LAGRE
         btnLagre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,25 +132,21 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
             }
         });
 
-        btnAvbryt = findViewById(R.id.btnAvbryt);
+        //KLIKK PÅ AVBRYT
         btnAvbryt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-    }
+        //--------SLUTT LISTENERS--------
+
+    }//-------CREATE SLUTTER---------
 
 
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-        /*getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDTIME", hourOfDay).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDMIN", minute).apply();
-
-        time = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDTIME",17);
-        minutt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDMIN",0);*/
 
         time = hourOfDay;
         minutt = minute;
