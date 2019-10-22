@@ -69,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="100"
+        android:padding="5dp"
         android:layout_below="@+id/velgVenner">
 
         <Spinner
@@ -82,25 +83,19 @@
 
         <Button
             android:id="@+id/btnLeggTilVenn"
-            android:layout_width="165dp"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/spinVenn"
             android:background="@color/colorPrimaryDark"
             android:fontFamily="@font/trocchi"
             android:shadowColor="@color/colorAccent"
-            android:shadowDx="1"
-            android:shadowDy="1"
+            android:shadowDx="3"
+            android:shadowDy="3"
             android:shadowRadius="9"
             android:text="Legg til"
             android:textColor="@color/colorText"
             android:textSize="16sp" />
 
-        <!--<Button
-            android:id="@+id/btnSlettVenn"
-            android:layout_width="104dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Slett" />-->
     </LinearLayout>
 
     <TextView
@@ -130,10 +125,12 @@
         android:id="@+id/datoBoks"
         android:layout_below="@+id/list"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:padding="5dp"
         android:layout_marginTop="5dp"
-        android:weightSum="100">
+        >
 
         <TextView
             android:id="@+id/visDato"
@@ -142,28 +139,28 @@
             android:layout_gravity="center"
             android:textColor="@color/colorText"
             android:shadowColor="#EE020202"
-            android:shadowDx="1"
-            android:shadowDy="1"
+            android:shadowDx="3"
+            android:shadowDy="3"
             android:shadowRadius="9"
             android:hint="Dato"
             android:padding="5dp"
-            android:layout_toRightOf="@+id/spinVenn"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/velgDato"
+            android:layout_marginRight="10dp"
             android:textAlignment="center"
             android:textSize="21sp" />
 
         <Button
             android:id="@+id/velgDato"
             android:layout_gravity="center"
-            android:layout_width="180dp"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/spinVenn"
+            android:layout_toRightOf="@+id/visDato"
+            android:layout_marginLeft="10dp"
             android:background="@color/colorPrimaryDark"
             android:fontFamily="@font/trocchi"
             android:shadowColor="@color/colorAccent"
-            android:shadowDx="1"
-            android:shadowDy="1"
+            android:shadowDx="3"
+            android:shadowDy="3"
             android:shadowRadius="9"
             android:textColor="@color/colorText"
             android:textSize="16sp"
@@ -174,10 +171,12 @@
         android:id="@+id/tidBoks"
         android:layout_below="@+id/datoBoks"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:weightSum="100">
+        android:weightSum="100"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        >
 
         <TextView
             android:id="@+id/visTid"
@@ -186,32 +185,32 @@
             android:layout_gravity="center"
             android:textColor="@color/colorText"
             android:shadowColor="#EE020202"
-            android:shadowDx="1"
-            android:shadowDy="1"
+            android:shadowDx="3"
+            android:shadowDy="3"
             android:shadowRadius="9"
             android:hint="Tidspunkt"
             android:padding="5dp"
-            android:layout_toRightOf="@+id/spinVenn"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/velgTid"
+            android:layout_marginRight="10dp"
             android:textAlignment="center"
             android:textSize="21sp"  />
 
         <Button
             android:id="@+id/velgTid"
             android:layout_gravity="center"
-            android:layout_width="180dp"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/spinVenn"
+            android:layout_toRightOf="@+id/visTid"
+            android:layout_marginLeft="10dp"
             android:background="@color/colorPrimaryDark"
             android:fontFamily="@font/trocchi"
             android:shadowColor="@color/colorAccent"
-            android:shadowDx="1"
-            android:shadowDy="1"
+            android:shadowDx="3"
+            android:shadowDy="3"
             android:shadowRadius="9"
             android:textColor="@color/colorText"
             android:textSize="16sp"
-            android:text="Velg tidspunkt" />
+            android:text="Velg tid" />
     </LinearLayout>
 
 
@@ -221,14 +220,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:weightSum="100"
-        android:layout_marginTop="40dp"
+        android:padding="5dp"
+        android:layout_marginTop="30dp"
         android:layout_below="@+id/tidBoks"
         >
 
         <Button
             android:id="@+id/btnTilbake"
-            android:layout_width="180dp"
+            android:layout_width="170dp"
             android:layout_height="55dp"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/btnSeBestillingsinfo"
             android:background="@color/colorPrimaryDark"
             android:fontFamily="@font/trocchi"
@@ -242,18 +243,17 @@
 
         <Button
             android:id="@+id/btnSeBestillingsinfo"
-            android:layout_width="180dp"
+            android:layout_width="170dp"
             android:layout_height="55dp"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/btnSlett"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/btnTilbake"
             android:background="@color/colorPrimaryDark"
             android:fontFamily="@font/trocchi"
             android:shadowColor="@color/colorAccent"
-            android:padding="5dp"
             android:shadowDx="2"
             android:shadowDy="2"
             android:shadowRadius="9"
-            android:text="Utfør bestilling"
+            android:text="Utfør"
             android:textColor="@color/colorText"
             android:textSize="16sp" />
 

@@ -22,8 +22,11 @@ import java.util.ArrayList;
 
 public class EndreResturant extends AppCompatActivity implements SlettResturantDialog.DialogClickListener{
 
+    //--------DIALOG KNAPPER TIL SLETTRESTURANTDIALOG--------
     @Override
     public void jaClick() {
+
+        //FULLFØRER SLETTING AV RESTURANT
         fullforSlettAvResturant();
     }
 
@@ -32,15 +35,22 @@ public class EndreResturant extends AppCompatActivity implements SlettResturantD
         return;
     }
 
+
+    //--------KNAPPER--------
     private Button btnLagre,btnSlett, btnTilbake;
 
+    //--------INPUTS--------
     private EditText EnavnResturant;
     private EditText EtlfResturant;
     private EditText EtypeResturant;
 
+    //--------VERDIER--------
     private int valgtID;
+
+    //--------RESTURANT OBJEKTET--------
     private Resturant valgtResturant;
 
+    //--------DB HANDLER--------
     DBhandler db;
 
 
@@ -49,123 +59,152 @@ public class EndreResturant extends AppCompatActivity implements SlettResturantD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endre_resturant);
 
+        //--------KNAPPER--------
         btnLagre = (Button) findViewById(R.id.btnLagre);
         btnSlett = (Button) findViewById(R.id.btnSlett);
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
 
 
+        //--------INPUTS--------
         EnavnResturant = (EditText)findViewById(R.id.navnResturant);
         EtlfResturant = (EditText)findViewById(R.id.tlfResturant);
         EtypeResturant = (EditText)findViewById(R.id.typeResturant);
 
+
+        //--------DB HANDLER--------
         db = new DBhandler(this);
 
+
+        //--------MOTTAR INTENT OG VALGT ID--------
         Intent receivedIntent = getIntent();
+        valgtID = receivedIntent.getIntExtra("id",0);
 
-        valgtID = receivedIntent.getIntExtra("id",0); //NOTE: -1 is just the default value
-
+        //--------BRUKER ID TIL Å HENTE UT RESTURANT FRA DB--------
         valgtResturant = db.finnResturant(valgtID);
 
 
-        //set the text to show the current selected name
+        //--------OUTPUT--------
         EnavnResturant.setText(valgtResturant.getNavn());
         EtlfResturant.setText(valgtResturant.getTelefon());
         EtypeResturant.setText(valgtResturant.getType());
 
+
+        //--------LISTENERS--------
+        //KLIKK PÅ LAGRE
         btnLagre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String navn = EnavnResturant.getText().toString();
-                String tlf = EtlfResturant.getText().toString();
-                String type = EtypeResturant.getText().toString();
-
-                valgtResturant.setNavn(navn);
-                valgtResturant.setTelefon(tlf);
-                valgtResturant.setType(type);
-
-                //en liten inputvalidering, ofr kontroll av telefonnummer
-                if(!navn.equals("") && !tlf.equals("") && !type.equals("") && tlf.matches(
-                        "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")
-                        && type.matches("[a-zA-ZæøåÆØÅ0-9\\'\\-\\ \\.]{2,50}+")){
-
-                    db.oppdaterResturant(valgtResturant);
-
-                    //gjørs så viewet oppdaterer fortløpende
-                    Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
-                    startActivity(intent_tilbake);
-                    finish();
-
-                }else{
-                    toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
-                }
+                //FULLFØRER ENDRING
+                fullforEndringAvResturant();
             }
         });
 
+        //KLIKK PÅ SLETT
         btnSlett.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //-------VISER DIALOG VED AVBRYT---------
+                //VISER DIALOG - SPØR OM BRUKER ER SIKKER PÅ SLETTING
                 visSlettResturantDialog();
             }
         });
 
+        //KLIKK PÅ TILBAKE
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //gjørs så viewet oppdaterer fortløpende
+                //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
                 Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
                 startActivity(intent_tilbake);
                 finish();
             }
         });
+        //--------SLUTT LISTENERS--------
 
+    }//-------CREATE SLUTTER---------
+
+
+
+    //--------ENDRER VALGT RESTURANT--------
+    private void fullforEndringAvResturant() {
+        String navn = EnavnResturant.getText().toString();
+        String tlf = EtlfResturant.getText().toString();
+        String type = EtypeResturant.getText().toString();
+
+        //GIR NYE VERDIER TIL RESTURANT
+        valgtResturant.setNavn(navn);
+        valgtResturant.setTelefon(tlf);
+        valgtResturant.setType(type);
+
+
+        //INPUTVALIDERING
+        if(!navn.equals("") && !tlf.equals("") && !type.equals("") && tlf.matches(
+                "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")
+                && type.matches("[a-zA-ZæøåÆØÅ0-9\\'\\-\\ \\.]{2,50}+")){
+
+
+            //OPPDATERER RESTURANT I DB
+            db.oppdaterResturant(valgtResturant);
+
+
+            //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
+            Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
+            startActivity(intent_tilbake);
+            finish();
+
+        }else{
+            //INFOMELDING UT - FEIL INPUT
+            toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
+        }
     }
 
+
+    //--------SLETTER VALGT RESTURANT--------
     private void fullforSlettAvResturant() {
+        //SLETTER VALGT VENN FRA DB
         db.slettResturant(valgtResturant.get_ID());
 
-        //sletter også alle bestillinger til slettet resturant
+        //SLETTER OGSÅ ALLE BESTILLINGER TIL RESTURANTEN
         ArrayList<Bestilling> bestillinger = db.finnAlleBestillinger();
         for (Bestilling b : bestillinger) {
             if(b.get_resturantID() == valgtResturant.get_ID()) {
+                //SLETTER BESTILLING FRA DB
+                db.slettBestilling(b.get_ID());
 
-                //sletter også alle deltakelser til slettet bestilling
+                //SLETTER OGSÅ ALLE DELTAKELSER TIL SLETTEDE BESTILLINGER
                 ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
                 for (Deltakelse d : deltakelser) {
                     if(d.getBestillingID() == b.get_ID()) {
+                        //SLETTER DELTAKELSE FRA DB
                         db.slettDeltakelse(d.getID());
                     }
                 }
-
-                //sletter bestilling
-                db.slettBestilling(b.get_ID());
             }
         }
 
-
+        //NULLSTILLER INPUT
         EnavnResturant.setText("");
         EtlfResturant.setText("");
         EtypeResturant.setText("");
 
-        //gjørs så viewet oppdaterer fortløpende
+        //INFOMELDING UT
+        toastMessage("Resturant slettet fra databasen");
+
+        //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
         Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
         startActivity(intent_tilbake);
         finish();
-
-        toastMessage("Slettet resturant fra databasen");
     }
 
 
-    //-------VISER DIALOG VED AVBRYT---------
+    //-------VISER DIALOG VED SLETT KNAPP---------
     private void visSlettResturantDialog() {
         DialogFragment dialog = new SlettResturantDialog();
         dialog.show(getFragmentManager(), "Avslutt");
     }
 
 
-    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
         Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
@@ -177,5 +216,4 @@ public class EndreResturant extends AppCompatActivity implements SlettResturantD
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
-
 }

@@ -59,7 +59,8 @@ public class Venner extends AppCompatActivity {
     }
     //-------CREATE SLUTTER---------
 
-    //-------VISER DIALOG VED TILBAKEKNAPP---------
+
+
     @Override
     public void onBackPressed() {
         finish();

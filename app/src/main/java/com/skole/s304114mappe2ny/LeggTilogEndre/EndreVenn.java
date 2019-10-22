@@ -36,17 +36,19 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
     //--------KNAPPER--------
     private Button btnLagre,btnSlett, btnTilbake;
 
-    //--------TEKST--------
+    //--------INPUTS--------
     private EditText EnavnVenn;
     private EditText EtlfVenn;
 
-    //--------INPUTS--------
+    //--------VERDIER--------
     private int valgtID;
 
-    //--------VENN OBJECTET--------
+    //--------VENN OBJEKTET--------
     private Venn valgtVenn;
 
+    //--------DB HANDLER--------
     DBhandler db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,17 +106,18 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //VIEW OPPDATERES FORTLØPENDE UTEN STACK
+                //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
                 Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
                 startActivity(intent_tilbake);
                 finish();
             }
         });
         //--------SLUTT LISTENERS--------
-    }
+
+    }//-------CREATE SLUTTER---------
 
 
-    //--------METODE FOR Å ENDRE VALGT VENN--------
+    //--------ENDRER VALGT VENN--------
     private void fullforEndringAvVenn() {
         String navn = EnavnVenn.getText().toString();
         String tlf = EtlfVenn.getText().toString();
@@ -124,7 +127,7 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
         valgtVenn.setTelefon(tlf);
 
 
-        //KONTROLLERER RIKTIG INPUT
+        //INPUTVALIDERING
         if (!navn.equals("") && !tlf.equals("") && tlf.matches("[0-9\\+\\-\\ ]{2,15}+")
                 && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")) {
 
@@ -133,22 +136,21 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
             db.oppdaterVenn(valgtVenn);
 
 
-            //VIEW OPPDATERES FORTLØPENDE UTEN STACK
+            //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
             Intent intent_tilbake = new Intent(EndreVenn.this, SeVenner.class);
             startActivity(intent_tilbake);
             finish();
 
         }
         else {
-            //INFOMELDING UT
+            //INFOMELDING UT - FEIL INPUT
             toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
         }
     }
 
 
-    //--------METODE FOR Å SLETTE VALGT VENN--------
+    //--------SLETTER VALGT VENN--------
     private void fullforSlettAvVenn() {
-
         //SLETTER VALGT VENN FRA DB
         db.slettVenn(valgtVenn.getID());
 
@@ -164,13 +166,13 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
         EnavnVenn.setText("");
         EtlfVenn.setText("");
 
-        //VIEW OPPDATERES FORTLØPENDE UTEN STACK
+        //INFOMELDING UT
+        toastMessage("Venn slettet fra databasen");
+
+        //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
         Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
         startActivity(intent_tilbake);
         finish();
-
-        //INFOMELDING UT
-        toastMessage("Venn fjernet fra databasen");
     }
 
 
@@ -181,7 +183,7 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
     }
 
 
-    //-------TILBAKE KNAPP - UTEN STACK---------
+    //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
         Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
@@ -193,7 +195,4 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
-
-
 }
-

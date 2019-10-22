@@ -37,6 +37,7 @@ public class SeBestillingsInfoDialog extends DialogFragment {
     }
 
 
+    //METODE FOR Å OVERFØRE INFO TIL DIALOG
    public void hentInfo(String dato, String tid, Resturant valgtResturant, ArrayList<Venn> venner, DBhandler db) {
         this.dato = dato;
         this.tid = tid;
@@ -91,7 +92,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
             public void onClick(View v) {
                 callback.bestillClick();
 
-
                 dismiss();
             }
         });
@@ -106,8 +106,4 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         dialog.show();
         return dialog;
     }
-
-
-
-
 }

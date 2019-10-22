@@ -5,7 +5,6 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,8 +19,6 @@ import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.Fragmenter.DatoFragment;
 import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
-import com.skole.s304114mappe2ny.Hovedmenyer.Bestillinger;
-import com.skole.s304114mappe2ny.Hovedmenyer.MainActivity;
 import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
@@ -29,69 +26,18 @@ import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import com.skole.s304114mappe2ny.klasser.Venn;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 
-public class RegistrerBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, SeBestillingsInfoDialog.DialogClickListener { //, SeBestillingsInfoDialog.DialogClickListener
 
+public class RegistrerBestilling extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener, SeBestillingsInfoDialog.DialogClickListener {
+
+
+    //--------DIALOG KNAPPER TIL SLETTRESTURANTDIALOG--------
     @Override
     public void bestillClick() {
-
-
-        //genererer tallet som skal brukes som bestillingsID i deltakelse - må gjøre det slik ettersom ID til bestilling og deltakelse genereres likt i DB.
-        Integer indeksen = 1 + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("LOPENUMMERBESTILLING", 0);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("LOPENUMMERBESTILLING", indeksen); //lagrer nøkkel med nøkkel string
-
-
-        Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID()); //, vennene
-        db.leggTilBestilling(bestilling, indeksen); //legger inn løpenummer som ID
-
-        //genererer en deltakelse for hver venn som er med på bestillingen
-        for(Venn i : valgteVenner) {
-            Deltakelse deltakelse = new Deltakelse(indeksen, i.getID(), i.getNavn()); //long bestillingID, long vennID
-            db.leggTilDeltakelse(deltakelse);
-        }
-
-
-        //lagrer melding
-        String meldingUt = "Husk bestilling i dag hos "+valgtResturant.getNavn() + ". Dato: " + dato + ". Kl: " + tid;
-
-        //SharedPreferences sharedPreferences = getSharedPreferences("APP_INFO", MODE_PRIVATE);
-        //SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        //Integer index = db.finnAlleBestillinger().size();
-
-        //plusser på 1 her fordi ant er 0 til å starte med
-        //index++;
-        String NOKKEL = indeksen + ""; //løpende nøkkel
-
-        String nokkel_MELDING = "melding" + indeksen;
-
-        editor.putString(nokkel_MELDING, meldingUt);
-        editor.putInt(NOKKEL, indeksen); //lagrer nøkkel med nøkkel string
-        editor.commit();
-            //slutt lagring av melding
-
-        String meldingUt2 = "" + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt(NOKKEL, 2);
-        meldingUt2 += getSharedPreferences("APP_INFO", MODE_PRIVATE).getString(nokkel_MELDING, "");
-
-
-        Toast.makeText(getApplicationContext(), meldingUt2, Toast.LENGTH_LONG).show();
-
-        Intent intent_preferanser = new Intent (RegistrerBestilling.this, SeBestillinger.class);
-        startActivity(intent_preferanser);
-        finish();
-        //return;
+        fullforBestilling();
     }
 
     @Override
@@ -101,31 +47,32 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     }
 
 
-    private Spinner spinnerResturanter, spinnerVenner;
-    private Resturant valgtResturant;
-    private Venn valgtVenn;
-    private Venn valgtVennSlett;
-    private ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
-
-
-    //til lagring av IDer
-    ArrayList<Integer> IDer = new ArrayList<Integer>();
-
-    ListView mListView;
-
-    private String dato, tid;
-
-    DBhandler db;
-
-    private TextView visDato, visTid;
+    //--------KNAPPER--------
     private Button btnTilbake, btnLeggTilVenn, velgDato, velgTid, btnSeBestillingsinfo;
 
+    //--------TEKST--------
+    private TextView visDato, visTid;
 
-    //--------LAGRINGSKODER--------
-    private static final String NOKKEL_VENNERARRAY = "vennerArray_nokkel";
-    private static final String NOKKEL_DATO = "dato_nokkel";
-    private static final String NOKKEL_TID = "tid_nokkel";
-    private static final String NOKKEL_RESTURANT = "resturant_nokkel";
+    //--------SPINNERE--------
+    private Spinner spinnerResturanter, spinnerVenner;
+
+    //--------VERDIER--------
+    private String dato, tid;
+
+    //--------OBJEKTER--------
+    private Venn valgtVenn, valgtVennSlett;
+    private Resturant valgtResturant;
+
+    //--------ARRAYS--------
+    private ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
+
+    //--------LISTVIEW--------
+    ListView vennerListView;
+
+    //--------DB HANDLER--------
+    DBhandler db;
+
+
 
 
     @Override
@@ -133,217 +80,230 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrer_bestilling);
 
-        populerValgteVenner();
 
-
-        //Knapper
+        //--------KNAPPER--------
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnLeggTilVenn = (Button) findViewById(R.id.btnLeggTilVenn);
-        //btnSlettVenn = (Button) findViewById(R.id.btnSlettVenn);
         velgDato = (Button) findViewById(R.id.velgDato);
         velgTid = (Button) findViewById(R.id.velgTid);
         btnSeBestillingsinfo = (Button) findViewById(R.id.btnSeBestillingsinfo);
 
-        //Tekst ++
-        spinnerResturanter = (Spinner) findViewById(R.id.spinResturant);
-        spinnerVenner = (Spinner) findViewById(R.id.spinVenn);
+
+        //--------INPUTS--------
         visDato = (TextView) findViewById(R.id.visDato);
         visTid = (TextView) findViewById(R.id.visTid);
-        mListView = (ListView) findViewById(R.id.list);
+        vennerListView = (ListView) findViewById(R.id.list);
 
 
+        //--------SPINNERE--------
+        spinnerResturanter = (Spinner) findViewById(R.id.spinResturant);
+        spinnerVenner = (Spinner) findViewById(R.id.spinVenn);
+
+
+        //--------DB HANDLER--------
         db = new DBhandler(this);
 
-        //Lager spinnere
+
+        //--------OPPRETTER OG POPULERER SPINNERE--------
         lagResturantSpinner();
         lagVennerSpinner();
 
 
-
-        String s = "";
-        for(int i : IDer) {
-            s += i+" ";
-        }
-        toastMessage(s);
-
-
+        //--------LISTENERS--------
+        //KLIKK PÅ LEGG TIL
         btnLeggTilVenn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //LEGGER TIL VALGT VENN I valgteVenner ARRAYET
                 leggTilValgtVenn();
-                //bestillingTekst.setText(visBestillingsData());
             }
         });
 
-        /*btnSlettVenn.setOnClickListener(new View.OnClickListener() {
+        //KLIKK PÅ VELG DATO
+        velgDato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //OPPRETTER DATOFRAGMENTET FOR SETTING AV DATO
+                DialogFragment datoValg = new DatoFragment();
+                datoValg.show(getSupportFragmentManager(), "dato valg");
+            }
+        });
+
+        //KLIKK PÅ VELG TID
+        velgTid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //OPPRETTER TIDFRAGMENTET FOR SETTING AV TID
+                DialogFragment tidValg = new TidFragment();
+                tidValg.show(getSupportFragmentManager(), "tid valg");
+            }
+        });
+
+        //KLIKK PÅ UTFØR BESTILLING
+        btnSeBestillingsinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                slettValgtVenn();
-                //bestillingTekst.setText(visBestillingsData());
-            }
-        });*/
+                //KONTROLLERER AT ALLE FELTER SOM ER OBLIGATORISKE ER BENYTTET
+                if (!visDato.getText().toString().equals("") || !visTid.getText().toString().equals("")) {
 
+                    //OPPRETTER SEBESTILLINGSINFODIALOG OG VISER VALGT INFO
+                    visBestillingsinfo();
+                }
+                else{
+                    //INFOMELDING UT - FEIL INPUT
+                    Toast.makeText(RegistrerBestilling.this, "Tid og dato for bestilling må være fylt ut.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        //KLIKK PÅ TILBAKE
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        //--------SLUTT LISTENERS--------
 
-        velgDato.setOnClickListener(new View.OnClickListener() {
+    }//-------CREATE SLUTTER---------
+
+
+
+
+    //--------GENERERER OG POPULERER VENNERLISTVIEWET - MULIGHET FOR LESTTING DIREKTE--------
+    private void populateListView() {
+
+        //GENERERER ARRAYADAPTER TIL LISTVIEWET
+        final ArrayAdapter<Venn> adapter = new ArrayAdapter<Venn>(this, android.R.layout.simple_list_item_1, valgteVenner);
+        vennerListView.setAdapter(adapter);
+
+        //VED KLIKK PÅ VENN FRA LISTVIEWET
+        vennerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                DialogFragment datoValg = new DatoFragment();
-                datoValg.show(getSupportFragmentManager(), "dato valg");
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                //GIR VALGTVENNSLETT VERDIEN TIL VALGT OBJEKT FRA LISTVIEWET
+                valgtVennSlett = (Venn) vennerListView.getItemAtPosition(i);
+
+                //sletter valgt venn direkte fra listviewet ved trykk
+                adapter.remove(valgtVennSlett);
+
+                //OPPDATERER ADAPTERARRAYET FORTLØPENDE
+                adapter.notifyDataSetChanged();
             }
         });
-
-        velgTid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment timePicker = new TidFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-            }
-        });
-
-
-        btnSeBestillingsinfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (visDato.getText().toString().equals("") || visTid.getText().toString().equals("")) { //kontrollerer at svar ikke er tom
-                    Toast.makeText(RegistrerBestilling.this, "Tid og dato for bestilling må være fylt ut.", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    visBestillingsinfo();
-                }
-            }
-        });
-
-
-        for(int i : IDer) {
-            valgteVenner.add(db.finnVenn(i));
-        }
-
-        populateListView();
-
     }
-    //UTENFOR CREATE
 
 
-    //OVERFØRER BESTILLINGSINFO TIL SEBESTILLINGSFRAGMENT
+    //--------OPPRETTER SEBESTILLINGSINFODIALOG--------
     private void visBestillingsinfo()  {
 
-        //Spanned info = visBestillingsData();
+        //OPPRETTER NYTT DIALOGFRAGMENT
         SeBestillingsInfoDialog bFragment = new SeBestillingsInfoDialog();
-        //bFragment.init(info);
 
-
-
+        //OVERFØRER BESTILLINGSINFO TIL FRAGMENTET MED METODE FRA FRAGMENTET
         bFragment.hentInfo(dato, tid, valgtResturant, valgteVenner, db);
 
+        //VISER DIALOGVINDUET
         bFragment.show(getFragmentManager(), "Bestillingsinfo");
     }
 
 
-    //DATOFRAGMENT
+    //--------INNEBYGD METODE FOR SETTING AV DATO--------
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        /*Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());*/
+    public void onDateSet(DatePicker view, int aar, int mnd, int dag) {
 
-        //ny
-        month++;
+        //MÅ LEGGE INN DENNE ETTERSOM MÅNEDSTALLET VISER 9 FOR OKTOBER OSV.
+        mnd++;
 
-        dato = dayOfMonth+"/"+month+"/"+year;
+        //GENERERER STRING PÅ 22/10/2019 FORMAT
+        dato = dag+"/"+mnd+"/"+aar;
         visDato.setText(dato);
     }
 
-    //TIDFRAGMENT
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        tid = "Kl: " + hourOfDay + ":";
-        //sørger for at det står f.eks 10:05 isteden for 10:5
-        if(minute < 10) {
+    //--------INNEBYGD METODE FOR SETTING AV TIDSPUNKT--------
+    @Override
+    public void onTimeSet(TimePicker view, int time, int min) {
+
+        tid = "Kl: " + time + ":";
+        //SØRGER FOR AT DET STÅR f.eks 10:05 ISTEDEN FOR 10:5
+        if(min < 10) {
             tid += "0";
         }
-        tid += minute;
+
+        //GENERERER STRING PÅ KL: 16:35 FORMAT
+        tid += min;
 
         visTid.setText(tid);
     }
 
 
 
-
+    //--------GENERERER SPINNER MED ALLE RESTURATENE SOM ER LAGT TIL I DB--------
     private void lagResturantSpinner() {
-        //leggr alle resturanter i array
+
+        //LEGGER ALLE RESTURANTER I RESTURANT-ARRAY - HENTET FRA DB
         ArrayList<Resturant> resturanter = db.finnAlleResturanter();
 
-        //create the list adapter and set the adapter
-        ArrayAdapter<Resturant> adapter = new ArrayAdapter<Resturant>(this, android.R.layout.simple_list_item_1, resturanter);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //GENERERER ARRAYADAPTER TIL SPINNER
+        final ArrayAdapter<Resturant> adapterRes = new ArrayAdapter<Resturant>(this, android.R.layout.simple_list_item_1, resturanter);
+        adapterRes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinnerResturanter.setAdapter(adapter);
+        spinnerResturanter.setAdapter(adapterRes);
 
+        //VED VALG/KLIKK AV RESTURANT I SPINNEREN
         spinnerResturanter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Resturant resturant = (Resturant) parent.getSelectedItem();
 
-                Integer ID = (int) resturant.get_ID();
-                valgtResturant = db.finnResturant(ID);
+                //GIR VALGTRESTURANT VERDIEN TIL VALGT OBJEKT FRA SPINNER
+                valgtResturant = (Resturant) parent.getSelectedItem();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
+
+    //--------GENERERER SPINNER MED ALLE VENNER SOM ER LAGT TIL I DB--------
     private void lagVennerSpinner() {
-        //leggr alle resturanter i array
+
+        //LEGGER ALLE VENNER I VENNER-ARRAY - HENTET FRA DB
         ArrayList<Venn> venner = db.finnAlleVenner();
 
-        //create the list adapter and set the adapter
-        ArrayAdapter<Venn> adapter2 = new ArrayAdapter<Venn>(this, android.R.layout.simple_list_item_1, venner);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //GENERERER ARRAYADAPTER TIL SPINNER
+        final ArrayAdapter<Venn> adapterVenner = new ArrayAdapter<Venn>(this, android.R.layout.simple_list_item_1, venner);
+        adapterVenner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinnerVenner.setAdapter(adapter2);
+        spinnerVenner.setAdapter(adapterVenner);
 
+        //VED VALG/KLIKK AV RESTURANT I SPINNEREN
         spinnerVenner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Venn venn = (Venn) parent.getSelectedItem();
-                valgtVenn = (Venn) parent.getSelectedItem();
 
-                //Integer ID = (int) venn.getID();
-                //valgtVenn = db.finnVenn(ID);
-                //visResturantData(venn);
+                //GIR VALGTRESTURANT VERDIEN TIL VALGT OBJEKT FRA SPINNER
+                valgtVenn = (Venn) parent.getSelectedItem();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
 
-    //-------SJEKK OM TALL/INDEKS ER BRUKT TIDLIGERE (SPØRSMÅL)---------
+    //-------SJEKK OM INDEKS/VENN ALLEREDE ER LAGT TIL I VALGTEVENNER-ARRAY---------
     private boolean sjekkVenn(Venn venn) {
         boolean sjekk = false;
-        //går gjennom arrayet som er fylt med brukte indekser
 
+        //GÅR GJENNOM ARRAY OG KONTROLLERER ETTER VENNER
         for (Venn v : valgteVenner) {
             if (v == venn) {
-                sjekk = true; //finnes i arrayet
+                //FINNES I ARRAYET
+                sjekk = true;
                 break;
             }
         }
@@ -351,15 +311,19 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     }
 
 
-    //MÅ GJØRES SÅ DETTE GJØRES MOT DATABASEN OG TABLE BESTILLINGER
+    //-------BENYTTER KONTROLLEN OG LEGGER TIL VALGT VENN I VALGTEVENNER-ARRAY---------
     public void leggTilValgtVenn() {
+        //KONTROLL AV VENN
         if(!sjekkVenn(valgtVenn)) {
-            valgteVenner.add(valgtVenn);
-            //brukes til lagring av ID til venner
-            Integer ID = (int) valgtVenn.getID();
-            IDer.add(ID);
 
+            //HVIS KONTROLL GODKJENT - LEGGER TIL VENN
+            valgteVenner.add(valgtVenn);
+
+            //MELDING UT OM AT VENN ER LAGT TIL
             Toast.makeText(this, valgtVenn.getNavn() + " lagt til i bestilling.", Toast.LENGTH_LONG).show();
+
+
+            //POPULERER FORTLØPENDE LISTVIEWET SOM VISER VALGTE VENNER SOM ER LAGT TIL
             populateListView();
         }
         else {
@@ -368,76 +332,69 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     }
 
 
-    //må gjøre så siste venn også kan bli slettet
-    public void slettValgtVenn() {
-        if(sjekkVenn(valgtVenn)) {
-            valgteVenner.remove(valgtVenn);
+    //-------GENERERER NØKLER FOR MELDINGER TIL MINNET OG FULLFØRER BESTILLINGEN---------
+    private void fullforBestilling() {
+        //GENERERER NØKKEL SOM BRUKES SOM BESTILLINGSID - HENTER FRA MINNET OG PLUSSER FOR HVER GANG
+        int indeksen = 1 + getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("LOPENUMMERBESTILLING", 0);
 
-            //brukes til lagring av ID til venner
-            Integer ID = (int) valgtVenn.getID();
-            IDer.remove(ID);
+        //LAGRER NØKKEL MED NØKKEL
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("LOPENUMMERBESTILLING", indeksen).apply();
 
-            Toast.makeText(this, valgtVenn.getNavn()+" fjernet fra bestilling.", Toast.LENGTH_LONG).show();
-            populateListView();
-        }
-        else {
-            Toast.makeText(this, valgtVenn.getNavn()+" finnes ikke i bestillingen.", Toast.LENGTH_LONG).show();
+
+        //LEGGER TIL BESTILLING I DB
+        leggTilBestilling(indeksen);
+
+        //LEGGER TIL DELTAKELSER FOR HVER VENN SOM ER MED I BESTILLINGEN
+        leggTilDeltakelser(indeksen);
+
+
+        //OPPRETTER NY MELDING TIL PÅMINNELSER
+        String meldingUt = "Husk bestilling i dag hos "+valgtResturant.getNavn() + ". Dato: " + dato + ". " + tid;
+
+
+        //OPPRETTER NY LØPENDE NØKKEL
+        String NOKKEL = indeksen + "";
+        //LAGRER NØKKELEN I MINNET
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt(NOKKEL, indeksen).apply();
+
+
+        //OPPRETTER NY LØPENDE NØKKEL TIL MELDING (BENYTTER INDEKSEN)
+        String nokkel_MELDING = "melding" + indeksen;
+        //LAGRER MELDING MED LØPENDE NØKKEL I MINNET
+        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString(nokkel_MELDING, meldingUt).apply();
+
+
+        //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
+        Intent intent_preferanser = new Intent (RegistrerBestilling.this, SeBestillinger.class);
+        startActivity(intent_preferanser);
+        finish();
+    }
+
+
+    //-------LEGGER TIL DELTAKELSER I DB---------
+    private void leggTilDeltakelser(int indeksen) {
+        //GENERERER EN DELTAKELSE FOR HVER VENN SOM ER MED I BESTILLINGEN
+        for(Venn i : valgteVenner) {
+            //OPPRETTER NY DELTAKELSE MED DET GENERERTE LØPENUMMERET FRA MINNET
+            Deltakelse deltakelse = new Deltakelse(indeksen, i.getID(), i.getNavn());
+            //LEGGER TIL DELTAKELSEN I DB
+            db.leggTilDeltakelse(deltakelse);
         }
     }
 
 
-    private void populerValgteVenner() {
-        Venn v = null;
-        String s = "";
+    //-------LEGGER TIL BESTILLING I DB---------
+    private void leggTilBestilling(int indeksen) {
+        //OPPRETTER NY BESTILLING
+        Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID());
 
-        for(int i : IDer) {
-            v =  db.finnVenn(i);
-            valgteVenner.add(v);
-            s += v.getNavn();
-        }
-
-        toastMessage(s);
-    }
-
-
-    private void populateListView() {
-
-        //final ArrayList<Venn> valgteVenner = new ArrayList<Venn>();
-
-        //create the list adapter and set the adapter
-        final ArrayAdapter<Venn> adapter = new ArrayAdapter<Venn>(this, android.R.layout.simple_list_item_1, valgteVenner);
-        mListView.setAdapter(adapter);
-
-        //set an onItemClickListener to the ListView
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                valgtVennSlett = (Venn) mListView.getItemAtPosition(i);
-
-                //sletter valgt venn direkte fra listviewet ved trykk
-                adapter.remove(valgtVennSlett);
-
-                //Integer ID = (int) venn.getID();
-                //valgtVenn = db.finnVenn(ID);
-
-                //slettValgtVenn();
-                //valgteVenner.remove(valgtVennSlett);
-
-                //brukes til lagring av ID til venner
-                //Integer ID = (int) valgtVennSlett.getID();
-                //IDer.remove(ID);
-
-                //populerValgteVenner();
-
-                adapter.notifyDataSetChanged();
-            }
-        });
+        //LEGGER TIL BESTILLINGEN I DB MED GENERERT LØPENUMMER FRA MINNET
+        db.leggTilBestilling(bestilling, indeksen);
     }
 
 
 
-
+    //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
         finish();
@@ -447,67 +404,5 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
-
-
-
-    /*REGISTRERER BESTILLING I DATABASEN
-    private void registrerBestilling() {
-        //String dato, String tid, long resturantID, String venner
-        String venner = "";
-        for(Venn i : valgteVenner) {
-            venner += "Navn: "+i.getNavn()+". ";
-        }
-
-        Bestilling bestilling = new Bestilling(dato, tid, valgtResturant.getNavn(), valgtResturant.get_ID());
-        db.leggTilBestilling(bestilling);
-    }*/
-
-
-
-    //-------LAGRING AV DATA VED ROTASJON---------
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //strenger
-
-        outState.putString(NOKKEL_DATO, visDato.getText().toString());
-        outState.putString(NOKKEL_TID , visTid.getText().toString());
-        //outState.putString(NOKKEL_RESTURANT, antallFeil.getText().toString());
-        outState.putIntegerArrayList(NOKKEL_VENNERARRAY, IDer);
-
-
-        super.onSaveInstanceState(outState);
-    }
-
-
-    //-------HENTING AV LAGRET DATA---------
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        //strenger
-
-        visDato.setText(savedInstanceState.getString(NOKKEL_DATO));
-        visTid.setText(savedInstanceState.getString(NOKKEL_TID));
-        //antallFeil.setText(savedInstanceState.getString(NOKKEL_ANTFEIL));
-        IDer = savedInstanceState.getIntegerArrayList(NOKKEL_VENNERARRAY);
-
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-
-
-
-   /* @Override
-    protected void onPause(){
-        super.onPause();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().(NOKKEL_VENNERARRAY, IDer).apply();
-
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-
-        IDer = getSharedPreferences("APP_INFO",MODE_PRIVATE).getIntegerArrayList(NOKKEL_VENNERARRAY,"");
-    }*/
-
 }
 

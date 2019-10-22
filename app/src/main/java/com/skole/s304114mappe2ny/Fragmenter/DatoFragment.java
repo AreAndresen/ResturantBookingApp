@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
-import com.skole.s304114mappe2ny.R;
 
 import java.util.Calendar;
 

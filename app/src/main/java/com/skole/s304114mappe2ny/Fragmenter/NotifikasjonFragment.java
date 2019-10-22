@@ -1,14 +1,14 @@
 package com.skole.s304114mappe2ny.Fragmenter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import android.os.Bundle;
 import android.app.AlarmManager;
-import android.app.DialogFragment;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -18,7 +18,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import com.skole.s304114mappe2ny.MinService;
 import com.skole.s304114mappe2ny.R;
-import com.skole.s304114mappe2ny.TimePickerFragment;
 
 
 public class NotifikasjonFragment  extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
@@ -66,8 +65,8 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
             @Override
             public void onClick(View view) {
 
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getFragmentManager(), "time picker");;
+                DialogFragment tidValg = new TidFragment();
+                tidValg.show(getSupportFragmentManager(), "tid valg");
             }
         });
 
