@@ -59,6 +59,7 @@ public class MinService extends Service {
             //HENTER UT MELDINGEN FRA MINNE MED DEN GJENSKAPTE NØKKELEN TIL MELDINGEN
             String meldingUt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString(nokkel_MELDING,"");
 
+
             //ARRAY FOR Å SAMLE ALLE VENNER I BESTILLINGEN SOM SKAL FÅ MELDING
             ArrayList<Venn> vennerUtmelding = new ArrayList<>();
 
@@ -69,7 +70,9 @@ public class MinService extends Service {
             //FINNER VENNER/DELTAKERE FRA BESTILLINGEN OG LEGGER VENNENE I VENNERUTMELDING ARRAYET
             for(Deltakelse d : alleDeltakelser) {
                 if(d.getBestillingID() == b.get_ID()) {
-                        ArrayList<Venn> alleVenner = db.finnAlleVenner();
+
+                    ArrayList<Venn> alleVenner = db.finnAlleVenner();
+
                         for(Venn v : alleVenner) {
                             if(v.getID() == d.getVennID()) {
                                vennerUtmelding.add(v);

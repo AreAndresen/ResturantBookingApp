@@ -7,11 +7,8 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-
 import static com.skole.s304114mappe2ny.DBhandler.KEY_ID;
 import static com.skole.s304114mappe2ny.DBhandler.KEY_NAME;
 import static com.skole.s304114mappe2ny.DBhandler.KEY_PH_NO;
@@ -28,6 +25,7 @@ public class ResturantProvider extends ContentProvider {
     SQLiteDatabase db;
 
     public static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER + "/Resturant");
+
     private static final UriMatcher uriMatcher;
     static{uriMatcher= new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(PROVIDER,"Resturant", MBOK);

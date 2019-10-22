@@ -23,27 +23,29 @@ public class SettPeriodiskService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        java.util.Calendar cal = Calendar.getInstance();
+        //--------HENTER DAGENS DATO--------
+        Calendar c = Calendar.getInstance();
 
-        int time = getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDTIME", 15); //standard tidspunkt er 0930 for vanlig notifikasjon om ikke melding er aktivert
+        //--------HENTER LAGRET TIDSPUNKT FRA MINNE--------
+        int time = getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDTIME", 15);
         int min =  getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDMIN", 26);
 
         Toast.makeText(this, "I BroadcastReceiver - tidspunkt: "+time+" : "+min, Toast.LENGTH_SHORT).show();
 
 
-        //setter tiden notifikasjonen skal gå
-        cal.set(Calendar.HOUR_OF_DAY, time);
-        cal.set(Calendar.MINUTE, min);
-        cal.set(Calendar.SECOND, 0);
+        //--------STILLER TIDEN NOTIFIKASJONEN SKAL AKTIVERES--------
+        c.set(Calendar.HOUR_OF_DAY, time);
+        c.set(Calendar.MINUTE, min);
+        c.set(Calendar.SECOND, 0);
 
-        //TIL MinService
+
+        //--------INTENTET TIL SERVICE--------
         Intent i = new Intent(this, MinService.class);
+        PendingIntent pintent = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        PendingIntent pintent = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT); //100. FLAG  - PendingIntent.FLAG_UPDATE_CURRENT - Oppdaterer gammel
-
+        //--------SETTER TIDSPUNKT OG AKTIVERER DAGLIG INTERVAL FOR NOTIFIKASJONEN--------
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent); //6 * 100 AlarmManager.INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
 
         return super.onStartCommand(intent, flags, startId);
     }

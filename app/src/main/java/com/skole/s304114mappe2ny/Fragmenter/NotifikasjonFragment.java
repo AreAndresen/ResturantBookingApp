@@ -2,7 +2,6 @@ package com.skole.s304114mappe2ny.Fragmenter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-
 import android.os.Bundle;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -22,11 +21,19 @@ import com.skole.s304114mappe2ny.R;
 
 public class NotifikasjonFragment  extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
-    private TextView klokkeslettmld, klokkeslettNtf;
+
+    //--------KNAPPER--------
     private Button btnAvbryt, btnLagre;
+
+    //--------TEKST--------
+    private TextView klokkeslettmld, klokkeslettNtf;
+
+    //--------SWITCH--------
     private Switch notifikasjonPaAv, VarselmeldingPaAv;
+
+    //--------VERDIER--------
     private String tid;
-    private int time, minutt; //brukes til overføring i minne og når melding sendes
+    private int time, minutt;
     private boolean mldAvPaa, servicePAA;
 
 
@@ -34,8 +41,14 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        //HENTER BOOLEAN FRA MINNET OM NOTIFIKASJON ER AKTIVERT
         servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",true);
+
+        //HENTER BOOLEAN FRA MINNET OM MELDING ER AKTIVERT
         mldAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",false);
+
+        //HENTER TIDSPUNKT FRA MINNET NÅR MELDING SKAL SENDES
         tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","");
 
         setContentView(R.layout.activity_notifikasjon_fragment);
