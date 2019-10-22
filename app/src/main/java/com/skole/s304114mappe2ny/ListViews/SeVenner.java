@@ -82,18 +82,12 @@ public class SeVenner extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String name = adapterView.getItemAtPosition(i).toString();
-                toastMessage(name);
-
                 Venn venn = (Venn) mListView.getItemAtPosition(i);
-                toastMessage(""+venn.getID());
-                //ny lagring til disk
+
                 Integer ID = (int) venn.getID();
 
                 Intent editScreenIntent = new Intent(SeVenner.this, EndreVenn.class);
                 editScreenIntent.putExtra("id",ID);
-                editScreenIntent.putExtra("name",venn.getNavn());
-                editScreenIntent.putExtra("tlf",venn.getTelefon());
 
                 startActivity(editScreenIntent);
                 finish(); //unngår å legge på stack

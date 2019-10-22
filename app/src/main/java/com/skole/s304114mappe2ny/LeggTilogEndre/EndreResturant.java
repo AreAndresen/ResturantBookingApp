@@ -34,15 +34,15 @@ public class EndreResturant extends AppCompatActivity implements SlettResturantD
 
     private Button btnLagre,btnSlett, btnTilbake;
 
-
     private EditText EnavnResturant;
     private EditText EtlfResturant;
     private EditText EtypeResturant;
 
-    DBhandler db;
-
     private int valgtID;
     private Resturant valgtResturant;
+
+    DBhandler db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

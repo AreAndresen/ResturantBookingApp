@@ -1,7 +1,6 @@
 package com.skole.s304114mappe2ny.LeggTilogEndre;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.content.Intent;
@@ -15,14 +14,16 @@ import com.skole.s304114mappe2ny.ListViews.SeVenner;
 import com.skole.s304114mappe2ny.SlettDialoger.SlettVennDialog;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Venn;
-
 import java.util.ArrayList;
 
 
 public class EndreVenn extends AppCompatActivity implements SlettVennDialog.DialogClickListener{
 
+    //--------DIALOG KNAPPER TIL SLETTVENNDIALOG--------
     @Override
     public void jaClick() {
+
+        //FULLFØRER SLETTING AV VENN
         fullforSlettAvVenn();
     }
 
@@ -31,138 +32,156 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
         return;
     }
 
-    private static final String TAG = "EditDataActivity";
 
+    //--------KNAPPER--------
     private Button btnLagre,btnSlett, btnTilbake;
 
-
+    //--------TEKST--------
     private EditText EnavnVenn;
     private EditText EtlfVenn;
 
-    DBhandler db;
-
-    private String valgtNavn, valgtTlf;
+    //--------INPUTS--------
     private int valgtID;
+
+    //--------VENN OBJECTET--------
+    private Venn valgtVenn;
+
+    DBhandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_endre_venn);
 
+        //--------KNAPPER--------
         btnLagre = (Button) findViewById(R.id.btnLagre);
         btnSlett = (Button) findViewById(R.id.btnSlett);
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
 
 
+        //--------INPUTS--------
         EnavnVenn = (EditText)findViewById(R.id.navnVenn);
         EtlfVenn = (EditText)findViewById(R.id.tlfVenn);
 
+
+        //--------DB HANDLER--------
         db = new DBhandler(this);
 
-        //get the intent extra from the ListDataActivity
-        Intent receivedIntent = getIntent();
 
-        //now get the itemID we passed as an extra
-        valgtID = receivedIntent.getIntExtra("id",0); //NOTE: -1 is just the default value
+        //--------MOTTAR INTENT OG VALGT ID--------
+        Intent motattIntent = getIntent();
+        valgtID = motattIntent.getIntExtra("id",0);
 
-        //now get the name we passed as an extra
-        valgtNavn = receivedIntent.getStringExtra("name");
-
-        //now get the name we passed as an extra
-        valgtTlf = receivedIntent.getStringExtra("tlf");
+        //--------BRUKER ID TIL Å HENTE UT VENN FRA DB--------
+        valgtVenn = db.finnVenn(valgtID);
 
 
+        //--------OUTPUT--------
+        EnavnVenn.setText(valgtVenn.getNavn());
+        EtlfVenn.setText(valgtVenn.getTelefon());
 
-        //set the text to show the current selected name
-        EnavnVenn.setText(valgtNavn);
-        EtlfVenn.setText(valgtTlf);
 
+        //--------LISTENERS--------
+        //KLIKK PÅ LAGRE
         btnLagre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String item = editable_item.getText().toString();
-
-                String navn = EnavnVenn.getText().toString();
-                String tlf = EtlfVenn.getText().toString();
-
-                Venn venn = db.finnVenn(valgtID); //manuell her
-                venn.setNavn(navn);
-                venn.setTelefon(tlf);
-                //Resturant oppdatertResturant = new Resturant(navn,tlf, type);;
-
-
-                if(!navn.equals("") && !tlf.equals("") && tlf.matches(
-                        "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")){
-                    //mDatabaseHelper.updateName(item,selectedID,selectedName);
-
-                    db.oppdaterVenn(venn);
-
-                    //gjørs så viewet oppdaterer fortløpende
-                    Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
-                    startActivity(intent_tilbake);
-                    finish();
-
-                }else{
-                    toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
-                }
+                //FULLFØRER ENDRING
+                fullforEndringAvVenn();
             }
         });
 
+        //KLIKK PÅ SLETT
         btnSlett.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //VISER DIALOG - SPØR OM BRUKER ER SIKKER PÅ SLETTING
                 visSlettVennDialog();
             }
         });
 
+        //KLIKK PÅ TILBAKE
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //gjørs så viewet oppdaterer fortløpende
+                //VIEW OPPDATERES FORTLØPENDE UTEN STACK
                 Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
                 startActivity(intent_tilbake);
                 finish();
             }
         });
-
-
+        //--------SLUTT LISTENERS--------
     }
 
-    //slettmetode av venn
-    private void fullforSlettAvVenn() {
-        Venn slettVenn = db.finnVenn(valgtID);
-        db.slettVenn(slettVenn.getID());
 
-        //sletter også alle deltakelser til slettet venn
+    //--------METODE FOR Å ENDRE VALGT VENN--------
+    private void fullforEndringAvVenn() {
+        String navn = EnavnVenn.getText().toString();
+        String tlf = EtlfVenn.getText().toString();
+
+        //GIR NYE VERDIER TIL VENN
+        valgtVenn.setNavn(navn);
+        valgtVenn.setTelefon(tlf);
+
+
+        //KONTROLLERER RIKTIG INPUT
+        if (!navn.equals("") && !tlf.equals("") && tlf.matches("[0-9\\+\\-\\ ]{2,15}+")
+                && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")) {
+
+
+            //OPPDATERER VENN I DB
+            db.oppdaterVenn(valgtVenn);
+
+
+            //VIEW OPPDATERES FORTLØPENDE UTEN STACK
+            Intent intent_tilbake = new Intent(EndreVenn.this, SeVenner.class);
+            startActivity(intent_tilbake);
+            finish();
+
+        }
+        else {
+            //INFOMELDING UT
+            toastMessage("Alle felter må fylles ut og navn og telefonnummer må være på gyldig format");
+        }
+    }
+
+
+    //--------METODE FOR Å SLETTE VALGT VENN--------
+    private void fullforSlettAvVenn() {
+
+        //SLETTER VALGT VENN FRA DB
+        db.slettVenn(valgtVenn.getID());
+
+        //SLETTR OGSÅ ALLE DELTAKELSER TIL DENNE VENNEN
         ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
         for (Deltakelse d : deltakelser) {
-            if(d.getVennID() == slettVenn.getID()) {
+            if(d.getVennID() == valgtVenn.getID()) {
                 db.slettDeltakelse(d.getID());
             }
         }
 
-
+        //NULLSTILLER INPUT
         EnavnVenn.setText("");
         EtlfVenn.setText("");
 
-        //gjørs så viewet oppdaterer fortløpende
+        //VIEW OPPDATERES FORTLØPENDE UTEN STACK
         Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
         startActivity(intent_tilbake);
         finish();
 
-        toastMessage("removed from database");
+        //INFOMELDING UT
+        toastMessage("Venn fjernet fra databasen");
     }
 
 
     //-------VISER DIALOG VED SLETT KNAPP---------
     private void visSlettVennDialog() {
         DialogFragment dialog = new SlettVennDialog();
-        dialog.show(getFragmentManager(), "Avslutt");
+        dialog.show(getFragmentManager(), "Slett");
     }
 
 
-
+    //-------TILBAKE KNAPP - UTEN STACK---------
     @Override
     public void onBackPressed() {
         Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
@@ -170,10 +189,7 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
         finish();
     }
 
-    /**
-     * customizable toast
-     * @param message
-     */
+
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }

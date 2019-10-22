@@ -89,11 +89,7 @@ public class SeResturanter extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String name = adapterView.getItemAtPosition(i).toString();
-                toastMessage(name);
-
                 Resturant resturant = (Resturant) mListView.getItemAtPosition(i);
-                toastMessage(""+resturant.get_ID());
 
                 Integer ID = (int) resturant.get_ID();
 
