@@ -34,7 +34,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         TimePickerDialog.OnTimeSetListener, SeBestillingsInfoDialog.DialogClickListener {
 
 
-    //--------DIALOG KNAPPER TIL SLETTRESTURANTDIALOG--------
+    //--------DIALOG KNAPPER TIL SEBESTILLINGSINFOTDIALOG--------
     @Override
     public void bestillClick() {
         fullforBestilling();
@@ -145,7 +145,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
             public void onClick(View v) {
 
                 //KONTROLLERER AT ALLE FELTER SOM ER OBLIGATORISKE ER BENYTTET
-                if (!visDato.getText().toString().equals("") || !visTid.getText().toString().equals("")) {
+                if (!visDato.getText().toString().equals("") && !visTid.getText().toString().equals("")) {
 
                     //OPPRETTER SEBESTILLINGSINFODIALOG OG VISER VALGT INFO
                     visBestillingsinfo();

@@ -1,7 +1,6 @@
 package com.skole.s304114mappe2ny.Hovedmenyer;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

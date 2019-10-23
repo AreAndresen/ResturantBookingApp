@@ -1,32 +1,26 @@
 package com.skole.s304114mappe2ny.ListViews;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.LeggTilogEndre.RegistrerBestilling;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
-
 import java.util.ArrayList;
 
 
 public class SeBestillinger extends AppCompatActivity{
 
 
-    private static final String TAG = "ListDataActivity";
 
     private Button btnTilbake, btnRegistrerBestilling;
 
@@ -92,9 +86,9 @@ public class SeBestillinger extends AppCompatActivity{
                 getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("VISNINGSID", ID).apply();
                 //SLUTT NY VARI
 
-                Intent editScreenIntent = new Intent(SeBestillinger.this, SeBestillingsInfoFragment.class);
+                Intent intentet = new Intent(SeBestillinger.this, SeBestillingsInfoFragment.class);
                 //editScreenIntent.putExtra("id",ID);
-                startActivity(editScreenIntent);
+                startActivity(intentet);
                 finish(); //unngår å legge på stack
             }
         });

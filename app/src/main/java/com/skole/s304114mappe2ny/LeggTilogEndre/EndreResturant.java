@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 public class EndreResturant extends AppCompatActivity implements SlettResturantDialog.DialogClickListener{
 
+
     //--------DIALOG KNAPPER TIL SLETTRESTURANTDIALOG--------
     @Override
     public void jaClick() {

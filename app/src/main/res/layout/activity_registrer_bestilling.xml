@@ -75,11 +75,10 @@
         <Spinner
             android:id="@+id/spinVenn"
             android:layout_width="216dp"
-            android:layout_height="35dp"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/btnLeggTilVenn"
+            android:layout_height="51dp"
             android:layout_gravity="center"
-          />
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/btnLeggTilVenn" />
 
         <Button
             android:id="@+id/btnLeggTilVenn"
@@ -103,12 +102,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/boks"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="9dp"
         android:padding="3dp"
+        android:shadowColor="@color/colorAccent"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="9"
         android:text="Trykk på valgt venn for å fjerne fra bestilling"
         android:textAlignment="center"
-        android:textSize="18sp"
         android:textColor="@color/colorText"
+        android:textSize="18sp"
         android:textStyle="italic" />
 
     <ListView
@@ -221,7 +224,7 @@
         android:layout_height="wrap_content"
         android:weightSum="100"
         android:padding="5dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/tidBoks"
         >
 

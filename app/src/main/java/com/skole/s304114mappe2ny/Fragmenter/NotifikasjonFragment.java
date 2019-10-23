@@ -1,7 +1,9 @@
 package com.skole.s304114mappe2ny.Fragmenter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -14,11 +16,12 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import com.skole.s304114mappe2ny.MinService;
 import com.skole.s304114mappe2ny.R;
 
 
-public class NotifikasjonFragment  extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
+public class NotifikasjonFragment extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
 
     //--------KNAPPER--------
@@ -41,14 +44,15 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifikasjon_fragment);
 
+
         //HENTER BOOLEAN FRA MINNET OM NOTIFIKASJON ER AKTIVERT
-        servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",true);
+        servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",false);
 
         //HENTER BOOLEAN FRA MINNET OM MELDING ER AKTIVERT
         mldAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",false);
 
         //HENTER TIDSPUNKT FRA MINNET NÅR MELDING SKAL SENDES
-        tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","");
+        tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","Tidspunkt ikke valgt");
 
 
         //--------KNAPPER--------
@@ -63,23 +67,9 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         VarselmeldingPaAv = (Switch) findViewById(R.id.meldingPaAv);
         notifikasjonPaAv = (Switch) findViewById(R.id.notifikasjonPaAv);
 
-        VarselmeldingPaAv.setChecked(mldAvPaa);
 
-
-
-        //--------HVIS MELDING NOTIFIKASJON ER AKTIVERT SETTES TIDSPUNKT --------
-        if(mldAvPaa) {
-            klokkeslettmld.setText(tid);
-        }
-
-        //sørger for at switch er koblet ut om service er slått av
-        if(servicePAA) {
-            //starter service hver gang tlfen starter opp
-            startLayout();
-        }
-        else{
-            VarselmeldingPaAv.setEnabled(servicePAA);
-        }
+        //--------SETTER LAYOUT FOR ALLE SWITCHER OSV--------
+        startLayout();
 
 
         //--------LISTENERS--------
@@ -87,9 +77,14 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         notifikasjonPaAv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
+                    //DEAKTIVERER NOTIFIKASJON OG OPPDATERER LAYPUT
                     stoppPeriodisk();
+                }
+                else {
+                    //AKTIVERER NOTIFIKASJON
+                    servicePAA = true;
 
-                } else {
+                    //OPPDATERER LAYPUT
                     startLayout();
                 }
             }
@@ -99,9 +94,9 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         klokkeslettNtf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //ÅPNER TIDSPUNKT FRAGMENT OG OPPDATERER LAYOUT
                 DialogFragment tidValg = new TidFragment();
-                tidValg.show(getSupportFragmentManager(), "tid valg");
+                tidValg.show(getSupportFragmentManager(), "tidvalg");
             }
         });
 
@@ -109,12 +104,14 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         VarselmeldingPaAv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
+                    //DEAKTIVERER MELDINGER
                     mldAvPaa = false;
-                    klokkeslettmld.setText("Ingen varselmelding");
-                } else {
-                    mldAvPaa = true;
-                    startLayout();
 
+                    //OPPDATERER LAYPUT
+                    startLayout();
+                } else {
+                    //AKTIVERER MELDINGER
+                    sendMldTillatelse();
                 }
             }
         });
@@ -123,7 +120,7 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         btnLagre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //aktiverer service hvis aktivert
+                //AKTIVERER SERVICEN HVIS AKTIVERT VED LAGRING
                 if(servicePAA) {
                     ServiceAuto();
                 }
@@ -152,36 +149,53 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
 
 
 
+    //------INNEBYGD METODE TIL TIDFRAGMENT FOR SETTING AV TID------
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    public void onTimeSet(TimePicker view, int t, int m) {
 
-        time = hourOfDay;
-        minutt = minute;
+        //GIR VERDI TIL TIME OG MINUTT
+        time = t;
+        minutt = m;
 
-        tid = "Kl: " + hourOfDay + ":";
-        //sørger for at det står f.eks 10:05 isteden for 10:5
-        if(minute < 10) {
+        //BYGGER STRENGEN SOM SKAL VISE TIDSPUNKT
+        tid = "Kl: " + t + ":";
+        //SØRGER FOR AT DET STÅR F.EKS 10:05 ISTEDEN FOR 10:5
+        if(m < 10) {
             tid += "0";
         }
-        tid += minute;
-        //setter tidspunktet for notifikasjonen og melding
-        klokkeslettmld.setText(tid);
-        klokkeslettNtf.setText(tid);
+        tid += m;
+
+        //OPPDATERER LAYPUT
+        startLayout();
     }
 
 
-    //------METODE SOM SETTER ALLE SWITCHER OG TEXT
+    //------METODE SOM SETTER ALLE SWITCHER OG TEXT------
     public void startLayout() {
-        servicePAA = true;
+
+        //SETTER SWITCHER
+        VarselmeldingPaAv.setChecked(mldAvPaa);
+        notifikasjonPaAv.setChecked(servicePAA);
+
+        //DEAKTIVERER ELLER AKTIVERER MULIGHETEN TIL Å BENYTTE FELTENE
         VarselmeldingPaAv.setEnabled(servicePAA);
         klokkeslettmld.setEnabled(servicePAA);
         klokkeslettNtf.setEnabled(servicePAA);
-        notifikasjonPaAv.setChecked(servicePAA);
 
-        klokkeslettNtf.setText(tid);
-
+        //SETTER TIDSPUNKT FOR NOTIFIKASJON OG MELDING
+        //NOTIFIKASJON
+        if(servicePAA) {
+            klokkeslettNtf.setText(tid);
+        }
+        else {
+            klokkeslettNtf.setText("Notifikasjon deaktivert");
+        }
+        //MELDING
         if(mldAvPaa) {
             klokkeslettmld.setText(tid);
+        }
+        else {
+            klokkeslettmld.setText("Ingen varselmelding");
         }
     }
 
@@ -201,38 +215,47 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
         if(alarm!= null) {
             alarm.cancel(pintent);
         }
+
+        //DEAKTIVERER SERVICE OG MELDINGER
         servicePAA = false;
         mldAvPaa = false;
 
-        VarselmeldingPaAv.setEnabled(servicePAA);
-        VarselmeldingPaAv.setChecked(mldAvPaa);
-
-        klokkeslettNtf.setEnabled(servicePAA);
-        klokkeslettmld.setEnabled(servicePAA);
-
-        klokkeslettNtf.setText("Notifikasjon deaktivert");
-        klokkeslettmld.setText("Ingen varselmelding");
+        //OPPDATERER LAYPUT
+        startLayout();
     }
 
 
-    //-------LAGRER-------
-    @Override
-    protected void onPause(){
-        super.onPause();
 
+    //-------KONTROLLERER TILLATELSER-------
+    public void sendMldTillatelse() {
+        int tillatelseSjekkSend = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS);
+        int tillatelsesjekkLesState = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE);
 
+        if(tillatelseSjekkSend == PackageManager.PERMISSION_GRANTED && tillatelsesjekkLesState == PackageManager.PERMISSION_GRANTED) {
+            mldAvPaa = true;
+
+            //OPPDATERER LAYPUT
+            startLayout();
+        }
+        else {
+            Toast.makeText(this, "Ikke tillatelse til å sende sms", Toast.LENGTH_SHORT).show();
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.SEND_SMS, android.Manifest.permission.READ_PHONE_STATE}, 0);
+        }
     }
 
+
+
+
+    //HENTER VARIABLER FRA MINNET
     @Override
     protected void onResume(){
         super.onResume();
 
         servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",false);
         mldAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",false);
-        tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","");
+        tid = getSharedPreferences("APP_INFO",MODE_PRIVATE).getString("TID","Tidspunkt ikke valgt");
         time = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDTIME",17);
         minutt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDMIN",0);
-
     }
 }
 

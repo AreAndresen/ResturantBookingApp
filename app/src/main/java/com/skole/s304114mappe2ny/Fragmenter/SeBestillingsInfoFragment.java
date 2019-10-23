@@ -17,12 +17,12 @@ import com.skole.s304114mappe2ny.SlettDialoger.AvbestillDialog;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
 import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
-
 import java.util.ArrayList;
 
 public class SeBestillingsInfoFragment extends AppCompatActivity implements AvbestillDialog.DialogClickListener{
 
 
+    //--------DIALOG KNAPPER TIL AVBESTILLDIALOG--------
     @Override
     public void jaClick() {
         fullforAvbestilling();
@@ -33,31 +33,41 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
         return;
     }
 
+    //--------VERDIER--------
     Integer ID;
-    DBhandler db;
+    //--------OBJEKT--------
     Bestilling bestilling;
+    //--------ARRAY--------
     ArrayList<Deltakelse> deltakelser = new ArrayList<>();
+    //--------DB HANDLER--------
+    DBhandler db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //--------DB HANDLER--------
         db = new DBhandler(this);
 
 
-        //ny variabel
+        ////--------HENTER ID TIL BESTILLINGEN SOM SKAL VISES FRA MINNE - DEFINERT I SEBESTILLINGER OG I NOTIFIKASJON/SERVICE--------
         ID = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("VISNINGSID", 0);
 
-
+        //--------HENTER BESTILLING MED IDen FRA DB--------
         bestilling = db.finnBestilling(ID);
+
+        //--------HENTER ALLE DELTAKELSER FRA DB--------
         deltakelser = db.finnAlleDeltakelser();
 
-        //Load setting fragment
+
+        //--------KJØRER SEBESTILLINGSINFO FRAGMENTET--------
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new SeBestillingsInfo()).commit();
 
     }
+    //-------CREATE SLUTTER---------
+
 
     public Bestilling getBestiling() {
         return bestilling;
@@ -82,9 +92,12 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
         return resturanten;
     }
 
+
     public DBhandler getDB() {
         return db;
     }
+
+
 
     //metode som sletter bestilling og deltakelser
     public void fullforAvbestilling() {
@@ -106,7 +119,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
 
 
 
-    //----- start fragment----
+    //--------FRAGMENT STARTER--------
     public static class SeBestillingsInfo extends Fragment {
 
         TextView resNavn, resTlf, bDato, bTid, bVenner;
@@ -150,6 +163,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
                 @Override
                 public void onClick(View v) {
                     ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
+
                 }
             });
 
@@ -172,7 +186,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
 
     } //SLUTT FRAGMENT
 
-    //-------TILBAKEKNAPP - OPPDATERER INTENT FOR Å OPPDATERE SPRÅKENDRING---------
+    //-------TILBAKEKNAPP - OPPDATERER INTENT FOR Å OPPDATERE EVENTUELL SLETTING---------
     @Override
     public void onBackPressed() {
         Intent intent_tilbake = new Intent (SeBestillingsInfoFragment.this, SeBestillinger.class);
