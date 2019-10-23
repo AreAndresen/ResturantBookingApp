@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import com.skole.s304114mappe2ny.R;
 
+
 public class AvbestillDialog extends DialogFragment {
 
     private DialogClickListener callback;
@@ -27,7 +28,7 @@ public class AvbestillDialog extends DialogFragment {
         }
     }
 
-    //dialogboksen
+    //--------DIALOGBOKS FOR AVBESTILLING--------
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity()).setTitle("Avbestilling").setMessage("Er du sikker på at du vil fullføre avbestillingen?").
@@ -44,4 +45,3 @@ public class AvbestillDialog extends DialogFragment {
                 .create();
     }
 }
-

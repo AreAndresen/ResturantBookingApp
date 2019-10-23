@@ -66,7 +66,6 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.dialog_se_bestillings_info);
 
-
         //--------TEKST--------
         resNavn = dialog.findViewById(R.id.resNavn);
         resTlf = dialog.findViewById(R.id.resTlf);
@@ -80,6 +79,7 @@ public class SeBestillingsInfoDialog extends DialogFragment {
         resTlf.setText(resturant.getTelefon());
         bDato.setText(dato);
         bTid.setText(tid);
+
 
         //--------HENTER OG VISER ALLE DELTAKENDE VENNER--------
         String vennNavn = "";

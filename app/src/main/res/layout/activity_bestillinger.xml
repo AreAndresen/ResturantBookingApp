@@ -24,7 +24,7 @@
 
 
     <Button
-        android:id="@+id/bestillingKnapp"
+        android:id="@+id/leggTilBestillingKnapp"
         android:layout_width="270dp"
         android:layout_height="65dp"
         android:layout_below="@id/tittelBes"
@@ -44,7 +44,7 @@
         android:id="@+id/seBestillingerKnapp"
         android:layout_width="270dp"
         android:layout_height="65dp"
-        android:layout_below="@id/bestillingKnapp"
+        android:layout_below="@id/leggTilBestillingKnapp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@color/colorPrimaryDark"

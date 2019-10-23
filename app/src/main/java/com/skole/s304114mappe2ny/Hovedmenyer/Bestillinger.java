@@ -15,7 +15,7 @@ public class Bestillinger extends AppCompatActivity {
 
 
     //--------KNAPPER-------
-    Button bestillingKnapp, seBestillingerKnapp, btnTilbake;
+    Button leggTilBestillingKnapp, seBestillingerKnapp, btnTilbake;
 
 
     @Override
@@ -25,13 +25,14 @@ public class Bestillinger extends AppCompatActivity {
 
 
         //--------KNAPPER--------
-        bestillingKnapp = findViewById(R.id.bestillingKnapp);
+        leggTilBestillingKnapp = findViewById(R.id.leggTilBestillingKnapp);
         seBestillingerKnapp = findViewById(R.id.seBestillingerKnapp);
         btnTilbake = findViewById(R.id.btnTilbake);
 
 
         //--------LISTENERS--------
-        bestillingKnapp.setOnClickListener(new View.OnClickListener() {
+        //KLIKK REGISTRER BESTILLING
+        leggTilBestillingKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (Bestillinger.this, RegistrerBestilling.class);
@@ -39,6 +40,7 @@ public class Bestillinger extends AppCompatActivity {
             }
         });
 
+        //KLIKK SE BESTILLING
         seBestillingerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +49,7 @@ public class Bestillinger extends AppCompatActivity {
             }
         });
 
+        //KLIKK TILBAKE TIL START
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +68,3 @@ public class Bestillinger extends AppCompatActivity {
         finish();
     }
 }
-
-
-
-

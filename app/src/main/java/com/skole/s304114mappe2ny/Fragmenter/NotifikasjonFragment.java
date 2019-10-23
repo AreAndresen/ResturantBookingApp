@@ -23,7 +23,6 @@ import com.skole.s304114mappe2ny.R;
 
 public class NotifikasjonFragment extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
-
     //--------KNAPPER--------
     private Button btnAvbryt, btnLagre;
 
@@ -43,7 +42,6 @@ public class NotifikasjonFragment extends AppCompatActivity implements TimePicke
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifikasjon_fragment);
-
 
         //HENTER BOOLEAN FRA MINNET OM NOTIFIKASJON ER AKTIVERT
         servicePAA = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("SERVICEPAA",false);
@@ -258,5 +256,3 @@ public class NotifikasjonFragment extends AppCompatActivity implements TimePicke
         minutt = getSharedPreferences("APP_INFO",MODE_PRIVATE).getInt("MLDMIN",0);
     }
 }
-
-

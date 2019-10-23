@@ -24,7 +24,7 @@
 
 
     <Button
-        android:id="@+id/resturanterKnapp"
+        android:id="@+id/leggTilResturanterKnapp"
         android:layout_width="270dp"
         android:layout_height="65dp"
         android:layout_below="@id/tittelRes"
@@ -44,7 +44,7 @@
         android:id="@+id/seResturanterKnapp"
         android:layout_width="270dp"
         android:layout_height="65dp"
-        android:layout_below="@id/resturanterKnapp"
+        android:layout_below="@id/leggTilResturanterKnapp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@color/colorPrimaryDark"

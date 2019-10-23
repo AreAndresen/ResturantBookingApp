@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //--------LISTENERS--------
+        //KLIKK RESTURANTER
         resturanterKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //KLIKK VENNER
         vennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //KLIKK BESTILLINGER
         bestillingKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //KLIKK INNSTILLINGER
         innstillingerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,5 +69,3 @@ public class MainActivity extends AppCompatActivity {
 
     }//-------CREATE SLUTTER---------
 }
-
-

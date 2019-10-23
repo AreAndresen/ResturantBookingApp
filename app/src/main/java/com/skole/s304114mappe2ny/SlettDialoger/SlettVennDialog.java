@@ -5,8 +5,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import com.skole.s304114mappe2ny.R;
+
 
 public class SlettVennDialog extends DialogFragment {
 
@@ -16,6 +16,7 @@ public class SlettVennDialog extends DialogFragment {
         void jaClick();
         void neiClick();
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,8 @@ public class SlettVennDialog extends DialogFragment {
             throw new ClassCastException("Feil ved kalling av interface!");
         }
     }
-    //dialogboksen
+
+    //--------DIALOGBOKS FOR SLETTING AV VENN--------
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity()).setTitle("Slett venn").setMessage("Er du sikker på at du vil slette valgt venn?").

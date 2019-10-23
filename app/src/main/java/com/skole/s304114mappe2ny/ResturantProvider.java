@@ -24,7 +24,7 @@ public class ResturantProvider extends ContentProvider {
     DBhandler DBhelper;
     SQLiteDatabase db;
 
-    public static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER + "/Resturant");
+    //public static final Uri CONTENT_URI = Uri.parse("content://" + PROVIDER + "/Resturant");
 
     private static final UriMatcher uriMatcher;
     static{uriMatcher= new UriMatcher(UriMatcher.NO_MATCH);

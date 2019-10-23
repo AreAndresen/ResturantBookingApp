@@ -24,7 +24,7 @@
 
 
     <Button
-        android:id="@+id/vennerKnapp"
+        android:id="@+id/leggTilVennerKnapp"
         android:layout_width="270dp"
         android:layout_height="65dp"
         android:layout_below="@id/tittelVenner"
@@ -44,7 +44,7 @@
         android:id="@+id/seVennerKnapp"
         android:layout_width="270dp"
         android:layout_height="65dp"
-        android:layout_below="@id/vennerKnapp"
+        android:layout_below="@id/leggTilVennerKnapp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@color/colorPrimaryDark"

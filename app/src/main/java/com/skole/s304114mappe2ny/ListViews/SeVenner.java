@@ -74,7 +74,7 @@ public class SeVenner extends AppCompatActivity {
     }//-------CREATE SLUTTER---------
 
 
-    //--------POPULERER RESTURANTER-LISTVIEWET--------
+    //--------POPULERER VENNER-LISTVIEWET--------
     private void populerListView() {
 
         //HENTER ALLE RESTURANTER FRA DB OG LEGGER OVER I ARRAY

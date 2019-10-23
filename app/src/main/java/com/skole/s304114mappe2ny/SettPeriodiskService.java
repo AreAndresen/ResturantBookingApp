@@ -26,9 +26,9 @@ public class SettPeriodiskService extends Service {
         //--------HENTER DAGENS DATO--------
         Calendar c = Calendar.getInstance();
 
-        //--------HENTER LAGRET TIDSPUNKT FRA MINNE--------
-        int time = getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDTIME", 15);
-        int min =  getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDMIN", 26);
+        //--------HENTER LAGRET TIDSPUNKT FRA MINNE - STANDARD 1230--------
+        int time = getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDTIME", 12);
+        int min =  getSharedPreferences("APP_INFO", MODE_PRIVATE).getInt("MLDMIN", 30);
 
         Toast.makeText(this, "I BroadcastReceiver - tidspunkt: "+time+" : "+min, Toast.LENGTH_SHORT).show();
 

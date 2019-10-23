@@ -76,6 +76,7 @@ public class MinService extends Service {
 
                         for(Venn v : alleVenner) {
                             if(v.getID() == d.getVennID()) {
+                                //LEGGER OVER ALLE VENNER
                                vennerUtmelding.add(v);
                             }
                         }
@@ -136,17 +137,18 @@ public class MinService extends Service {
                 notificationManager.notify(m, notifikasjon);
 
 
-                //-----HENTER FRA MINNE OM NOTIFIKASJON MELDINGER ER AKTIVERT ELLER IKKE-------
+                //-----HENTER FRA MINNE OM NOTIFIKASJON-MELDINGER ER AKTIVERT ELLER IKKE-------
                 boolean mdlAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",true);
 
 
-                //AKTIVERT NOTIFIKASJON
+                //-----HVIS AKTIVERT NOTIFIKASJON-----
                 if(mdlAvPaa) {
                     SmsManager minSmsManager = SmsManager.getDefault();
                     //SENDER MELDING TIL ALLE DELTAKER I BESTILLINGEN
                     for(Venn v : vennerUtmelding) {
                         minSmsManager.sendTextMessage(v.getTelefon(), null, meldingUt, null, null);
 
+                        //MELDING UT TIL BRUKER OM AT MELDING ER SENDT
                         Toast.makeText(this, "Har sendt sms", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -155,4 +157,3 @@ public class MinService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 }
-

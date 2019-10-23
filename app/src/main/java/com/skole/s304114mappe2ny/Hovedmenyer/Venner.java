@@ -9,11 +9,12 @@ import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilVenn;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.ListViews.SeVenner;
 
+
 public class Venner extends AppCompatActivity {
 
 
     //--------KNAPPER-------
-    Button vennerKnapp, seVennerKnapp, btnTilbake;
+    Button leggTilVennerKnapp, seVennerKnapp, btnTilbake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +23,15 @@ public class Venner extends AppCompatActivity {
 
 
         //--------KNAPPER--------
-        vennerKnapp = findViewById(R.id.vennerKnapp);
+        leggTilVennerKnapp = findViewById(R.id.leggTilVennerKnapp);
         seVennerKnapp = findViewById(R.id.seVennerKnapp);
         btnTilbake = findViewById(R.id.btnTilbake);
 
-        //--------SLUTT KNAPPER--------
 
 
         //--------LISTENERS--------
-        vennerKnapp.setOnClickListener(new View.OnClickListener() {
+        //KLIKK PÅ LEGG TIL VENN
+        leggTilVennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (Venner.this, LeggTilVenn.class);
@@ -38,7 +39,8 @@ public class Venner extends AppCompatActivity {
 
             }
         });
-        //--------LISTENERS--------
+
+        //KLIKK PÅ SE VENNER
         seVennerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +50,7 @@ public class Venner extends AppCompatActivity {
             }
         });
 
+        //KLIKK TILBAKE TIL START
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,9 +58,8 @@ public class Venner extends AppCompatActivity {
             }
         });
         //--------SLUTT LISTENERS--------
-    }
-    //-------CREATE SLUTTER---------
 
+    }//-------CREATE SLUTTER---------
 
 
     @Override

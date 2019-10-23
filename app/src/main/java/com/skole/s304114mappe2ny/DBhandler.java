@@ -15,17 +15,20 @@ import java.util.ArrayList;
 
 public class DBhandler extends SQLiteOpenHelper{
 
+    //--------RESTURANT TABLE--------
     static String TABLE_RESTURANTER = "Resturant";
     static String KEY_ID = "_ID";
     static String KEY_NAME = "Navn";
     static String KEY_PH_NO = "Telefon";
     static String KEY_TYPE = "Type";
 
+    //--------VENNER TABLE--------
     static String TABLE_VENNER = "Venner";
     static String VENN_ID = "ID";
     static String VENN_NAME = "Navnet";
     static String VENN_TLF = "Tlf";
 
+    //--------BESTILLINGER TABLE--------
     static String TABLE_BESTILLINGER = "Bestillinger";
     static String BESTILLING_ID = "IDen";
     static String BESTILLING_DATO = "Dato";
@@ -33,18 +36,18 @@ public class DBhandler extends SQLiteOpenHelper{
     static String BESTILLING_RESTURANTNAVN = "Resturantnavn";
     static String BESTILLING_RESTURANT = "Resturanten_ID";
 
+    //--------DELTAKELSE TABLE--------
     static String TABLE_DELTAKELSE = "Deltakelse";
     static String DELTAKELSE_ID = "Deltakelse_id";
     static String DTK_BESTILLING_ID = "dtk_bestilling_ID";
     static String DTK_PERSON_ID = "dtk_person_id";
     static String DTK_PERSON_NAVN = "dtk_person_navn";
 
-
-
     static int DATABASE_VERSION = 1;
     static String DATABASE_NAME = "Resturanter";
 
 
+    //--------STRINGER MED SQL FOR Å GENERERE TABELLER --------
     String LAG_RESTURANTER = "CREATE TABLE " + TABLE_RESTURANTER + "(" + KEY_ID +
             " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT," + KEY_PH_NO + " TEXT," + KEY_TYPE + " TEXT" + ")";
 
@@ -90,7 +93,8 @@ public class DBhandler extends SQLiteOpenHelper{
     }
 
 
-    //-----------LEGG TIL METODER------------
+    //-----------LEGG TIL-METODER------------
+    //RESTURANT
     public void leggTilResturant(Resturant resturant) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -101,6 +105,7 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    //VENN
     public void leggTilVenn(Venn venn) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -110,6 +115,7 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    //BESTILLING
     public void leggTilBestilling(Bestilling bestilling, long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -122,6 +128,7 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
     }
 
+    //DELTAKELSE
     public void leggTilDeltakelse(Deltakelse deltakelse) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -131,9 +138,11 @@ public class DBhandler extends SQLiteOpenHelper{
         db.insert(TABLE_DELTAKELSE, null, values);
         db.close();
     }
+    //-----------SLUTT LEGG TIL-METODER------------
 
 
-    //-----------FINN ALLE METODER------------
+    //-----------FINN ALLE-METODER------------
+    //RESTURANTER
     public ArrayList<Resturant> finnAlleResturanter() {
         ArrayList<Resturant> resturantListe = new ArrayList<Resturant>();
         String selectQuery = "SELECT * FROM " + TABLE_RESTURANTER;
@@ -155,6 +164,7 @@ public class DBhandler extends SQLiteOpenHelper{
         return resturantListe;
     }
 
+    //VENNER
     public ArrayList<Venn> finnAlleVenner() {
         ArrayList<Venn> vennerListe = new ArrayList<Venn>();
         String selectQuery= "SELECT * FROM " + TABLE_VENNER;
@@ -175,8 +185,7 @@ public class DBhandler extends SQLiteOpenHelper{
         return vennerListe;
     }
 
-
-
+    //BESTILLINGER
     public ArrayList<Bestilling> finnAlleBestillinger() {
         ArrayList<Bestilling> bestillingerListe = new ArrayList<Bestilling>();
         String selectQuery= "SELECT * FROM " + TABLE_BESTILLINGER;
@@ -198,6 +207,7 @@ public class DBhandler extends SQLiteOpenHelper{
         return bestillingerListe;
     }
 
+    //DELTAKELSER
     public ArrayList<Deltakelse> finnAlleDeltakelser() {
         ArrayList<Deltakelse> deltakelseListe = new ArrayList<Deltakelse>();
         String selectQuery= "SELECT * FROM " + TABLE_DELTAKELSE;
@@ -217,9 +227,11 @@ public class DBhandler extends SQLiteOpenHelper{
         }
         return deltakelseListe;
     }
+    //-----------SLUTT FINN ALLE-METODER------------
 
 
-    //-----------FINN EN METODER------------
+    //-----------FINN EN-METODER------------
+    //RESTURANT
     public Resturant finnResturant(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_RESTURANTER, new String[]{
@@ -233,6 +245,7 @@ public class DBhandler extends SQLiteOpenHelper{
         return resturant;
     }
 
+    //VENN
     public Venn finnVenn(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_VENNER, new String[]{
@@ -246,6 +259,7 @@ public class DBhandler extends SQLiteOpenHelper{
         return venn;
     }
 
+    //BESTILLING
     public Bestilling finnBestilling(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query(TABLE_BESTILLINGER, new String[]{
@@ -259,35 +273,42 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
         return bestilling;
     }
+    //-----------SLUTT FINN EN-METODER------------
 
 
-    //-----------SLETT METODER------------
+    //-----------SLETT-METODER------------
+    //RESTURANT
     public void slettResturant(Long inn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_RESTURANTER, KEY_ID + " =? ", new String[]{Long.toString(inn_id)});
         db.close();
     }
 
+    //VENN
     public void slettVenn(Long inn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_VENNER, VENN_ID + " =? ", new String[]{Long.toString(inn_id)});
         db.close();
     }
 
+    //BESTILLING
     public void slettBestilling(Long inn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_BESTILLINGER, BESTILLING_ID + " =? ", new String[]{Long.toString(inn_id)});
         db.close();
     }
 
+    //DELTAKELSE
     public void slettDeltakelse(Long inn_id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_DELTAKELSE, DELTAKELSE_ID + " =? ", new String[]{Long.toString(inn_id)});
         db.close();
     }
+    //-----------SLUTT SLETT METODER------------
 
 
-    //-----------OPPDATER METODER------------
+    //-----------OPPDATER-METODER------------
+    //RESTURANT
     public int oppdaterResturant(Resturant resturant) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -300,6 +321,7 @@ public class DBhandler extends SQLiteOpenHelper{
         return endret;
     }
 
+    //VENN
     public int oppdaterVenn(Venn venn) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -310,4 +332,6 @@ public class DBhandler extends SQLiteOpenHelper{
         db.close();
         return endret;
     }
+    //-----------SLUTT OPPDATER-METODER------------
+
 } // Slutt på DBHandler

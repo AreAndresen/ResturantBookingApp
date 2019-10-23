@@ -15,7 +15,7 @@ public class Resturanter extends AppCompatActivity {
 
 
     //--------KNAPPER-------
-    Button resturanterKnapp, seResturanterKnapp, btnTilbake;
+    Button leggTilResturanterKnapp, seResturanterKnapp, btnTilbake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +24,14 @@ public class Resturanter extends AppCompatActivity {
 
 
         //--------KNAPPER--------
-        resturanterKnapp = findViewById(R.id.resturanterKnapp);
+        leggTilResturanterKnapp = findViewById(R.id.leggTilResturanterKnapp);
         seResturanterKnapp = findViewById(R.id.seResturanterKnapp);
         btnTilbake = findViewById(R.id.btnTilbake);
 
 
         //--------LISTENERS--------
-        resturanterKnapp.setOnClickListener(new View.OnClickListener() {
+        //KLIKK LEGG TIL RESTURANT
+        leggTilResturanterKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (Resturanter.this, LeggTilResturant.class);
@@ -38,6 +39,7 @@ public class Resturanter extends AppCompatActivity {
             }
         });
 
+        //KLIKK SE RESTURANTER
         seResturanterKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +48,7 @@ public class Resturanter extends AppCompatActivity {
             }
         });
 
+        //KLIKK TILBAKE TIL START
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +66,3 @@ public class Resturanter extends AppCompatActivity {
         finish();
     }
 }
-
-
-

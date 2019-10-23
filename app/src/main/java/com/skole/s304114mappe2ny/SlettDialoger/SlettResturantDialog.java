@@ -5,8 +5,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import com.skole.s304114mappe2ny.R;
+
 
 public class SlettResturantDialog extends DialogFragment {
 
@@ -26,7 +26,8 @@ public class SlettResturantDialog extends DialogFragment {
             throw new ClassCastException("Feil ved kalling av interface!");
         }
     }
-    //dialogboksen
+
+    //--------DIALOGBOKS FOR SLETTING AV RESTURANT--------
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new AlertDialog.Builder(getActivity()).setTitle("Slett resturant").setMessage("Er du sikker på at du vil slette valgt resturant?").
