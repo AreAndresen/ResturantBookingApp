@@ -6,8 +6,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.view.View;
+import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
 import com.skole.s304114mappe2ny.klasser.Bestilling;
@@ -138,12 +143,30 @@ public class MinService extends Service {
                 //-----HENTER FRA MINNE OM NOTIFIKASJON MELDINGER ER AKTIVERT ELLER IKKE-------
                 boolean mdlAvPaa = getSharedPreferences("APP_INFO",MODE_PRIVATE).getBoolean("MLDAVPAA",true);
 
+
+
+
+                /*ublic void SendSMS(View v) {
+                    MY_PERMISSIONS_REQUEST_SEND_SMS = ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
+                    MY_PHONE_STATE_PERMISSION = ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+                    if(MY_PERMISSIONS_REQUEST_SEND_SMS == PackageManager.PERMISSION_GRANTED && MY_PHONE_STATE_PERMISSION == PackageManager.PERMISSION_GRANTED) {
+                        SmsManagersmsMan = SmsManager.getDefault();
+                        smsMan.sendTextMessage(phoneNo, null, message, null, null);
+                        Toast.makeText(this, "Har sendt sms", Toast.LENGTH_SHORT).show();
+                    }
+                    else{ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS,Manifest.permission.READ_PHONE_STATE}, 0);
+                    }
+                }*/
+
+
                 //AKTIVERT NOTIFIKASJON
                 if(mdlAvPaa) {
                     SmsManager minSmsManager = SmsManager.getDefault();
                     //SENDER MELDING TIL ALLE DELTAKER I BESTILLINGEN
                     for(Venn v : vennerUtmelding) {
                         minSmsManager.sendTextMessage(v.getTelefon(), null, meldingUt, null, null);
+
+                        Toast.makeText(this, "Har sendt sms", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

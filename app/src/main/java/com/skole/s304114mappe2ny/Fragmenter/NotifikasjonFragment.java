@@ -14,7 +14,6 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 import com.skole.s304114mappe2ny.MinService;
 import com.skole.s304114mappe2ny.R;
 
@@ -128,6 +127,14 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
                 if(servicePAA) {
                     ServiceAuto();
                 }
+
+                //LAGRER VERDIER TIL MINNET KUN NÅR LAGRE TRYKKES
+                getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("SERVICEPAA", servicePAA).apply();
+                getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("MLDAVPAA", mldAvPaa).apply();
+                getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("TID", tid).apply();
+                getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDTIME", time).apply();
+                getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDMIN", minutt).apply();
+
                 finish();
             }
         });
@@ -208,15 +215,11 @@ public class NotifikasjonFragment  extends AppCompatActivity implements TimePick
     }
 
 
-    //-------LAGRER SPRÅKENRDRING VED RETUR TIL MAIN-------
+    //-------LAGRER-------
     @Override
     protected void onPause(){
         super.onPause();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("SERVICEPAA", servicePAA).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putBoolean("MLDAVPAA", mldAvPaa).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putString("TID", tid).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDTIME", time).apply();
-        getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("MLDMIN", minutt).apply();
+
 
     }
 
