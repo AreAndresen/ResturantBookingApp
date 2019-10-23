@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.LeggTilogEndre.RegistrerBestilling;
@@ -20,29 +19,40 @@ import java.util.ArrayList;
 
 public class SeBestillinger extends AppCompatActivity{
 
-
-
+    //--------KNAPPER--------
     private Button btnTilbake, btnRegistrerBestilling;
 
+    //--------LISTVIEW--------
+    private ListView bestillingerListView;
+
+    //--------OBJEKT--------
+    private Bestilling valgtBestilling;
+
+    //--------DB HANDLER--------
     DBhandler db;
 
-    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_se_bestillinger);
 
+        //--------KNAPPER--------
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnRegistrerBestilling = (Button) findViewById(R.id.registrerNyBestilling);
 
-        mListView = (ListView) findViewById(R.id.list);
+        //--------LISTVIEW--------
+        bestillingerListView = (ListView) findViewById(R.id.list);
 
+        //--------DB HANDLER--------
         db = new DBhandler(this);
 
-        populateListView();
+        //--------POPULERER BESTILLINGER LISTVIEWET--------
+        populerListView();
 
 
+        //--------LISTENERS--------
+        //KLIKK PÅ TILBAKE
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +60,7 @@ public class SeBestillinger extends AppCompatActivity{
             }
         });
 
+        //KLIKK PÅ REGISTRER BESTILLING
         btnRegistrerBestilling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,77 +69,49 @@ public class SeBestillinger extends AppCompatActivity{
                 finish();
             }
         });
-    }
+        //--------SLUTT LISTENERS--------
+
+    }//-------CREATE SLUTTER---------
 
 
-    private void populateListView() {
-        //leggEr alle resturanter i array
+    //--------POPULERER BESTILLINGER-LISTVIEWET--------
+    private void populerListView() {
+
+        //HENTER ALLE BESTILLINGER FRA DB OG LEGGER OVER I ARRAY
         final ArrayList<Bestilling> bestillinger = db.finnAlleBestillinger();
 
-        //create the list adapter and set the adapter
+        //GENERERER ARRAYADAPTER TIL LISTVIEWET
         ArrayAdapter<Bestilling> adapter = new ArrayAdapter<Bestilling>(this, android.R.layout.simple_list_item_1, bestillinger);
-        mListView.setAdapter(adapter);
+        bestillingerListView.setAdapter(adapter);
 
-        //set an onItemClickListener to the ListView
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        //VED KLIKK PÅ BESTILLING I LISTVIEWET
+        bestillingerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                String name = adapterView.getItemAtPosition(i).toString();
-                toastMessage(name);
+                //GIR VALGTBESTILLING VERDIEN TIL VALGT OBJEKT FRA LISTVIEWET
+                valgtBestilling = (Bestilling) bestillingerListView.getItemAtPosition(i);
 
-                Bestilling bestilling = (Bestilling) mListView.getItemAtPosition(i);
-                toastMessage(""+bestilling.get_ID());
-                //ny lagring til disk
-                Integer ID = (int) bestilling.get_ID();
+                //HENTER OG PARSER ID FRA BESTILLINGEN
+                Integer ID = (int) valgtBestilling.get_ID();
 
-                //NY VARIABEL
+                //LAGRER ID I MINNET - BENYTTES TIL I SEBESTILLINGSINFODIALOGFRAGMENT OG I MINSERVICE/NOTIFIKASJON FOR VISNING
                 getSharedPreferences("APP_INFO",MODE_PRIVATE).edit().putInt("VISNINGSID", ID).apply();
-                //SLUTT NY VARI
 
+                //INTENT TIL SEBESTILLINGSINFOFRAGMENT
                 Intent intentet = new Intent(SeBestillinger.this, SeBestillingsInfoFragment.class);
-                //editScreenIntent.putExtra("id",ID);
                 startActivity(intentet);
-                finish(); //unngår å legge på stack
+                finish();
             }
         });
     }
 
-    //-------VISER DIALOG VED TILBAKEKNAPP---------
+
+    //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
         finish();
     }
 
-
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
-    }
-
-
-
-    //-------LAGRING AV DATA VED ROTASJON---------
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //strenger
-        //outState.putListView("listview", mListView);
-        //mListView
-        populateListView();
-
-        super.onSaveInstanceState(outState);
-    }
-
-
-    //-------HENTING AV LAGRET DATA---------
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState){
-        //strenger
-        //tellerSpr.setText(savedInstanceState.getString(NOKKEL_ANTTELLER));
-
-
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
 }
-
-

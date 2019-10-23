@@ -171,12 +171,13 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
 
 
-    //--------GENERERER OG POPULERER VENNERLISTVIEWET - MULIGHET FOR LESTTING DIREKTE--------
-    private void populateListView() {
+    //--------POPULERER VENNERLISTVIEWET - MULIGHET FOR LESTTING DIREKTE--------
+    private void populerListView() {
 
         //GENERERER ARRAYADAPTER TIL LISTVIEWET
         final ArrayAdapter<Venn> adapter = new ArrayAdapter<Venn>(this, android.R.layout.simple_list_item_1, valgteVenner);
         vennerListView.setAdapter(adapter);
+
 
         //VED KLIKK PÅ VENN FRA LISTVIEWET
         vennerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -324,7 +325,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
 
             //POPULERER FORTLØPENDE LISTVIEWET SOM VISER VALGTE VENNER SOM ER LAGT TIL
-            populateListView();
+            populerListView();
         }
         else {
             Toast.makeText(this, valgtVenn.getNavn()+" er allerede lagt til i bestilling.", Toast.LENGTH_LONG).show();
@@ -401,8 +402,5 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     }
 
 
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
-    }
-}
 
+}

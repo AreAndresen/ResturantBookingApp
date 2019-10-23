@@ -19,6 +19,7 @@ import com.skole.s304114mappe2ny.klasser.Deltakelse;
 import com.skole.s304114mappe2ny.klasser.Resturant;
 import java.util.ArrayList;
 
+
 public class SeBestillingsInfoFragment extends AppCompatActivity implements AvbestillDialog.DialogClickListener{
 
 
@@ -37,6 +38,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
     Integer ID;
     //--------OBJEKT--------
     Bestilling bestilling;
+    Resturant resturant;
     //--------ARRAY--------
     ArrayList<Deltakelse> deltakelser = new ArrayList<>();
     //--------DB HANDLER--------
@@ -69,42 +71,46 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
     //-------CREATE SLUTTER---------
 
 
+    //-----------------------METODER TIL HOVEDKLASSE-----------------------------
+
+    //-------HENTER BESTILLINGEN FRA HOVEDKLASSEN - BENYTTES I FRAGMENTET---------
     public Bestilling getBestiling() {
         return bestilling;
     }
 
 
+    //-------HENTER RESTURANTEN FRA HOVEDKLASSEN - BENYTTES I FRAGMENTET---------
+    public Resturant getResturant() {
+        //HENTEER RESTURANT ID FRA BESTILLINGEN
+        int resID = (int) bestilling.get_resturantID();
+
+        //HENTER RESTURANTEN FRA DB MED ID
+        resturant = db.finnResturant(resID);
+
+        return resturant;
+    }
+
+
+    //-------HENTER ALLE DELTAKELSER I BESTILLINGEN - BENYTTES I FRAGMENTET---------
     public String visDeltakelser() {
         String s = "";
+
         for(Deltakelse d : deltakelser) {
             if(d.getBestillingID() == bestilling.get_ID()) {
+                //GENERERER STRENG MED NAVN TIL ALLE VENNER
                 s += d.getVennNavn()+".\n";
             }
         }
         return s;
     }
 
-    public Resturant getResturant() {
-        int resID = (int) bestilling.get_resturantID();
 
-        Resturant resturanten = db.finnResturant(resID);
-
-        return resturanten;
-    }
-
-
-    public DBhandler getDB() {
-        return db;
-    }
-
-
-
-    //metode som sletter bestilling og deltakelser
+    //-------FULLFØRER AVBESTILLING - BENYTTES INNAD I jaClick() TIL visAvbestillDialog()---------
     public void fullforAvbestilling() {
-        //Sletter valgt bestilling fra db
+        //SLETTER VALGT BESTILLING FRA DB
         db.slettBestilling(bestilling.get_ID());
 
-        //Sletter alle deltakelser til bestillingen fra db
+        //SLETTER SAMTIDIG ALLE DELTAKELSER I DB TIL BESTILLINGEN
         ArrayList<Deltakelse> deltakelser = db.finnAlleDeltakelser();
         for (Deltakelse d : deltakelser) {
             if(d.getBestillingID() == bestilling.get_ID()) {
@@ -115,6 +121,7 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
         startActivity(intent_tilbake);
         finish();
     }
+    //-----------------------METODER TIL HOVEDKLASSE-----------------------------
 
 
 
@@ -122,8 +129,8 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
     //--------FRAGMENT STARTER--------
     public static class SeBestillingsInfo extends Fragment {
 
+        //--------TEKST--------
         TextView resNavn, resTlf, bDato, bTid, bVenner;
-
 
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
@@ -131,23 +138,25 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
         }
 
 
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.fragment_se_bestillings_info, container, false);
 
 
-
+            //BENYTTER METODENE FRA HOVEDKLASSEN TIL Å HENTE BESTILLING, RETURANT OG STRENG MED DELTAKELSER
             final Bestilling bestilling = ((SeBestillingsInfoFragment)getActivity()).getBestiling();
             final Resturant resturanten = ((SeBestillingsInfoFragment)getActivity()).getResturant();
             String visVenner = ((SeBestillingsInfoFragment)getActivity()).visDeltakelser();
 
+
+            //--------TEKST--------
             resNavn = v.findViewById(R.id.resNavn);
             resTlf = v.findViewById(R.id.resTlf);
             bDato = v.findViewById(R.id.bDato);
             bTid = v.findViewById(R.id.bTid);
             bVenner = v.findViewById(R.id.bVenner);
 
+            //--------SETTER TEKST MED HENTET RESTURANT, BESTILLING OG DELTAKELSR--------
             resNavn.setText(resturanten.getNavn());
             resTlf.setText(resturanten.getTelefon());
             bDato.setText(bestilling.getDato());
@@ -155,22 +164,27 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
             bVenner.setText(visVenner);
 
 
+            //--------KNAPPER--------
             Button btnOk = v.findViewById(R.id.btnOk);
             Button btnAvbestill = v.findViewById(R.id.btnAvbestill);
 
-            //bare en ja knapp når spill er ferdig
+
+            //--------LISTENERS--------
+            //KLIKK PÅ OK
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //BENYTTER SAMME METODE SOM TILBAKE KNAPP - VISNING AV BESTILLINGER OPPDATERES DERMED FORTLØPENDE
                     ((SeBestillingsInfoFragment)getActivity()).onBackPressed();
-
                 }
             });
 
+            //KLIKK PÅ AVBESTILL
             btnAvbestill.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
+                    //VISER DIALOG VED AVBESTILLING - SPØR OM BRUKER ER SIKKER PÅ SLETTING/AVBESTILLING
                     visAvbestillDialog();
 
                 }
@@ -178,7 +192,8 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
             return v;
         }
 
-        //-------VISER DIALOG VED AVBRYT---------
+
+        //-------VISER DIALOG VED AVBESTILL KNAPP-----
         private void visAvbestillDialog() {
             DialogFragment dialog = new AvbestillDialog();
             dialog.show(getFragmentManager(), "Avslutt");
@@ -186,7 +201,8 @@ public class SeBestillingsInfoFragment extends AppCompatActivity implements Avbe
 
     } //SLUTT FRAGMENT
 
-    //-------TILBAKEKNAPP - OPPDATERER INTENT FOR Å OPPDATERE EVENTUELL SLETTING---------
+
+    //-------TILBAKEKNAPP - OPPDATERER INTENT FOR Å OPPDATERE EVENTUELL SLETTING/AVBESTILLING---------
     @Override
     public void onBackPressed() {
         Intent intent_tilbake = new Intent (SeBestillingsInfoFragment.this, SeBestillinger.class);

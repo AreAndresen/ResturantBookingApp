@@ -76,7 +76,7 @@ public class EndreResturant extends AppCompatActivity implements SlettResturantD
         db = new DBhandler(this);
 
 
-        //--------MOTTAR INTENT OG VALGT ID--------
+        //--------MOTTAR INTENT OG VALGT ID FRA SERESTURANTER--------
         Intent receivedIntent = getIntent();
         valgtID = receivedIntent.getIntExtra("id",0);
 

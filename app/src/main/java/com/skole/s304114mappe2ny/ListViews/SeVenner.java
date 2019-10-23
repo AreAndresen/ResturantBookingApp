@@ -1,53 +1,58 @@
 package com.skole.s304114mappe2ny.ListViews;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.LeggTilogEndre.EndreVenn;
 import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilVenn;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.klasser.Venn;
-
 import java.util.ArrayList;
 
 
 public class SeVenner extends AppCompatActivity {
 
-    private static final String TAG = "ListDataActivity";
-
+    //--------KNAPPER--------
     private Button btnTilbake, btnLeggTilVenner;
 
+    //--------LISTVIEW--------
+    private ListView vennerListView;
+
+    //--------OBJEKT--------
+    private Venn valgtVenn;
+
+    //--------DB HANDLER--------
     DBhandler db;
 
-    private ListView mListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_se_venner);
 
+        //--------KNAPPER--------
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnLeggTilVenner = (Button) findViewById(R.id.leggTilVenn);
 
-        mListView = (ListView) findViewById(R.id.list);
+        //--------LISTVIEW--------
+        vennerListView = (ListView) findViewById(R.id.list);
 
+        //--------DB HANDLER--------
         db = new DBhandler(this);
 
-        populateListView();
+        //--------POPULERER RESTURANTER LISTVIEWET--------
+        populerListView();
 
-
+        //--------LISTENERS--------
+        //KLIKK PÅ TILBAKE
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +60,7 @@ public class SeVenner extends AppCompatActivity {
             }
         });
 
+        //KLIKK PÅ REGISTRER BESTILLING NY RESTURANT
         btnLeggTilVenner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,50 +69,46 @@ public class SeVenner extends AppCompatActivity {
                 finish();
             }
         });
-    }
+        //--------SLUTT LISTENERS--------
+
+    }//-------CREATE SLUTTER---------
 
 
-    private void populateListView() {
-        Log.d(TAG, "populateListView: Displaying data in the ListView.");
+    //--------POPULERER RESTURANTER-LISTVIEWET--------
+    private void populerListView() {
 
-        //leggr alle resturanter i array
+        //HENTER ALLE RESTURANTER FRA DB OG LEGGER OVER I ARRAY
         final ArrayList<Venn> venner = db.finnAlleVenner();
 
-
-        //create the list adapter and set the adapter
+        //GENERERER ARRAYADAPTER TIL LISTVIEWET
         ArrayAdapter<Venn> adapter = new ArrayAdapter<Venn>(this, android.R.layout.simple_list_item_1, venner);
-        mListView.setAdapter(adapter);
+        vennerListView.setAdapter(adapter);
 
-        //set an onItemClickListener to the ListView
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //VED KLIKK PÅ VENN I LISTVIEWET
+        vennerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Venn venn = (Venn) mListView.getItemAtPosition(i);
+                //GIR VALGTVENN VERDIEN TIL VALGT OBJEKT FRA LISTVIEWET
+                valgtVenn = (Venn) vennerListView.getItemAtPosition(i);
 
-                Integer ID = (int) venn.getID();
+                //HENTER OG PARSER ID FRA RESTURANTEN
+                Integer ID = (int) valgtVenn.getID();
 
-                Intent editScreenIntent = new Intent(SeVenner.this, EndreVenn.class);
-                editScreenIntent.putExtra("id",ID);
-
-                startActivity(editScreenIntent);
-                finish(); //unngår å legge på stack
+                //INTENT TIL ENDREVENN
+                Intent intentet = new Intent(SeVenner.this, EndreVenn.class);
+                //TAR MED VALGT ID TIL OVERFØRING
+                intentet.putExtra("id",ID);
+                startActivity(intentet);
+                finish();
             }
         });
     }
 
-    //-------VISER DIALOG VED TILBAKEKNAPP---------
+    //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
         finish();
     }
 
-    /**
-     * customizable toast
-     * @param message
-     */
-    private void toastMessage(String message){
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
-    }
 }
-
