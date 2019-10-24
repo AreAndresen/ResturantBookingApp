@@ -17,11 +17,15 @@ import static com.skole.s304114mappe2ny.DBhandler.TABLE_RESTURANTER;
 
 public class ResturantProvider extends ContentProvider {
 
+    //--------TEKST--------
     public final static String PROVIDER = "com.skole.s304114mappe2ny";
-    private static final int BOK = 1;
+    private static final int BOK = 1; //ENDRE BOK VARIABEL TIL RESTURANT ELLER NOE ANNET
     private static final int MBOK = 2;
 
+    //--------DB HANDLER--------
     DBhandler DBhelper;
+
+    //--------SQLITE DB--------
     SQLiteDatabase db;
 
 

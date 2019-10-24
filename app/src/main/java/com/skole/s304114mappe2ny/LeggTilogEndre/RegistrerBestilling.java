@@ -399,6 +399,4 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         finish();
     }
 
-
-
 }
