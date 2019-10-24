@@ -79,7 +79,7 @@ public class LeggTilVenn extends AppCompatActivity {
 
         //INPUTVALIDERING
         if (!navn.equals("") && !tlf.equals("") && tlf.matches(
-                "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")) {
+                "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,40}+")) {
 
 
             //GENERERER OG LEGGER TIL NY VENN I DB - TAR INN VERDIER TIL NY VENN

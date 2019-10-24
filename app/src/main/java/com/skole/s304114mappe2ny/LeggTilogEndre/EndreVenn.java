@@ -129,7 +129,7 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
 
         //INPUTVALIDERING
         if (!navn.equals("") && !tlf.equals("") && tlf.matches("[0-9\\+\\-\\ ]{2,15}+")
-                && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")) {
+                && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,40}+")) {
 
 
             //OPPDATERER VENN I DB

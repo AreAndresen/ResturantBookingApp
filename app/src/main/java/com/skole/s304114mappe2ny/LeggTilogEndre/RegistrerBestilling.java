@@ -120,7 +120,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         });
 
         //KLIKK PÅ VELG DATO
-        velgDato.setOnClickListener(new View.OnClickListener() {
+        visDato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //OPPRETTER DATOFRAGMENTET FOR SETTING AV DATO
@@ -130,7 +130,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         });
 
         //KLIKK PÅ VELG TID
-        velgTid.setOnClickListener(new View.OnClickListener() {
+        visTid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //OPPRETTER TIDFRAGMENTET FOR SETTING AV TID

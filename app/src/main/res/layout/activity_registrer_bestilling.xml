@@ -34,7 +34,6 @@
         android:shadowRadius="9"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
-
         android:layout_below="@+id/tittelBestilling"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -137,7 +136,7 @@
 
         <TextView
             android:id="@+id/visDato"
-            android:layout_width="205dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/colorText"

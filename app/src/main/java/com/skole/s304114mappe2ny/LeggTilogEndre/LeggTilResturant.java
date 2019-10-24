@@ -83,8 +83,8 @@ public class LeggTilResturant extends AppCompatActivity {
 
         //INPUTVALIDERING
         if(!navn.equals("") && !tlf.equals("") && !type.equals("") && tlf.matches(
-                "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,50}+")
-                && type.matches("[a-zA-ZæøåÆØÅ0-9\\'\\-\\ \\.]{2,50}+")){
+                "[0-9\\+\\-\\ ]{2,15}+") && navn.matches("[a-zA-ZæøåÆØÅ\\'\\-\\ \\.]{2,40}+")
+                && type.matches("[a-zA-ZæøåÆØÅ0-9\\'\\-\\ \\.]{2,30}+")){
 
 
             //GENERERER OG LEGGER TIL NY RESTURANT I DB - TAR INN VERDIER TIL NY RESTURANT
