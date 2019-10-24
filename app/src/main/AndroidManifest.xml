@@ -22,10 +22,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <!--BENYTTER PORTRAIT PÅ ALLE AKTIVITETER SLIK AT DE IKKE KAN ROTERES ETTERSOM LAGRING OG LAND-DESIGN IKKE ER KRAV I MAPPEOPPG-->
         <activity android:name=".Fragmenter.NotifikasjonFragment"
-            android:screenOrientation="portrait"
-            /> <!-- android:theme="@style/AppTheme"> -->
-        <!-- <activity android:name=".LeggTilogEndre.EndreBestilling" /> -->
+            android:screenOrientation="portrait" />
         <activity android:name=".ListViews.SeBestillinger"
             android:screenOrientation="portrait"/>
         <activity android:name=".LeggTilogEndre.RegistrerBestilling"
@@ -93,5 +93,4 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>

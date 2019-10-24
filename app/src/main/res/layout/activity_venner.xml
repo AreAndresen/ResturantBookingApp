@@ -74,5 +74,4 @@
         android:textSize="18sp"
         android:text="Tilbake til start" />
 
-
 </RelativeLayout>

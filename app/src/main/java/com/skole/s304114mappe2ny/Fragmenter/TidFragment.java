@@ -16,6 +16,7 @@ public class TidFragment extends DialogFragment {
         Calendar c = Calendar.getInstance();
         int time = c.get(Calendar.HOUR_OF_DAY);
         int min = c.get(Calendar.MINUTE);
+        c.set(Calendar.SECOND, 0);
 
         return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener) getActivity(), time, min, DateFormat.is24HourFormat(getActivity()));
     }

@@ -92,7 +92,6 @@ public class MinService extends Service {
             mnd++;
             datoIdag = dag+"/"+mnd+"/"+aar;
 
-
             //HENTER DATO FRA BESTILLINGEN
             String dato1 = b.getDato();
 
