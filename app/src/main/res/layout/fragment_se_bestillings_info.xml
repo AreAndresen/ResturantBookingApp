@@ -33,7 +33,7 @@
         android:shadowDy="2"
         android:shadowRadius="9"
         android:layout_marginTop="15dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_below="@+id/tittelBesInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="9"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/resturantTlf"
@@ -61,7 +61,7 @@
         android:shadowDy="2"
         android:shadowRadius="9"
         android:layout_marginTop="5dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_below="@+id/resNavn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="9"
-        android:textSize="18sp"  />
+        android:textSize="16sp"  />
 
     <TextView
         android:id="@+id/besDato"
@@ -89,7 +89,7 @@
         android:shadowDy="2"
         android:shadowRadius="9"
         android:layout_marginTop="5dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_below="@+id/resTlf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="9"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/besTid"
@@ -117,7 +117,7 @@
         android:shadowDy="2"
         android:shadowRadius="9"
         android:layout_marginTop="5dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_below="@+id/bDato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="9"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
 
     <TextView
         android:id="@+id/besVenner"
@@ -145,16 +145,17 @@
         android:shadowDy="2"
         android:shadowRadius="9"
         android:layout_marginTop="5dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:layout_below="@+id/bTid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Inviterte venner:" />
 
+
     <TextView
         android:id="@+id/bVenner"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="246dp"
         android:layout_below="@+id/besVenner"
         android:layout_marginTop="5dp"
         android:fontFamily="@font/trocchi"
@@ -163,8 +164,7 @@
         android:shadowDy="1"
         android:shadowRadius="9"
         android:textColor="@color/colorText"
-        android:textSize="16sp" />
-
+        android:textSize="14sp" />
 
     <LinearLayout
         android:id="@+id/boks"

@@ -48,7 +48,7 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
 
 
     //--------KNAPPER--------
-    private Button btnTilbake, btnLeggTilVenn, velgDato, velgTid, btnSeBestillingsinfo;
+    private Button btnTilbake, btnLeggTilVenn, btnSeBestillingsinfo;
 
     //--------TEKST--------
     private TextView visDato, visTid;
@@ -84,12 +84,10 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         //--------KNAPPER--------
         btnTilbake = (Button) findViewById(R.id.btnTilbake);
         btnLeggTilVenn = (Button) findViewById(R.id.btnLeggTilVenn);
-        velgDato = (Button) findViewById(R.id.velgDato);
-        velgTid = (Button) findViewById(R.id.velgTid);
         btnSeBestillingsinfo = (Button) findViewById(R.id.btnSeBestillingsinfo);
 
 
-        //--------INPUTS--------
+        //--------TEKST--------
         visDato = (TextView) findViewById(R.id.visDato);
         visTid = (TextView) findViewById(R.id.visTid);
         vennerListView = (ListView) findViewById(R.id.list);
