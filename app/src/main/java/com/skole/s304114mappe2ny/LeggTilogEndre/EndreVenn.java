@@ -137,8 +137,8 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
 
 
             //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
-            Intent intent_tilbake = new Intent(EndreVenn.this, SeVenner.class);
-            startActivity(intent_tilbake);
+            Intent intentet = new Intent(EndreVenn.this, SeVenner.class);
+            startActivity(intentet);
             finish();
 
         }
@@ -170,8 +170,8 @@ public class EndreVenn extends AppCompatActivity implements SlettVennDialog.Dial
         toastMessage("Venn slettet fra databasen");
 
         //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
-        Intent intent_tilbake = new Intent (EndreVenn.this, SeVenner.class);
-        startActivity(intent_tilbake);
+        Intent intentet = new Intent (EndreVenn.this, SeVenner.class);
+        startActivity(intentet);
         finish();
     }
 

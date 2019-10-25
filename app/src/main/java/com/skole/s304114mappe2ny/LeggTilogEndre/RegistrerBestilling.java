@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.skole.s304114mappe2ny.DBhandler;
 import com.skole.s304114mappe2ny.Fragmenter.DatoFragment;
 import com.skole.s304114mappe2ny.Fragmenter.TidFragment;
+import com.skole.s304114mappe2ny.Hovedmenyer.Bestillinger;
 import com.skole.s304114mappe2ny.ListViews.SeBestillinger;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoDialog;
@@ -159,6 +160,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent (RegistrerBestilling.this, Bestillinger.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -396,7 +399,8 @@ public class RegistrerBestilling extends AppCompatActivity implements DatePicker
     //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent (RegistrerBestilling.this, Bestillinger.class);
+        startActivity(intent);
         finish();
     }
-
 }

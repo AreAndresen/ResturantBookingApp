@@ -36,6 +36,7 @@ public class Resturanter extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (Resturanter.this, LeggTilResturant.class);
                 startActivity(intent_startspill);
+                finish();
             }
         });
 
@@ -45,6 +46,7 @@ public class Resturanter extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (Resturanter.this, SeResturanter.class);
                 startActivity(intent_startspill);
+                finish();
             }
         });
 
@@ -52,6 +54,8 @@ public class Resturanter extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent (Resturanter.this, MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -63,6 +67,8 @@ public class Resturanter extends AppCompatActivity {
     //-------TILBAKEKNAPP - FORHINDRER STACK (FINISH)---------
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent (Resturanter.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 }

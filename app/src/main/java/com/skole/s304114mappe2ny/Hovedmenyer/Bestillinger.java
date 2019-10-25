@@ -35,8 +35,9 @@ public class Bestillinger extends AppCompatActivity {
         leggTilBestillingKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (Bestillinger.this, RegistrerBestilling.class);
-                startActivity(intent_startspill);
+                Intent intent = new Intent (Bestillinger.this, RegistrerBestilling.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -44,8 +45,9 @@ public class Bestillinger extends AppCompatActivity {
         seBestillingerKnapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (Bestillinger.this, SeBestillinger.class);
-                startActivity(intent_startspill);
+                Intent intent = new Intent (Bestillinger.this, SeBestillinger.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -53,6 +55,8 @@ public class Bestillinger extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent (Bestillinger.this, MainActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -65,6 +69,8 @@ public class Bestillinger extends AppCompatActivity {
     //-------TILBAKEKNAPP - FORHINDRER STACK (FINISH)---------
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent (Bestillinger.this, MainActivity.class);
+        startActivity(intent);
         finish();
     }
 }

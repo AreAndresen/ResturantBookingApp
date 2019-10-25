@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.Hovedmenyer.Bestillinger;
 import com.skole.s304114mappe2ny.LeggTilogEndre.RegistrerBestilling;
 import com.skole.s304114mappe2ny.R;
 import com.skole.s304114mappe2ny.Fragmenter.SeBestillingsInfoFragment;
@@ -56,6 +57,8 @@ public class SeBestillinger extends AppCompatActivity{
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent (SeBestillinger.this, Bestillinger.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -64,8 +67,8 @@ public class SeBestillinger extends AppCompatActivity{
         btnRegistrerBestilling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (SeBestillinger.this, RegistrerBestilling.class);
-                startActivity(intent_startspill);
+                Intent intent = new Intent (SeBestillinger.this, RegistrerBestilling.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -111,7 +114,8 @@ public class SeBestillinger extends AppCompatActivity{
     //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent (SeBestillinger.this, Bestillinger.class);
+        startActivity(intent);
         finish();
     }
-
 }

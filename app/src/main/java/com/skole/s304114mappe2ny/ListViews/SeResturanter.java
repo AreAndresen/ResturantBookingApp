@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.skole.s304114mappe2ny.DBhandler;
+import com.skole.s304114mappe2ny.Hovedmenyer.Resturanter;
 import com.skole.s304114mappe2ny.LeggTilogEndre.EndreResturant;
 import com.skole.s304114mappe2ny.LeggTilogEndre.LeggTilResturant;
 import com.skole.s304114mappe2ny.R;
@@ -58,6 +59,8 @@ public class SeResturanter extends AppCompatActivity {
         btnTilbake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent (SeResturanter.this, Resturanter.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -66,8 +69,8 @@ public class SeResturanter extends AppCompatActivity {
         btnLeggTilResturant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent_startspill = new Intent (SeResturanter.this, LeggTilResturant.class);
-                startActivity(intent_startspill);
+                Intent intent = new Intent (SeResturanter.this, LeggTilResturant.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -111,6 +114,8 @@ public class SeResturanter extends AppCompatActivity {
     //-------TILBAKE KNAPP - FORHINDRER STACK---------
     @Override
     public void onBackPressed() {
+        Intent intent = new Intent (SeResturanter.this, Resturanter.class);
+        startActivity(intent);
         finish();
     }
 

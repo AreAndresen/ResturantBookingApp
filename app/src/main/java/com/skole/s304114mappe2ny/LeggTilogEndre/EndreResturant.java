@@ -149,8 +149,8 @@ public class EndreResturant extends AppCompatActivity implements SlettResturantD
 
 
             //VIEW OPPDATERES FORTLØPENDE - FORHINDRER STACK
-            Intent intent_tilbake = new Intent (EndreResturant.this, SeResturanter.class);
-            startActivity(intent_tilbake);
+            Intent intentet = new Intent (EndreResturant.this, SeResturanter.class);
+            startActivity(intentet);
             finish();
 
         }else{

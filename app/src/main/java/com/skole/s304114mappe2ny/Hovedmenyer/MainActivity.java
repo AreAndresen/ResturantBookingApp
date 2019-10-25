@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_startspill = new Intent (MainActivity.this, Resturanter.class);
                 startActivity(intent_startspill);
+                finish();
             }
         });
 
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent_preferanser = new Intent (MainActivity.this, Bestillinger.class);
                 startActivity(intent_preferanser);
+                finish();
             }
         });
 

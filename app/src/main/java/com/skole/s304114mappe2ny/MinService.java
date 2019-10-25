@@ -151,8 +151,12 @@ public class MinService extends Service {
                         Toast.makeText(this, "Har sendt sms", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-        }
+
+            }//slutt hvis dato er lik dagens
+
+        }//slutt løkke gjennnom alle bestillinger
+
+
         return super.onStartCommand(intent, flags, startId);
     }
 }
