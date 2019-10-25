@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/trocchi"
-            android:text="Registrer resturant"
+            android:text="Registrer restaurant"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:shadowColor="@color/colorAccent"
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tlfResturant"
-            android:text="Skriv inn type resturant:" />
+            android:text="Skriv inn type restaurant:" />
 
         <EditText
             android:id="@+id/typeResturant"

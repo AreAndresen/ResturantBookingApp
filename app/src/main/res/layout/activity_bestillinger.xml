@@ -14,10 +14,10 @@
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:shadowColor="@color/colorAccent"
-        android:shadowDx="3"
-        android:shadowDy="3"
+        android:shadowDx="6"
+        android:shadowDy="6"
         android:shadowRadius="9"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         android:text="Bestilling"
         android:textSize="40sp"
         android:textStyle="bold"/>

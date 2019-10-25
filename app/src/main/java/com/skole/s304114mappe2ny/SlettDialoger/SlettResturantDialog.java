@@ -30,7 +30,7 @@ public class SlettResturantDialog extends DialogFragment {
     //--------DIALOGBOKS FOR SLETTING AV RESTURANT--------
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new AlertDialog.Builder(getActivity()).setTitle("Slett resturant").setMessage("Er du sikker på at du vil slette valgt resturant?").
+        return new AlertDialog.Builder(getActivity()).setTitle("Slett restaurant").setMessage("Er du sikker på at du vil slette valgt restaurant?").
                 setPositiveButton(R.string.ja, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton){
                         callback.jaClick();

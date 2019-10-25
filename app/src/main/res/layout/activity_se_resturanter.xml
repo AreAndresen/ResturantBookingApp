@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/trocchi"
-        android:text="Resturanter"
+        android:text="Restauranter"
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:shadowColor="#001496"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorText"
         android:layout_marginTop="25dp"
-        android:text="Trykk på resturant for å se eller endre info"
+        android:text="Trykk på restaurant for å se eller endre info"
         android:textAlignment="center"
         android:textSize="18sp" />
 
@@ -67,7 +67,7 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="9"
-        android:text="Registrer ny resturant" />
+        android:text="Registrer ny restaurant" />
 
     <Button
         android:id="@+id/btnTilbake"

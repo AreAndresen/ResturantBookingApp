@@ -2,13 +2,13 @@
     <string name="app_name">s304114mappe2ny</string>
 
     <!---Forside-->
-    <string name="overskrift">eResturant</string>
+    <string name="overskrift">eRestaurant</string>
     <string name="title_activity_resturanter">Resturanter</string>
 
 
     <!--visAvbrytDialog() -->
     <string name="avbryt">Slett</string>
-    <string name="avbrytMsg">Vil du slette valgt resturant?</string>
+    <string name="avbrytMsg">Vil du slette valgt restaurant?</string>
     <string name="fortsett">Fortsett</string>
 
 
@@ -20,10 +20,8 @@
 
     <!--Innstillinger-->
     <string name="insTittel">Innstillinger</string>
-    <string name="notRes">Notifikasjon for resturantbestilling</string>
+    <string name="notRes">Notifikasjon for restaurantbestilling</string>
 
-    <string name="hovedTittelSpill">Spill størrelse</string>
-    <string name="tittelSpill">Velg antall regnestykker</string>
 
 
 </resources>

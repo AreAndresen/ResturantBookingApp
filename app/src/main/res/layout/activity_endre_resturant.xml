@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/trocchi"
-        android:text="Se/endre resturant"
+        android:text="Se/endre restaurant"
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:shadowColor="@color/colorAccent"
@@ -90,12 +90,12 @@
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="9"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tlfResturant"
-        android:text="Skriv inn type resturant:" />
+        android:text="Skriv inn type restaurant:" />
 
     <EditText
         android:id="@+id/typeResturant"

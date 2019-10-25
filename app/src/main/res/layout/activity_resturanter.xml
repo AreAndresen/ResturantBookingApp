@@ -14,11 +14,11 @@
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:shadowColor="@color/colorAccent"
-        android:shadowDx="3"
-        android:shadowDy="3"
+        android:shadowDx="6"
+        android:shadowDy="6"
         android:shadowRadius="9"
-        android:layout_marginTop="30dp"
-        android:text="Resturant"
+        android:layout_marginTop="35dp"
+        android:text="Restaurant"
         android:textSize="40sp"
         android:textStyle="bold"/>
 
@@ -38,7 +38,7 @@
         android:shadowRadius="9"
         android:textColor="@color/colorText"
         android:textSize="18sp"
-        android:text="Legg til resturant" />
+        android:text="Legg til restaurant" />
 
     <Button
         android:id="@+id/seResturanterKnapp"
@@ -55,7 +55,7 @@
         android:shadowRadius="9"
         android:textColor="@color/colorText"
         android:textSize="18sp"
-        android:text="Se resturanter" />
+        android:text="Se restauranter" />
 
     <Button
         android:id="@+id/btnTilbake"

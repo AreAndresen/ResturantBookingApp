@@ -15,10 +15,10 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:shadowColor="#001496"
-        android:shadowDx="3"
-        android:shadowDy="3"
+        android:shadowDx="6"
+        android:shadowDy="6"
         android:shadowRadius="9"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         android:textSize="40sp"
         android:textStyle="bold" />
 
@@ -29,14 +29,14 @@
         android:layout_height="73dp"
         android:layout_below="@id/overskrift"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="50dp"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="@font/trocchi"
         android:shadowColor="#001496"
         android:shadowDx="2"
         android:shadowDy="2"
         android:shadowRadius="9"
-        android:text="Resturanter"
+        android:text="Restauranter"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
 
