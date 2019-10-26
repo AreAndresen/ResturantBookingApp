@@ -43,7 +43,7 @@ public class SettPeriodiskService extends Service {
         Intent i = new Intent(this, MinService.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //--------SETTER TIDSPUNKT OG AKTIVERER DAGLIG INTERVAL FOR NOTIFIKASJONEN--------
+        //--------SETTER TIDSPUNKT OG AKTIVERER DAGLIG INTERVAL FOR NOTIFIKASJONEN/ALARM--------
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pintent);
 

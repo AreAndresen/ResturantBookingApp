@@ -207,12 +207,17 @@ public class NotifikasjonFragment extends AppCompatActivity implements TimePicke
 
     //-------METODE SOM STOPPER SERVICE------
     public void stoppPeriodisk() {
+        //HENTER AKTIV SERVICE
         Intent i = new Intent(this, MinService.class);
         PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
+        //DEAKTIVERER ALARM
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         if(alarm!= null) {
             alarm.cancel(pintent);
         }
+
+        //TEST DENNE - STOPPER SAMTIDIG SERVICE
+        stopService(i);
 
         //DEAKTIVERER SERVICE OG MELDINGER
         servicePAA = false;

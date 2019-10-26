@@ -13,6 +13,8 @@ public class MinBroadcastReciver extends BroadcastReceiver {
         Intent i = new Intent(context, SettPeriodiskService.class);
 
         i.setFlags((Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
+        //starter service
         context.startService(i);
     }
 }
